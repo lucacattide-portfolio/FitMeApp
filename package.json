@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "./node_modules/gulp/bin/gulp.js"
   },
   "repository": {
     "type": "git",
@@ -17,8 +17,17 @@
     "url": "https://github.com/laboratorio-a/fitmeapp/issues"
   },
   "homepage": "https://github.com/laboratorio-a/fitmeapp#readme",
+  "babel": {
+    "presets": [
+      "latest"
+    ]
+  },
   "devDependencies": {
+    "babel-preset-latest": "^6.16.0",
+    "del": "^2.2.2",
     "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-clang-format": "^1.0.23",
     "webpack": "^1.13.3"
   },
   "dependencies": {
