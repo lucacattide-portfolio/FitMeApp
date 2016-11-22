@@ -1,0 +1,30 @@
+{
+  "name": "fitmeapp",
+  "version": "1.0.0",
+  "description": "app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/laboratorio-a/fitmeapp.git"
+  },
+  "author": "laboratorio-a",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/laboratorio-a/fitmeapp/issues"
+  },
+  "homepage": "https://github.com/laboratorio-a/fitmeapp#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "webpack": "^1.13.3"
+  },
+  "dependencies": {
+    "firebase": "^3.6.1"
+  },
+  "keywords": [
+    "fitness"
+  ]
+}
