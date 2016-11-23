@@ -67,7 +67,7 @@ rules:
   no-cond-assign: 1             # disallow assignment in conditional expressions
   # no-console: 0                 # disallow use of console (off by default in the node environment)
   no-constant-condition: 1      # disallow use of constant expressions in conditions
-  # no-control-regex: 0           # disallow control characters in regular expressions
+  no-control-regex: 1           # disallow control characters in regular expressions
   # no-debugger: 0                # disallow use of debugger
   no-dupe-args: 1               # disallow duplicate arguments in functions
   no-dupe-keys: 1               # disallow duplicate keys when creating object literals
@@ -78,25 +78,26 @@ rules:
   no-extra-boolean-cast: 1      # disallow double-negation boolean casts in a boolean context
   # no-extra-parens: 0            # disallow unnecessary parentheses (off by default)
   no-extra-semi: 1              # disallow unnecessary semicolons
-  # no-func-assign: 0             # disallow overwriting functions written as function declarations
+  no-func-assign: 1             # disallow overwriting functions written as function declarations
   # no-inner-declarations: 0      # disallow function or variable declarations in nested blocks
   no-invalid-regexp: 1          # disallow invalid regular expression strings in the RegExp constructor
   no-irregular-whitespace: 2    # disallow irregular whitespace outside of strings and comments
   no-negated-in-lhs: 1          # disallow negation of the left operand of an in expression
-  # no-obj-calls: 0               # disallow the use of object properties of the global object (Math and JSON) as functions
+  no-obj-calls: 1               # disallow the use of object properties of the global object (Math and JSON) as functions
   no-regex-spaces: 1            # disallow multiple spaces in a regular expression literal
   # no-reserved-keys: 1           # DEPRECATED disallow reserved words being used as object literal keys (off by default)
   no-sparse-arrays: 1           # disallow sparse arrays
+  no-unexpected-multiline: 2           # disallow confusing multiline expressions
   no-unreachable: 1             # disallow unreachable statements after a return, throw, continue, or break statement
-  # use-isnan: 0                  # disallow comparisons with the value NaN
+  no-unsafe-finally: 1             # disallow control flow statements in finally blocks
+  use-isnan: 1                  # disallow comparisons with the value NaN
   valid-jsdoc:                # Ensure JSDoc comments are valid (off by default)
     - 2
     - requireParamDescription: false
       requireReturn: false
       prefer:
         returns: return
-  # valid-typeof: 0               # Ensure that the results of typeof are compared against a valid string
-  no-unexpected-multiline: 2    # Avoid code that looks like two expressions but is actually one (off by default)
+  valid-typeof: 2               # Ensure that the results of typeof are compared against a valid string
 
 
   ########## Best Practices ##########
@@ -117,9 +118,11 @@ rules:
   guard-for-in: 2             # make sure for-in loops have an if statement (off by default)
   no-alert: 1                 # disallow the use of alert, confirm, and prompt
   no-caller: 2                # disallow use of arguments.caller or arguments.callee
+  no-case-declarations: 1     # disallow lexical declarations in case clauses
   # no-div-regex: 0             # disallow division operators explicitly at beginning of regular expression (off by default)
   no-else-return: 1           # disallow else after a return in an if (off by default)
   # no-empty-label: 0           # disallow use of labels for anything other than loops and switches
+  no-empty-pattern: 1           # disallow empty destructuring patterns
   # no-eq-null: 0               # disallow comparisons to null without a type-checking operator (off by default)
   no-eval: 2                  # disallow use of eval()
   no-extend-native: 2         # disallow adding to native types
@@ -139,17 +142,19 @@ rules:
   no-new-wrappers: 2          # disallows creating new instances of String, Number, and Boolean
   # no-new: 0                   # disallow use of new operator when not part of the assignment or comparison
   # no-octal-escape: 0          # disallow use of octal escape sequences in string literals, such as var foo = "Copyright \251";
-  # no-octal: 0                 # disallow use of octal literals
+  no-octal: 1                 # disallow use of octal literals
   # no-param-reassign: 0        # disallow reassignment of function parameters (off by default)
   # no-process-env: 0           # disallow use of process.env (off by default)
   # no-proto: 0                 # disallow usage of __proto__ property
-  # no-redeclare: 0             # disallow declaring the same variable more than once
+  no-redeclare: 1             # disallow declaring the same variable more than once
   # no-return-assign: 0         # disallow use of assignment in return statement
   # no-script-url: 0            # disallow use of javascript: urls
+  no-self-assign: 1            # disallow assignments where both sides are exactly the same
   # no-self-compare: 0          # disallow comparisons where both sides are exactly the same (off by default)
   # no-sequences: 0             # disallow use of comma operator
   no-throw-literal: 2         # restrict what can be thrown as an exception (off by default)
   # no-unused-expressions: 0    # disallow usage of expressions in statement position
+  no-unused-labels: 1      # disallow unused labels
   # no-void: 0                  # disallow use of void operator (off by default)
   # no-warning-comments: 0      # disallow usage of configurable warning terms in comments, e.g. TODO or FIXME (off by default)
   no-with: 2                  # disallow use of the with statement
