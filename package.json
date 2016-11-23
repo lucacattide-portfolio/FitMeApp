@@ -23,12 +23,15 @@
     ]
   },
   "devDependencies": {
+    "babel-loader": "^6.2.8",
     "babel-preset-latest": "^6.16.0",
     "del": "^2.2.2",
+    "eslint": "^3.10.2",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
-    "gulp-clang-format": "^1.0.23",
-    "webpack": "^1.13.3"
+    "gulp-eslint": "^3.0.1",
+    "webpack": "^1.13.3",
+    "webpack-stream": "^3.2.0"
   },
   "dependencies": {
     "firebase": "^3.6.1"
