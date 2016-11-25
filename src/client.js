@@ -1,3 +1,9 @@
-/* Placeholder */
+import Video from 'Video';
 
-console.log('Hello Browser');
+
+
+// fileRef.put(file).then(function(snapshot) {
+//   console.log('Uploaded a file!');
+// });
+
+window.setTestVideoData = Video.setTestVideoData;
