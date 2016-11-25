@@ -1,0 +1,174 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true
+    },
+    "extends": "eslint:recommended",
+    "parserOptions": {
+        "sourceType": "module"
+    },
+    "rules": {
+        "indent": [
+            "error",
+            "tab"
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "comma-dangle:": [
+            "2",
+            "always-multiline"
+        ],
+        " no-cond-assign": 1,
+        "no-constant-condition": 1,
+        "no-control-regex": 1,
+        "no-dupe-args": 1,
+        " no-dupe-keys": 1,
+        "no-duplicate-case": 1,
+        "no-empty-character-class": 1,
+        "no-empty": 1,
+        " no-ex-assign": 1,
+        "no-extra-boolean-cast": 1,
+        "no-extra-semi": 1,
+        " no-func-assign": 1,
+        "no-invalid-regexp": 1,
+        "no-irregular-whitespace": 2,
+        " no-negated-in-lh": 1,
+        "no-obj-calls": 1,
+        "no-regex-spaces": 1,
+        "no-sparse-arrays": 1,
+        "no-unexpected-multiline": 2,
+        "no-unreachable": 1,
+        "no-unsafe-finally": 1,
+        "use-isnan": 1,
+        "valid-jsdoc": [
+            "2",
+            "requireParamDescription": false,
+            "requireReturn": false,
+            "prefer": [
+                "returns": "return"
+            ]
+        ],
+        "valid-typeof": 2,
+        "curly": [
+            "2",
+            "multi"
+        ],
+        "default-case": 2,
+        "dot-location": [
+            "2",
+            "property"
+        ],
+        "eqeqeq": 1,
+        "guard-for-in": 2,
+        "no-alert": 1,
+        "no-caller": 2 ,               
+        "no-case-declarations": 1,     
+        "no-else-return": 1,           // disallow else after a return in an if (off by default)
+        "no-empty-pattern": 1,           // disallow empty destructuring patterns
+        "no-eval": 2,                  // disallow use of eval()
+        "no-extend-native": 2,         // disallow adding to native types
+        "no-extra-bind": 2,            // disallow unnecessary function binding
+        "no-fallthrough": 1,           // disallow fallthrough of case statements
+        "no-invalid-this": 2,            // disallow this keywords outside of classes or class-like objects
+        "no-multi-spaces": 2,         // disallow use of multiple spaces
+        "no-multi-str": 2,             // disallow use of multiline strings
+        "no-new-wrappers": 2,          // disallows creating new instances of String, Number, and Boolean
+        "no-octal": 1,                 // disallow use of octal literals
+        "no-redeclare": 1,             // disallow declaring the same variable more than once
+        "no-self-assign": 1,            // disallow assignments where both sides are exactly the same
+        "no-throw-literal": 2,         // restrict what can be thrown as an exception (off by default)
+        "no-unused-labels": 1,      // disallow unused labels
+        "no-with": 2,                  // disallow use of the with statement
+        "no-unused-vars": 2,               // disallow declaration of variables that are not used in the code
+        "array-bracket-spacing": 2,          // enforce spacing inside array brackets (off by default)
+        "brace-style": 2,                    // enforce one true brace style (off by default)
+        "camelcase": 2,                      // require camel case names
+        "comma-spacing": 2,                  // enforce spacing before and after comma
+        "comma-style": 2,                    // enforce one true comma style (off by default)
+        "computed-property-spacing": 2,      // require or disallow padding inside computed properties (off by default)
+        "eol-last": 1,                      // enforce newline at the end of file, with no multiple empty lines
+        "func-call-spacing": {
+            "2",            // require or disallow spacing between function identifiers and their invocations
+            "indent": [                          // this option sets a specific tab width for your code (off by default)
+    -           "1",
+    -           "2"
+            ]
+        },
+        "key-spacing": 2,                    // enforces spacing between keys and values in object literal properties
+        "keyword-spacing": 2,                    // enforce consistent spacing before and after keywords
+        "linebreak-style": 2,                // disallow mixed 'LF' and 'CRLF' as linebreaks (off by default)
+        "max-len": [
+    -       "2",
+    -       "code": 80,
+            "tabWidth": 2,
+            "ignoreUrls": true,
+            "ignorePattern": '^goog\.(module|require)'
+        ],
+        "new-cap": 2,                        // require a capital letter for constructors
+        "no-array-constructor": 2,           // disallow use of the Array constructor
+        "no-mixed-spaces-and-tabs": 2,       // disallow mixed spaces and tabs for indentation
+        "no-new-object": 2,                  // disallow use of the Object constructor
+        "no-tabs": 2,                          // disallow all tabs
+        "no-trailing-spaces": 1,             // disallow trailing whitespace at the end of lines
+        "object-curly-spacing": 2,             // enforce consistent spacing inside braces
+        "one-var": [                            // allow just one var statement per function (off by default)
+    -       "2",
+    -       "let": "never",
+            "const": "never",
+            "var": "never"
+        ],
+        "padded-blocks": [                 // enforce padding within blocks (off by default)
+    -       "2",
+    -       "never"
+        ],
+        "quote-props": [                    // require quotes around object literal property names (off by default)
+    -       "2",
+    -       "consistent"
+        ],
+        "quotes": [                          // specify whether double or single quotes should be used
+    -       "2",
+    -       "single",
+    -       "allowTemplateLiterals": true
+        ],
+  "require-jsdoc": {                    // require JSDoc comments
+    - "2",
+    - "require": [ 
+        "FunctionDeclaration": true,
+        "MethodDefinition": true,
+        "ClassDeclaration": true
+      ]
+  },
+  "semi-spacing": 2,                   // enforce spacing before and after semicolons
+  "semi": 2,                         // require or disallow use of semicolons instead of ASI
+  "space-before-blocks": 2,            // require or disallow space before blocks (off by default)
+  "space-before-function-paren": [      // require or disallow space before function opening parenthesis (off by default)
+    - "2",
+    - "never"
+  ],
+  "spaced-comment": 2,                 // require or disallow a space immediately following the // or /* in a comment (off by default)
+  "arrow-parens": 1,                // require parentheses around arrow function arguments
+  "constructor-super": 2,        // verify super() callings in constructors (off by default)
+  "generator-star-spacing": [    // enforce the spacing around the * in generator functions (off by default)
+    - "2",
+    - "before": false,
+      "after": true
+  ],
+  "no-new-symbol": 2,            // disallow new operators with the Symbol object
+  "no-this-before-super": 2,     // disallow to use this/super before super() calling in constructors (off by default)
+  "no-var": 2,                   // require let or const instead of var (off by default)
+  "prefer-rest-params": 2,       // require rest parameters instead of arguments
+  "prefer-spread": 2,            // require spread operators instead of .apply()
+  "rest-spread-spacing": 2,      // enforce spacing between rest and spread operators and their expressions
+  "yield-star-spacing": 2,       // require or disallow spacing around the * in yield* expressions
+    }
+}
