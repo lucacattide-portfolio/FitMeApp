@@ -1,3 +1,6 @@
+// const webpack = require('webpack');
+const path = require('path');
+
 module.exports = {
   output: {
     filename: 'bundle.js',
@@ -14,5 +17,8 @@ module.exports = {
   },
   resolve: {
     extensions: ['', '.js', '.jsx'],
+    root: [
+      path.resolve('./src'),
+    ],
   },
 };

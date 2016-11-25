@@ -1,5 +1,4 @@
 const gulp = require('gulp');
-const babel = require('gulp-babel');
 const del = require('del');
 const exec = require('child_process').exec;
 const eslint = require('gulp-eslint');
@@ -9,7 +8,7 @@ const paths = {
   allSrcJs: 'src/**/*.js?(x)',
 //  serverSrcJs: 'src/server/**/*.js?(x)',
 //  sharedSrcJs: 'src/shared/**/*.js?(x)',
-  clientEntryPoint: 'lib/client.js',
+  clientEntryPoint: 'src/client.js',
   clientBundle: 'public/js/bundle.js?(.map)',
   gulpFile: 'gulpfile.js',
   webpackFile: 'webpack.config.js',
@@ -26,17 +25,13 @@ gulp.task('lint', function() {
       .pipe(eslint.failAfterError());
 });
 
-gulp.task('babel', ['clean', 'lint'], () => {
-  return gulp.src(paths.allSrcJs).pipe(babel()).pipe(gulp.dest(paths.libDir));
-});
-
-gulp.task('pack', ['clean', 'lint', 'babel'], () => {
+gulp.task('pack', ['clean', 'lint'], () => {
   return gulp.src(paths.clientEntryPoint)
       .pipe(webpack(require('./webpack.config.js')))
       .pipe(gulp.dest(paths.distDir));
 });
 
-gulp.task('build', ['clean', 'lint', 'pack', 'babel']);
+gulp.task('build', ['clean', 'lint', 'pack']);
 
 gulp.task('main', ['build'], (callback) => {
   exec(`node ${paths.libDir}`, (error, stdout) => {
