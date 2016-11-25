@@ -1,3 +1,35 @@
 <title>FitMeApp</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+<!--Inizio Pagina-->
+<div data-role="page">
+  <!--Inizio Header-->
+  <div data-role="header">
+    FitMeApp
+  </div>
+  <!--Fine Header-->
+  <!--Inizio Wrapper-->
+  <div role="main" class="ui-content">
+    <h1 class="ui-bar ui-bar-a ui-corner-all">Video</h1>
+    <form>
+      <div class="ui-field-contain">
+        <label for="video-input">Seleziona video</label>
+        <input type="file" name="video-input" id="video-input" value="">
+        <div class="ui-grid-solo">
+          <div class="ui-block-a">
+            <input type="submit" value="Carica">     
+          </div>
+        </div>
+    </form>
+  </div>
+  <!--Fine Wrapper-->
+  <!--Inizio Footer-->
+  <div data-role="footer">
+    Test Video
+  </div>
+  <!--Fine Footer-->
+</div>
+<!--Fine Pagina-->
 <script src="js/bundle.js"></script>
+<!--TODO: Eliminare il protocollo in produzione-->
 <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
