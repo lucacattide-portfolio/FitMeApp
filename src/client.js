@@ -6,11 +6,11 @@ import Video from 'Video';
 // });
 
 function testFunc() { // eslint-disable-line
-    $('#test').append('jquery test');
+  $('#test').append('jquery test');
 }
 
 
 $(document).ready(() => {
-    $('#test').click(() => Video.setTestVideoData('test'));
-    $('#test').click(() => Video.setTestVideoData('test'));
+  $('#test').click(() => Video.setTestVideoData('test'));
+  $('#test').click(() => Video.setTestVideoData('test'));
 });
