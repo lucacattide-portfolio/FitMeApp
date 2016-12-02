@@ -1,16 +1,13 @@
 import Video from 'Video';
 
-
 // fileRef.put(file).then(function(snapshot) {
 //   console.log('Uploaded a file!');
 // });
 
-function testFunc() { // eslint-disable-line
-  $('#test').append('jquery test');
-}
-
-
+// Main
 $(document).ready(() => {
-  $('#test').click(() => Video.setTestVideoData('test'));
-  $('#test').click(() => Video.setTestVideoData('test'));
+  let video = Video.getVideo(); // Ottieni il file caricato
+  console.log(video);
+  // Al click del pulsante invia al server
+  $('#carica').on('click tap', () => Video.setTestVideoData(video));
 });

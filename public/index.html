@@ -1,35 +1,42 @@
 <title>FitMeApp</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+<!--TODO: Eliminare il protocollo in produzione-->
+<script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
+<script 
+  src="https://code.jquery.com/jquery-2.2.4.min.js" 
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" 
+  crossorigin="anonymous"></script>
+<script src="js/bundle.js"></script>
+<script src="js/jquery.mobile-1.4.5.min.js"></script>
 <!--Inizio Pagina-->
 <div data-role="page">
   <!--Inizio Header-->
   <div data-role="header">
-    FitMeApp
+    <h1>FitMeApp</h1>
   </div>
   <!--Fine Header-->
   <!--Inizio Wrapper-->
   <div role="main" class="ui-content">
-    <h1 class="ui-bar ui-bar-a ui-corner-all">Video</h1>
-    <form>
+    <h2 class="ui-bar ui-bar-a ui-corner-all">Video</h2>
+    <!--Inizio caricamento video-->
+    <form action="" method="POST" enctype="multipart/form-data" accept-charset="utf-8">
       <div class="ui-field-contain">
         <label for="video-input">Seleziona video</label>
-        <input type="file" name="video-input" id="video-input" value="">
+        <input type="file" name="video-input" id="video-input" accept="video/*">
         <div class="ui-grid-solo">
           <div class="ui-block-a">
-            <input type="submit" value="Carica">     
+            <input type="button" value="Carica" id="carica">     
           </div>
         </div>
     </form>
+  <!--Fine caricamento video-->
   </div>
   <!--Fine Wrapper-->
   <!--Inizio Footer-->
   <div data-role="footer">
-    Test Video
+    <h4>Test Video</h4>
   </div>
   <!--Fine Footer-->
 </div>
 <!--Fine Pagina-->
-<script src="js/bundle.js"></script>
-<!--TODO: Eliminare il protocollo in produzione-->
-<script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
