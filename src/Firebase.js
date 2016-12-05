@@ -8,8 +8,9 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-// const store = firebase.storage().ref();
+const store = firebase.storage();
 const db = firebase.database();
+const TIMESTAMP = firebase.database.ServerValue.TIMESTAMP;
 // const fileRef = ref.child('test-video.avi');
 
-export {db};
+export {db, store, TIMESTAMP};

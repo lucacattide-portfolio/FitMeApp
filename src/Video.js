@@ -1,26 +1,33 @@
-import {db} from 'Firebase';
+import {db, store, TIMESTAMP} from 'Firebase';
 
 class Video { // eslint-disable-line
-  // Getter
-  static getVideo() { // eslint-disable-line    
-    // Setta un listener per ogni nuova selezione
-    $('video-input').on('change', function() {
-      // Dichiarazione ed assegnazione vettore file
-      /*
-      TODO: Trovare un'alternativa per utilizzare this.
-      Linter rende errore su $(this)
-      */
-      let fileCaricato = $('video-input').get(0).files[0];
-      // Dichiarazione ed assegnazione proprietà file
-      let nomeVideo = fileCaricato.name;
-      let tipoVideo = fileCaricato.type;
-      let dimensioneVideo = fileCaricato.size;
-      // Dichiarazione ed assegnazione oggetto video
-      let video = {nomeVideo, tipoVideo, dimensioneVideo};
-      return video; // Restituisce info video
-    }, false);
+  static getVideo() { // eslint-disable-line
   }
-  // Setter
+
+  static uploadTestVideo(file) { // eslint-disable-line
+    console.log('uploadTestVideo');
+
+    let testVideoEntry = db.ref('test-videos').push({
+      uploadedAt: TIMESTAMP,
+      originalFilename: 'test-video.mp4',
+      status: 'incomplete',
+    });
+
+    let testVideoKey = testVideoEntry.key;
+    console.log('testVideoKey:' + testVideoKey);
+    let testVideoRef = store.ref('/videos/' + testVideoKey);
+    testVideoRef.put(file).then(function(snapshot) { // eslint-disable-line
+      console.log('Updating record');
+      testVideoEntry.update({
+        status: 'complete',
+      }, () => {
+        console.log('Record updated');
+      });
+    });
+
+    return testVideoKey;
+  }
+
   /*
   TODO: dal getter viene restituito un JSON
   riadattare se necessario i parametri
@@ -31,7 +38,6 @@ class Video { // eslint-disable-line
       uuid: uuid,
     });
   }
-
 }
 
 export default Video;
