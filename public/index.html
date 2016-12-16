@@ -1,6 +1,12 @@
 <title>FitMeApp</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+<meta name="keywords" content="sport fitness social" /> 
+<meta name="description" content="App per il fitness" /> 
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta http-equiv="Content-Security-Policy" content="default-src * data: 'unsafe-eval' 'unsafe-inline'" /> 
+<link rel="stylesheet" href="css/custom.css">
 <!--TODO: Eliminare il protocollo in produzione-->
 <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
 <script 
@@ -9,34 +15,209 @@
   crossorigin="anonymous"></script>
 <script src="js/bundle.js"></script>
 <script src="js/jquery.mobile-1.4.5.min.js"></script>
-<!--Inizio Pagina-->
-<div data-role="page">
-  <!--Inizio Header-->
-  <div data-role="header">
-    <h1>FitMeApp</h1>
+<style>
+  /* FOUC Fix */
+  body { 
+    opacity: 0; 
+  }
+</style>
+<!--Inizio Splash Screen-->
+<div data-role="page" data-theme="a" id="splash">
+  <!--Inizio Logo-->
+  <div id="container-logo">
+    <div id="logo">
+    </div>
   </div>
-  <!--Fine Header-->
-  <!--Inizio Wrapper-->
-  <div role="main" class="ui-content">
-    <h2 class="ui-bar ui-bar-a ui-corner-all">Video</h2>
-    <!--Inizio caricamento video-->
-    <form action="" method="POST" enctype="multipart/form-data" accept-charset="utf-8">
-      <div class="ui-field-contain">
-        <label for="video-input">Seleziona video</label>
-        <input type="file" name="video-input" id="video-input" accept="video/*">
-        <div class="ui-grid-solo">
-          <div class="ui-block-a">
-            <input type="button" value="Carica" id="carica">     
-          </div>
-        </div>
-    </form>
-  <!--Fine caricamento video-->
+  <!--Fine Logo-->
+  <!--Inizio Loader-->
+  <div id="carica">
+    <div class="spinner">
+    </div>
+    <h3 class="load-text">
+      Caricamento...
+    </h3>
   </div>
-  <!--Fine Wrapper-->
-  <!--Inizio Footer-->
-  <div data-role="footer">
-    <h4>Test Video</h4>
-  </div>
-  <!--Fine Footer-->
+  <!--Fine Loader-->
 </div>
-<!--Fine Pagina-->
+<!--Fine Splash Screen-->
+<!--Inizio Tour - Start-->
+<div data-role="page" data-theme="a" id="start" class="tour">
+  <div class="foto-tutorial container-tutorial">
+    <div class="logo-tutorial">
+      <img src="img/logo-1.svg" alt="FitMeApp" />
+    </div>
+    <div class="clear">
+    </div>
+  </div>
+  <div class="container-tutorial">
+    <div class="container-testo">
+      <div class="contenuti-tutorial">
+        <div class="testo-tutorial">
+          <h2 class="titolo-tutorial">
+            Benvenuto in FitMeApp!
+          </h2>
+          <p class="tutorial">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ut risus in lectus dictum dignissim.
+          </p>
+          <div class="container-bullets">
+            <div class="bullet bullet-attivo">
+            </div>
+            <a href="#tour-1" data-transition="slide" title="Procedere alla schermata illustrativa successiva">
+              <div class="bullet">
+              </div>
+            </a>
+          </div>
+          <a id="salta" href="#accesso" data-transition="slide" title="Procedere alla schermata principale dell'applicazione">
+            <div class="skip deseleziona">
+              Salta <div class="icona-skip"></div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="clear">
+    </div>
+  </div>
+</div>
+<!--Fine Tour - Start-->
+<!--Inizio Tour - Features-->
+<div data-role="page" data-theme="a" id="tour-1" class="tour">
+  <div class="foto-tutorial container-tutorial">
+    <div class="logo-tutorial">
+      <img src="img/logo-1.svg" alt="FitMeApp" />
+    </div>
+    <div class="clear">
+    </div>
+  </div>
+  <div class="container-tutorial">
+    <div class="container-testo">
+      <div class="contenuti-tutorial">
+        <div class="testo-tutorial">
+          <h2 class="titolo-tutorial">
+            Cerca, Allenati, Divertiti
+          </h2>
+          <p class="tutorial">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ut risus in lectus dictum dignissim.
+          </p>
+          <div class="container-bullets">
+            <a href="#start" data-transition="slide" title="Procedere alla schermata illustrativa precedente" data-direction="reverse">
+              <div class="bullet">
+              </div>
+            </a>
+            <div class="bullet bullet-attivo">
+            </div>
+          </div>
+          <a id="avvia" href="#accesso" data-transition="slide" title="Procedere alla schermata principale dell'applicazione">
+            <div class="skip deseleziona">
+              Ho capito <div class="icona-skip"></div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="clear">
+    </div>
+  </div>
+</div>
+<!--Fine Tour - Features-->
+<!--Inizio Accesso-->
+<div data-role="page" data-theme="a" id="accesso">
+  <!--Inizio Logo-->
+  <div class="ui-grid-solo ui-responsive">
+    <div class="ui-block-a">
+      <div id="logo-2">
+      </div>
+    </div>
+  </div>
+  <!--Fine Logo-->
+  <!--Inizio Form-->
+  <div class="ui-grid-solo ui-responsive form">
+    <div class="ui-block-a">
+      <div class="ui-field-contain">
+        <form id="accesso-login">
+          <label for="username-login">Nome Utente</label>
+          <input type="text" name="username-login" id="username-login" placeholder="Inserisci il Nome" value="" required>
+          <label for="password-login">Password</label>
+          <input type="password" name="password-login" id="password-login" placeholder="Inserisci la Password" value="" required>
+          <div class="ui-grid-solo ui-responsive" id="accesso-invia">
+            <input type="submit" value="Accedi" data-shadow="false" data-theme="a" id="accedi-login">
+          </div>
+        </form>
+        <div class="ui-grid-solo ui-responsive" id="registra-invia">
+          <button class="ui-btn" id="registrati-login">Registrati</button>
+        </div>
+      </div>
+      <div class="ui-grid-solo ui-responsive" id="accedi-opt-in">
+        <button class="ui-btn" id="accedi-facebook">Accedi con Facebook</button>
+        <button class="ui-btn" id="accedi-google">Accedi con Google+</button>
+      </div>
+    </div>
+  </div>
+  <!--Fine Form-->
+</div>
+<!--Fine Accesso-->
+<!--Inizio Registrazione-->
+<div data-role="page" data-theme="a" id="registrazione">
+  <!--Inizio Logo-->
+  <div class="ui-grid-solo ui-responsive">
+    <div class="ui-block-a">
+      <div id="logo-2">
+      </div>
+    </div>
+  </div>
+  <!--Fine Logo-->
+  <!--Inizio Form-->
+  <div class="ui-grid-solo ui-responsive form">
+    <div class="ui-block-a">
+      <div class="ui-field-contain">
+        <form id="accesso-signup">
+          <label for="nome-signup">Nome</label>
+          <input type="text" name="nome-signup" id="nome-signup" placeholder="Inserisci il Nome" value="" required>
+          <label for="cognome-signup">Cognome</label>
+          <input type="text" name="cognome-signup" id="cognome-signup" placeholder="Inserisci il Cognome" value="" required>
+          <label for="password-signup">Password</label>
+          <input type="password" name="password-signup" id="password-signup" placeholder="Inserisci la Password" value="" required>
+          <label for="conferma-signup">Conferma Password</label>
+          <input type="password" name="conferma-signup" id="conferma-signup" placeholder="Reinserisci la Password" value="" required>
+          <label for="citta-signup">Città/Località</label>
+          <input type="text" name="citta-signup" id="citta-signup" placeholder="Inserisci la Località" value="">
+          <label for="titolo-signup">Titolo</label>
+          <select name="titolo-signup" id="titolo-signup" required>
+            <option>SELEZIONA LA TIPOLOGIA</option>
+            <option value="personal-trainer">Personal Trainer</option>
+            <option value="fitter">Fitter</option>
+          </select>
+          <label for="attivita-signup">Attività sportiva</label>
+          <div class="ui-field-contain" id="attivita-container">
+            <select name="attivita-signup" id="attivita-signup" required>
+              <option>SELEZIONA LA TIPOLOGIA</option>
+              <option value="functional-training">Fitness e Functional Training</option>
+              <option value="body-building">Fitness e Body Building</option>
+              <option value="calisthenics">Calisthenics</option>
+              <option value="combat">Combat</option>
+            </select>
+          </div>
+          <div class="ui-grid-solo ui-responsive" id="accesso-registra">
+            <input type="submit" value="Registrati" data-shadow="false" data-theme="a" id="registrati-signup">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!--Fine Form-->
+  <div class="ui-grid-solo ui-responsive">
+    <div class="ui-block-a">
+      <a href="#accesso" data-transition="slide" title="Procedere alla schermata principale dell'applicazione" data-transition="reverse">
+        <div class="back deseleziona">
+          Torna al Login
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+<!--Fine Registrazione-->
+<!--Inizio Popup Cookies-->
+<div data-role="popup" id="cookies-alert">
+  <p>Cookies disabilitati. Alcune funzioni sono disattivate</p>
+</div>
+<!--Fine Popup Cookies-->

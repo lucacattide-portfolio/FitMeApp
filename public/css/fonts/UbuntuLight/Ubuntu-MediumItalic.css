@@ -1,0 +1,12 @@
+/* Webfont: Ubuntu-MediumItalic */@font-face {
+    font-family: 'UbuntuLight';
+    src: url('Ubuntu-MediumItalic.eot'); /* IE9 Compat Modes */
+    src: url('Ubuntu-MediumItalic.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('Ubuntu-MediumItalic.woff') format('woff'), /* Modern Browsers */
+         url('Ubuntu-MediumItalic.ttf') format('truetype'), /* Safari, Android, iOS */
+         url('Ubuntu-MediumItalic.svg#Ubuntu-MediumItalic') format('svg'); /* Legacy iOS */
+    font-style: italic;
+    font-weight: bold;
+    text-rendering: optimizeLegibility;
+}
+
