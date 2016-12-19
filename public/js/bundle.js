@@ -65,6 +65,7 @@
 	  registrati();
 	  salta();
 	  splashScreen();
+	  valutazione();
 	});
 	
 	// Opacità contenuti (FOUC Fix)
@@ -74,11 +75,15 @@
 	
 	// Swipe
 	$(document).on('pagecreate', '.ui-page', function () {
+	  console.log('creata');
 	  $(document).on('swipeleft', '[data-role="page"]', function (event) {
+	    console.log('sx');
 	    if (event.handled !== true) {
 	      var nextPage = $(undefined).next('[data-role="page"]');
 	      var id = $.mobile.activePage.attr('id');
-	      if (nextPage.length > 0 && id === 'tour-1') {
+	      console.log(nextPage + 'next -  ', id + ' id - ', 'catturato');
+	      if (nextPage.length > 0 && id === 'start') {
+	        console.log('cambio');
 	        $(':mobile-pagecontainer').pagecontainer('change', nextPage, {
 	          transition: 'slide',
 	          reverse: false
@@ -89,10 +94,13 @@
 	    return false;
 	  });
 	  $(document).on('swiperight', '[data-role="page"]', function (event) {
+	    console.log('dx');
 	    if (event.handled !== true) {
 	      var prevPage = $(undefined).prev('[data-role="page"]');
 	      var id = $.mobile.activePage.attr('id');
-	      if (prevPage.length > 0 && id === 'start') {
+	      console.log(prevPage + 'prev -  ', id + ' id - ', 'catturato');
+	      if (prevPage.length > 0 && id === 'tour-1') {
+	        console.log('cambio');
 	        $(':mobile-pagecontainer').pagecontainer('change', prevPage, {
 	          transition: 'slide',
 	          reverse: true
@@ -191,6 +199,32 @@
 	      $('cookies-alert').removeClass('cookies-avviso');
 	    }, 3000);
 	  }
+	}
+	
+	/**
+	 * Valutazione
+	 * Gestisce le interazioni con il sistema di valutazione utente:
+	 * - Selezione e aspetto
+	 */
+	function valutazione() {
+	  var _this = this;
+	
+	  $('.stella').hover(function () {
+	    if (!$('.stella').hasClass('stella-attiva-click')) {
+	      $('.stella').removeClass('stella-disattiva');
+	      $('.stella').addClass('stella-attiva');
+	      $(_this).next().removeClass('stella-attiva');
+	      $(_this).next().addClass('stella-disattiva');
+	    }
+	  }, function () {
+	    if (!$('.stella').hasClass('stella-attiva-click')) {
+	      $('.stella').removeClass('stella-attiva');
+	      $('.stella').addClass('stella-disattiva');
+	    }
+	  });
+	  $('.stella').on('vclick tap', function () {
+	    $(_this).addClass('stella-attiva-click');
+	  });
 	}
 
 /***/ },

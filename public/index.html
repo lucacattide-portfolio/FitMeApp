@@ -1,4 +1,5 @@
 <title>FitMeApp</title>
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="keywords" content="sport fitness social" /> 
 <meta name="description" content="App per il fitness" /> 
@@ -216,6 +217,331 @@
   </div>
 </div>
 <!--Fine Registrazione-->
+<!--Inizio Bacheca-->
+<div data-role="page" data-theme="a" id="bacheca">
+  <!--Inizio Header-->
+  <div data-role="header" id="header">
+    <div id="icona-menu"> 
+      <a id="hamburger" href="#" class="ui-btn ui-btn-icon-notext"></a>
+    </div>
+    <div id="logo-header"></div>
+    <div id="icona-toolbar"> 
+      <a id="toolbar-pulsante" href="#" class="ui-btn ui-btn-icon-notext"></a>
+    </div>
+    <div id="icona-notifiche"> 
+      <a id="notifiche-pulsante" href="#" class="ui-btn ui-btn-icon-notext"></a>
+    </div>
+  </div>
+  <!--Fine Header-->
+  <!--Inizio Summary-->
+  <div id="body-summary" class="ui-body sfondo-accento">
+    <div class="ui-grid-a">
+      <div id="container-avatar">
+          <div class="avatar">
+          </div>
+          <div class="valutazione deseleziona">
+            <span class="stella stella-disattiva">
+            </span>
+            <span class="stella stella-disattiva">
+            </span>
+            <span class="stella stella-disattiva">
+            </span>
+            <span class="stella stella-disattiva">
+            </span>
+            <span class="stella stella-disattiva">
+            </span>
+          </div>
+      </div>
+      <div id="container-summary" class="deseleziona">
+        <p class="dati-summary">
+          Nome Cognome
+        </p>
+        <p class="dati-summary">
+          Username
+        </p>
+        <p class="dati-summary">
+          Titolo
+        </p>
+        <div id="azioni-summary" class="ui-grid-a">
+            <button id="segui-summary" class="ui-btn">Segui</button>
+            <button id="scrivi-summary" class="ui-btn ui-icon-mail">Scrivi</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Fine Summary-->
+  <!--Inizio About-->
+  <div class="custom-corners">
+    <div class="ui-bar ui-bar-a">
+      <h2 class="titolo-sezione">Su di me</h2>
+      <hr class="separatore">
+    </div>
+    <div class="ui-body sfondo-primario anagrafica-container">
+      <div class="ui-grid-a anagrafica">
+        <div class="ui-block-a deseleziona">
+          <span class="evidenza">
+            Età: 
+          </span>
+          <span>
+            29 anni
+          </span>
+        </div>
+        <div class="ui-block-b">
+          <span class="evidenza">
+            Città: 
+          </span>
+          <span>
+            Milano
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Fine About-->
+  <!--Inizio Esperienze-->
+  <div class="esperienze" data-role="collapsible">
+    <h2 class="titolo-sezione">Le mie esperienze <hr class="separatore"></h2>
+    <div class="ui-body sfondo-primario anagrafica-container">
+      <div class="ui-grid-a anagrafica">
+        <div class="ui-block-a deseleziona">
+          <span class="evidenza">
+            Personal Trainer: 
+          </span>
+          <p class="palestra-esperienza">
+            FitXTutti A.S.
+          </p>
+        </div>
+        <div class="ui-block-b anno-esperienza">
+          <span>
+            2011
+          </span>
+          <span href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-delete ui-btn-icon-notext elimina-esperienza"></span>
+        </div>
+      </div>
+    </div>
+    <div class="ui-body sfondo-primario anagrafica-container">
+      <div class="ui-grid-a anagrafica">
+        <div class="ui-block-a deseleziona">
+          <span class="evidenza">
+            Personal Trainer: 
+          </span>
+          <p class="palestra-esperienza">
+            FitXTutti A.S.
+          </p>
+        </div>
+        <div class="ui-block-b anno-esperienza">
+          <span>
+            2011
+          </span>
+          <span href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-delete ui-btn-icon-notext elimina-esperienza"></span>
+        </div>
+      </div>
+    </div>
+    <button class="aggiungi-esperienza ui-btn ui-icon-plus ui-btn-icon-right" type="button">Aggiungi Esperienza</button>
+  </div>
+  <!--Fine Esperienze-->
+  <!--Inizio Qualifiche-->
+  <div class="esperienze" data-role="collapsible">
+    <h2 class="titolo-sezione">Le mie qualifiche <hr class="separatore"></h2>
+    <div class="ui-body sfondo-primario anagrafica-container">
+      <div class="ui-grid-a anagrafica">
+        <div class="ui-block-a deseleziona">
+          <span class="evidenza">
+            ISEF presso: 
+          </span>
+          <p class="palestra-esperienza">
+            FitXTutti A.S.
+          </p>
+        </div>
+        <div class="ui-block-b anno-esperienza">
+          <span>
+            2011
+          </span>
+          <span href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-delete ui-btn-icon-notext elimina-esperienza"></span>
+        </div>
+      </div>
+    </div>
+    <div class="ui-body sfondo-primario anagrafica-container">
+      <div class="ui-grid-a anagrafica">
+        <div class="ui-block-a deseleziona">
+          <span class="evidenza">
+            Workout presso: 
+          </span>
+          <p class="palestra-esperienza">
+            FitXTutti A.S.
+          </p>
+        </div>
+        <div class="ui-block-b anno-esperienza">
+          <span>
+            2014
+          </span>
+          <span href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-delete ui-btn-icon-notext elimina-esperienza"></span>
+        </div>
+      </div>
+    </div>
+    <button class="aggiungi-esperienza ui-btn ui-icon-plus ui-btn-icon-right" type="button">Aggiungi Qualifica</button>
+  </div>
+  <!--Fine Qualifiche-->
+  <!--Inizio Multimedia-->
+  <div id="multimedia" class="custom-corners">
+    <div class="ui-bar ui-bar-a">
+      <h2 class="titolo-sezione">Foto e Video</h2>
+      <hr class="separatore">
+    </div>
+    <div class="ui-body">
+      <div class="ui-grid-b">
+        <div class="ui-block-a">
+          <a href="#multimedia-popup" data-rel="popup" data-transition="pop">
+            <div class="foto-video" style="background-image: url(img/foto-1.png);">
+            </div>
+          </a>
+        </div>
+        <div class="ui-block-b">
+          <a href="#multimedia-popup" data-rel="popup" data-transition="pop">
+            <div class="foto-video" style="background-image: url(img/video-1.png);">
+            </div>
+          </a>
+        </div>
+        <div class="ui-block-c">
+          <a href="#multimedia-popup" data-rel="popup" data-transition="pop">
+            <div class="foto-video" style="background-image: url(img/foto-2.png);">
+            </div>
+          </a>
+        </div>
+        <div class="ui-block-a">
+          <a href="#multimedia-popup" data-rel="popup" data-transition="pop">
+            <div class="foto-video" style="background-image: url(img/foto-3.png);">
+            </div>
+          </a>
+        </div>
+        <div class="ui-block-b">
+          <a href="#multimedia-popup" data-rel="popup" data-transition="pop">
+            <div class="foto-video" style="background-image: url(img/foto-4.png);">
+            </div>
+          </a>
+        </div>
+        <div class="ui-block-c">
+          <a href="#multimedia-popup" data-rel="popup" data-transition="pop">
+            <div class="foto-video" style="background-image: url(img/video-3.png);">
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Fine Multimedia-->
+  <!--Inizio Luoghi-->
+  <div id="luoghi" class="esperienze" data-role="collapsible">
+    <h2 class="titolo-sezione">Dove mi alleno <hr class="separatore"></h2>
+    <div class="ui-body sfondo-primario anagrafica-container">
+      <div class="ui-grid-a anagrafica">
+        <div class="ui-block-a deseleziona">
+          <span>
+            Via Zanardi, 33 
+          </span>
+        </div>
+        <div class="ui-block-b anno-esperienza">
+          <span>
+            FitXTutti A.S.
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="ui-body sfondo-primario anagrafica-container">
+      <div class="ui-grid-a anagrafica">
+        <div class="ui-block-a deseleziona">
+          <span>
+            Largo Carlo Felice
+          </span>
+        </div>
+        <div class="ui-block-b anno-esperienza">
+          <span>
+            FitXTutti A.S.
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Fine Luoghi-->
+  <!--Inizio Following-->
+  <div id="following" class="custom-corners">
+    <div class="ui-bar ui-bar-a">
+      <h2 class="titolo-sezione">Persone che seguo</h2>
+      <hr class="separatore">
+    </div>
+    <div class="ui-body sfondo-accento follow-grid">
+      <div class="ui-grid-a">
+        <a href="#" title="Visualizza il profilo utente">
+          <div class="follow-container">
+            <div class="avatar-follow" style="background-image: url(img/avatar-1.png);">
+            </div>
+            <div class="nome-follow">
+              <span>Nome Cognome</span>
+            </div>
+          </div>
+        </a>
+        <a href="#" title="Visualizza il profilo utente">
+          <div class="follow-container">
+            <div class="avatar-follow" style="background-image: url(img/avatar-2.png);">
+            </div>
+            <div class="nome-follow">
+              <span>Nome Cognome</span>
+            </div>
+          </div>
+        </a>
+        <a href="#" title="Visualizza il profilo utente">
+          <div class="follow-container">
+            <div class="avatar-follow" style="background-image: url(img/avatar-3.png);">
+            </div>
+            <div class="nome-follow">
+              <span>Nome Cognome</span>
+            </div>
+          </div>
+        </a>
+    </div>
+  </div>
+  <!--Fine Following-->
+  <!--Inizio Followers-->
+  <div id="followers" class="custom-corners">
+    <div class="ui-bar ui-bar-a">
+      <h2 class="titolo-sezione">Persone che mi seguono</h2>
+      <hr class="separatore">
+    </div>
+    <div class="ui-body follow-grid">
+      <div class="ui-grid-a">
+        <a href="#" title="Visualizza il profilo utente">
+          <div class="follow-container">
+            <div class="avatar-follow" style="background-image: url(img/avatar-4.png);">
+            </div>
+            <div class="nome-follow">
+              <span>Nome Cognome</span>
+            </div>
+          </div>
+        </a>
+        <a href="#" title="Visualizza il profilo utente">
+          <div class="follow-container">
+            <div class="avatar-follow" style="background-image: url(img/avatar-5.png);">
+            </div>
+            <div class="nome-follow">
+              <span>Nome Cognome</span>
+            </div>
+          </div>
+        </a>
+        <a href="#" title="Visualizza il profilo utente">
+          <div class="follow-container">
+            <div class="avatar-follow" style="background-image: url(img/avatar-6.png);">
+            </div>
+            <div class="nome-follow">
+              <span>Nome Cognome</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <!--Fine Followers-->
+</div>
+<!--Fine Bacheca-->
 <!--Inizio Popup Cookies-->
 <div data-role="popup" id="cookies-alert">
   <p>Cookies disabilitati. Alcune funzioni sono disattivate</p>

@@ -11,11 +11,38 @@ a:link {
   text-decoration: none;
 }
 
+.aggiungi-esperienza {
+  font-size: .9rem;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.aggiungi-esperienza::after {
+  right: 16px;
+}
+
+.anagrafica {
+  color: #000;
+  font-size: .9rem;
+}
+
 .deseleziona {
   -webkit-user-select: none; 
   -moz-user-select: none;    
   -ms-user-select: none;     
   user-select: none;             
+}
+
+.evidenza {
+  font-family: 'UbuntuBold', sans-serif;
+}
+
+.sfondo-accento {
+  background-color: #FCEA10;
+}
+
+.sfondo-primario {
+  background-color: #fff;
 }
 
 @media screen and (min-width: 20em) {
@@ -90,9 +117,63 @@ a:link {
     padding-top: 1em;
   }
 
+  .anagrafica-container {
+    padding: .7em 1em;
+  }
+
+  .anno-esperienza {
+    padding-top: .5em;
+  }
+
   #attivita-container {
     padding-bottom: 1em;
   }
+
+  .avatar {
+    background-attachment: scroll;
+    background-color: #fff;
+    background-image: url(../img/avatar.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 50%;
+    display: block;
+    height: 82px;
+    margin: 0 auto;
+    max-width: 124px;
+    position: relative;
+    width: 82px;
+  }
+  
+  .avatar-follow {
+    background-attachment: scroll;
+    background-color: #fff;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 50%;
+    display: inline-block;
+    height: 70px;
+    margin: 0 auto;
+    max-width: 124px;
+    position: relative;
+    width: 70px;
+  }
+
+  #azioni-summary button {
+    display: inline-block;
+    float: left;
+    font-size: .9rem;
+    padding: .4em 0;
+    text-transform: uppercase;
+    width: calc(50% - 4px);
+  }
+
+  #azioni-summary button:hover{
+    background-color: #fff;
+    text-shadow: none;
+  }
+
   .back {
     color: #fff;
     display: block;
@@ -100,6 +181,10 @@ a:link {
     position: relative;
     padding-left: 32px;
     width: 100%;
+  }
+
+  #body-summary {
+   max-height: 7.5em;
   }
 
   .bullet {
@@ -133,6 +218,14 @@ a:link {
 
   .clear { clear: both; }
 
+  #container-avatar {
+    display: inline-block;
+    float: left;  
+    max-width: 124px;
+    padding-top: .5em;
+    position: relative;
+  }
+
   .container-bullets {
     display: inline-block;
     margin: 0 auto;
@@ -150,6 +243,13 @@ a:link {
     -moz-transform-style: preserve-3d;
     transform-style: preserve-3d;
     width: 100%;
+  }
+
+  #container-summary {
+    display: inline-block;
+    float: right;  
+    position: relative;
+    width: 50%;
   }
 
   .container-testo {
@@ -176,10 +276,78 @@ a:link {
 
   #cookies-alert {
     opacity: 0;
+    display: none;
   }
 
   .cookies-avviso {
     opacity: 1 !important;
+    display: block !important;
+  }
+
+  .dati-summary {
+    border-bottom: 1px solid #000;
+    color: #000;
+    display: block;
+    font-size: .9rem;
+    line-height: 1.5rem;
+    margin: 0;
+    position: relative;
+  }
+
+  .elimina-esperienza {
+    position: absolute;
+    right: 8px;
+    top: 0;
+  }
+
+  .esperienze {
+    margin: 0;
+  }
+
+  .esperienze:hover .titolo-sezione {
+    text-shadow: none;
+  }
+
+  .esperienze .titolo-sezione a { 
+    background-color: #3C3C3B !important; 
+    color: #FCEA10 !important;
+    border-radius: 0;
+    margin: 0;
+  }
+
+  .esperienze .separatore { 
+    max-width: 40%; 
+    top: .7em; 
+  }
+
+  .esperienze .ui-collapsible-content {
+    padding: 0;
+  }
+
+  .follow-container {
+    border-bottom: 1px solid #000;
+    padding: .8em 1em;
+  }
+
+  .follow-grid {
+    padding: 0;
+  }
+
+  #following .separatore { 
+    max-width: 50%; 
+  }
+
+  #followers .separatore { 
+    max-width: 30%; 
+  }
+
+  #followers .nome-follow { 
+    color: #fff;
+  }
+
+  #followers .follow-container {
+    border-bottom: 1px solid #797979;
+    padding: .8em 1em;
   }
 
   form input[type='text'], 
@@ -188,7 +356,6 @@ a:link {
     color: #797979;
     font-size: .9rem;
     padding: .7em; 
-
   }
 
   .form {
@@ -202,6 +369,56 @@ a:link {
     background-size: cover;
   }
 
+  .foto-video {
+    background-attachment: scroll;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: auto;
+    min-height: 72px;
+    min-width: 112px;
+    width: 100%;
+  }
+
+  #hamburger {
+    background-attachment: scroll;
+    background-color: transparent;
+    background-image: url(../img/hamburger.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 45%;
+    display: block;
+    height: 4em;
+    margin: 0;
+    position: relative;
+    width: 64px;
+  }
+
+  #hamburger::after {
+    display: none;
+  }
+
+  #header {
+    max-height: 64px;
+    text-align: center;
+  }
+
+  #icona-menu {
+    display: inline-block;
+    float: left;
+    height: 4em;
+    position: relative;
+    width: 64px;
+  }
+
+  #icona-notifiche {
+    display: inline-block;
+    float: right;
+    height: 4em;
+    position: relative;
+    width: 64px;
+  }
+
   .icona-skip {
     background-attachment: scroll;
     background-image: url(../img/skip.svg);
@@ -213,6 +430,14 @@ a:link {
     margin-left: 8px;
     position: absolute;
     width: 21px;
+  }
+
+  #icona-toolbar {
+    display: inline-block;
+    float: right;
+    height: 4em;
+    position: relative;
+    width: 64px;
   }
 
   label[for='cognome-signup'] {
@@ -244,6 +469,20 @@ a:link {
     height: auto;
   }
 
+  #logo-header {
+    background-attachment: scroll;
+    background-image: url(../img/logo-header.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    display: inline-block;
+    height: 4em;
+    max-height: 64px;
+    max-width: 96px;
+    position: relative;
+    width: 30%;
+  }
+
   .logo-tutorial {
     display: block;
     height: 73px;
@@ -271,6 +510,55 @@ a:link {
     width: 65px;
   }
 
+  #luoghi .anno-esperienza { 
+    padding-top: 0;
+  }
+
+  #luoghi .separatore {
+    max-width: 45%;
+  }
+
+  #multimedia .separatore {
+    max-width: 65%;
+  }
+
+  .nome-follow {
+    color: #000;
+    display: table;
+    float: right;
+    height: 4.5em;
+    position: relative;
+    width: calc(100% - 96px);
+  }
+
+  .nome-follow span {
+    display: table-cell;
+    position: relative;
+    vertical-align: middle;
+  }
+
+  #notifiche-pulsante {
+    background-attachment: scroll;
+    background-color: transparent;
+    background-image: url(../img/notifiche.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 16%;
+    display: block;
+    height: 4em;
+    margin: 0;
+    position: relative;
+    width: 64px;
+  }
+
+  #notifiche-pulsante::after {
+    display: none;
+  }
+
+  .palestra-esperienza {
+    margin: 0;
+  }
+
   #registra-invia {
     margin-bottom: .5em;
   }
@@ -281,6 +569,28 @@ a:link {
 
   #registrazione .ui-input-text {
     margin: -10px 0 0;
+  }
+
+  #segui-summary {
+    margin-right: 4px;
+  }
+
+  #scrivi-summary {
+    margin-left: 4px;
+  }
+
+  .separatore {
+    background-color: #FCEA10;
+    border: 0;
+    height: 1px;
+    margin: .5em 0 0 0;
+    max-width: 70%;
+    padding: 0;
+    position: absolute;
+    right: 0;
+    display: block;
+    width: 70%;
+    top: .5em;
   }
 
   .skip {
@@ -318,6 +628,34 @@ a:link {
     background-image: url(../img/tutorial.png);
   }
 
+  .stella {
+    background-attachment: scroll;
+    background-color: transparent;
+    background-image: url(../img/stella.svg);
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    display: inline-block;
+    height: 15px;
+    margin: 0 2px;
+    min-height: 15px;
+    min-width: 15px;
+    position: relative;
+    width: 15px;
+  }
+
+  .stella:hover {
+    cursor: pointer;
+  }
+
+  .stella-disattiva {
+    opacity: .3;
+  }
+
+  .stella-attiva, .stella-attiva-click {
+    opacity: 1 !important;
+  }
+
   .testo-tutorial {
     display: block;
     height: auto;
@@ -327,11 +665,34 @@ a:link {
     width: 62%;
   }
 
+  .titolo-sezione {
+    color: #FCEA10;
+    font-size: 1.1rem;
+  }
+
   .titolo-tutorial {
     color: #FCEA10;
     margin-bottom: .5em;
     text-align: left;
     text-transform: uppercase;
+  }
+
+  #toolbar-pulsante {
+    background-attachment: scroll;
+    background-color: transparent;
+    background-image: url(../img/toolbar.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 8%;
+    display: block;
+    height: 4em;
+    margin: 0;
+    position: relative;
+    width: 64px;
+  }
+
+  #toolbar-pulsante::after {
+    display: none;
   }
 
   .tour {
@@ -347,6 +708,14 @@ a:link {
     font-size: 1.2rem;
     margin: 0 auto .5em;
     text-align: left;
+  }
+
+  .valutazione {
+    display: block;
+    height: auto;
+    margin-top: .5em;
+    position: relative;
+    width: 100%;
   }
 
   @-webkit-keyframes spinner {
@@ -371,7 +740,79 @@ a:link {
 
 }
 
+@media screen and (min-width: 375px) {
+  
+  #azioni-summary button {
+    width: calc(52% - 8px);
+  }
+
+  #container-summary {
+    width: 58%;
+  }
+
+  .esperienze .separatore { 
+    max-width: 50%; 
+  }
+
+  #followers .separatore { 
+    max-width: 40%; 
+  }
+
+  #logo-header {
+    max-width: 112px;
+  }
+
+  #luoghi .separatore {
+    max-width: 40%;
+  }
+
+}
+
+@media screen and (min-width: 28em) {
+
+  #azioni-summary button {
+    width: calc(51% - 8px);
+  }
+
+  #container-summary {
+    width: 64%;
+  }
+
+}
+
+@media screen and (min-width: 30em) {
+
+  #container-summary {
+    width: 68%;
+  }
+
+}
+
+@media screen and (min-width: 35em) {
+
+  #container-summary {
+    width: 72%;
+  }
+
+}
+
+@media screen and (min-width: 40em) {
+
+  #azioni-summary button {
+    width: calc(50% - 8px);
+  }
+
+  #container-summary {
+    width: 76%;
+  }
+
+}
+
 @media screen and (min-width: 50em) {
+
+  #container-summary {
+    width: 80%;
+  }
 
   #logo {
     max-width: 256px;
@@ -381,6 +822,10 @@ a:link {
 }
 
 @media screen and (min-width: 55em) {
+
+  #container-summary {
+    width: 82%;
+  }
 
   #logo {
     max-width: 282px;

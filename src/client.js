@@ -13,6 +13,7 @@ $(document).ready(() => {
   registrati();
   salta();
   splashScreen();
+  valutazione();
 });
 
 // Opacità contenuti (FOUC Fix)
@@ -22,11 +23,15 @@ $(document).bind('pagecontainershow', () => {
 
 // Swipe
 $(document).on('pagecreate', '.ui-page', () => {
+  console.log('creata');
   $(document).on('swipeleft', '[data-role="page"]', (event) => {
+    console.log('sx');
     if (event.handled !== true) {
       let nextPage = $(this).next('[data-role="page"]');
       let id = $.mobile.activePage.attr('id');
-      if (nextPage.length > 0 && (id === 'tour-1')) {
+      console.log(nextPage + 'next -  ', id + ' id - ', 'catturato');
+      if (nextPage.length > 0 && (id === 'start')) {
+        console.log('cambio');
         $(':mobile-pagecontainer').pagecontainer('change', nextPage, {
           transition: 'slide',
           reverse: false,
@@ -37,10 +42,13 @@ $(document).on('pagecreate', '.ui-page', () => {
     return false;
   });
   $(document).on('swiperight', '[data-role="page"]', (event) => {
+    console.log('dx');
     if (event.handled !== true) {
       let prevPage = $(this).prev('[data-role="page"]');
       let id = $.mobile.activePage.attr('id');
-      if (prevPage.length > 0 && (id === 'start')) {
+      console.log(prevPage + 'prev -  ', id + ' id - ', 'catturato');
+      if (prevPage.length > 0 && (id === 'tour-1')) {
+        console.log('cambio');
         $( ':mobile-pagecontainer' ).pagecontainer('change', prevPage, {
           transition: 'slide',
           reverse: true,
@@ -139,4 +147,28 @@ function splashScreen() {
       $('cookies-alert').removeClass('cookies-avviso');
     }, 3000);
   }
+}
+
+/**
+ * Valutazione
+ * Gestisce le interazioni con il sistema di valutazione utente:
+ * - Selezione e aspetto
+ */
+function valutazione() {
+  $('.stella').hover(() => {
+    if (!$('.stella').hasClass('stella-attiva-click')) {
+      $('.stella').removeClass('stella-disattiva');
+      $('.stella').addClass('stella-attiva');
+      $(this).next().removeClass('stella-attiva');
+      $(this).next().addClass('stella-disattiva');
+    }
+  }, () => {
+    if (!$('.stella').hasClass('stella-attiva-click')) {
+      $('.stella').removeClass('stella-attiva');
+      $('.stella').addClass('stella-disattiva');
+    }
+  });
+  $('.stella').on('vclick tap', () => {
+    $(this).addClass('stella-attiva-click');
+  });
 }
