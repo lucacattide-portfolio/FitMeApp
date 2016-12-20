@@ -8,11 +8,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 <meta http-equiv="Content-Security-Policy" content="default-src * data: 'unsafe-eval' 'unsafe-inline'" /> 
 <link rel="stylesheet" href="css/custom.css">
+<link rel="stylesheet" href="css/fitmeapp.min.css">
+<link rel="stylesheet" href="css/jquery.mobile.icons.min.css">
+<link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.min.css">
 <!--TODO: Eliminare il protocollo in produzione-->
 <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
 <script 
-  src="https://code.jquery.com/jquery-2.2.4.min.js" 
-  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" 
+  src="https://code.jquery.com/jquery-2.1.4.min.js" 
+  integrity="sha256-8WqyJLuWKRBVhxXIL1jBDD7SDxU936oZkCnxQbWwJVw=" 
   crossorigin="anonymous"></script>
 <script src="js/bundle.js"></script>
 <script src="js/jquery.mobile-1.4.5.min.js"></script>
@@ -135,7 +138,7 @@
   <div class="ui-grid-solo ui-responsive form">
     <div class="ui-block-a">
       <div class="ui-field-contain">
-        <form id="accesso-login">
+        <form id="accesso-login" autocomplete="on" accept-charset="utf-8" data-ajax="false">
           <label for="username-login">Nome Utente</label>
           <input type="text" name="username-login" id="username-login" placeholder="Inserisci il Nome" value="" required>
           <label for="password-login">Password</label>
@@ -171,7 +174,7 @@
   <div class="ui-grid-solo ui-responsive form">
     <div class="ui-block-a">
       <div class="ui-field-contain">
-        <form id="accesso-signup">
+        <form id="accesso-signup" autocomplete="on" accept-charset="utf-8" data-ajax="false">
           <label for="nome-signup">Nome</label>
           <input type="text" name="nome-signup" id="nome-signup" placeholder="Inserisci il Nome" value="" required>
           <label for="cognome-signup">Cognome</label>
@@ -217,19 +220,19 @@
   </div>
 </div>
 <!--Fine Registrazione-->
-<!--Inizio Bacheca-->
-<div data-role="page" data-theme="a" id="bacheca">
+<!--Inizio Profilo-->
+<div data-role="page" data-theme="a" id="profilo">
   <!--Inizio Header-->
-  <div data-role="header" id="header">
+  <div data-role="header" id="header" data-position="fixed">
     <div id="icona-menu"> 
       <a id="hamburger" href="#" class="ui-btn ui-btn-icon-notext"></a>
     </div>
     <div id="logo-header"></div>
     <div id="icona-toolbar"> 
-      <a id="toolbar-pulsante" href="#" class="ui-btn ui-btn-icon-notext"></a>
+      <a id="toolbar-pulsante" href="#popup-toolbar-profilo" class="ui-btn ui-btn-icon-notext" data-rel="popup"></a>
     </div>
     <div id="icona-notifiche"> 
-      <a id="notifiche-pulsante" href="#" class="ui-btn ui-btn-icon-notext"></a>
+      <a id="notifiche-pulsante" href="#profilo" class="ui-btn ui-btn-icon-notext"></a>
     </div>
   </div>
   <!--Fine Header-->
@@ -239,7 +242,7 @@
       <div id="container-avatar">
           <div class="avatar">
           </div>
-          <div class="valutazione deseleziona">
+          <div class="valutazione">
             <span class="stella stella-disattiva">
             </span>
             <span class="stella stella-disattiva">
@@ -264,7 +267,7 @@
         </p>
         <div id="azioni-summary" class="ui-grid-a">
             <button id="segui-summary" class="ui-btn">Segui</button>
-            <button id="scrivi-summary" class="ui-btn ui-icon-mail">Scrivi</button>
+            <button id="scrivi-summary" class="ui-btn">Scrivi</button>
         </div>
       </div>
     </div>
@@ -337,7 +340,9 @@
         </div>
       </div>
     </div>
-    <button class="aggiungi-esperienza ui-btn ui-icon-plus ui-btn-icon-right" type="button">Aggiungi Esperienza</button>
+    <a href="#aggiungi-esperienza-popup" data-rel="popup" data-position-to="window" data-transition="pop">
+      <button class="aggiungi-esperienza ui-btn ui-icon-plus ui-btn-icon-right" type="button">Aggiungi Esperienza</button>
+    </a>
   </div>
   <!--Fine Esperienze-->
   <!--Inizio Qualifiche-->
@@ -379,7 +384,9 @@
         </div>
       </div>
     </div>
-    <button class="aggiungi-esperienza ui-btn ui-icon-plus ui-btn-icon-right" type="button">Aggiungi Qualifica</button>
+    <a href="#aggiungi-esperienza-popup" data-rel="popup" data-position-to="window" data-transition="pop">
+      <button class="aggiungi-esperienza ui-btn ui-icon-plus ui-btn-icon-right" type="button">Aggiungi Qualifica</button>
+    </a>
   </div>
   <!--Fine Qualifiche-->
   <!--Inizio Multimedia-->
@@ -391,38 +398,38 @@
     <div class="ui-body">
       <div class="ui-grid-b">
         <div class="ui-block-a">
-          <a href="#multimedia-popup" data-rel="popup" data-transition="pop">
-            <div class="foto-video" style="background-image: url(img/foto-1.png);">
+          <a href="#multimedia-popup" data-rel="popup" data-transition="pop" data-position-to="window">
+            <div class="foto-video" style="background-image: url(img/foto-1.png);" data-url="img/foto-1.png">
             </div>
           </a>
         </div>
         <div class="ui-block-b">
           <a href="#multimedia-popup" data-rel="popup" data-transition="pop">
-            <div class="foto-video" style="background-image: url(img/video-1.png);">
+            <div class="foto-video" style="background-image: url(img/video-1.png);" data-url="img/video-1.png">
             </div>
           </a>
         </div>
         <div class="ui-block-c">
           <a href="#multimedia-popup" data-rel="popup" data-transition="pop">
-            <div class="foto-video" style="background-image: url(img/foto-2.png);">
+            <div class="foto-video" style="background-image: url(img/foto-2.png);" data-url="img/foto-2.png">
             </div>
           </a>
         </div>
         <div class="ui-block-a">
           <a href="#multimedia-popup" data-rel="popup" data-transition="pop">
-            <div class="foto-video" style="background-image: url(img/foto-3.png);">
+            <div class="foto-video" style="background-image: url(img/foto-3.png);" data-url="img/foto-1.png">
             </div>
           </a>
         </div>
         <div class="ui-block-b">
           <a href="#multimedia-popup" data-rel="popup" data-transition="pop">
-            <div class="foto-video" style="background-image: url(img/foto-4.png);">
+            <div class="foto-video" style="background-image: url(img/foto-4.png);" data-url="img/foto-4.png">
             </div>
           </a>
         </div>
         <div class="ui-block-c">
           <a href="#multimedia-popup" data-rel="popup" data-transition="pop">
-            <div class="foto-video" style="background-image: url(img/video-3.png);">
+            <div class="foto-video" style="background-image: url(img/video-3.png);" data-url="img/prova.jpg">
             </div>
           </a>
         </div>
@@ -540,10 +547,81 @@
     </div>
   </div>
   <!--Fine Followers-->
+  <!--Inizio Popup Aggiungi-->
+  <div data-role="popup" id="aggiungi-esperienza-popup" data-overlay-theme="a" data-theme="a" data-dismissible="false" class="popups">
+    <div data-role="header" data-theme="a">
+      <h2>Aggiungi Esperienza</h2>
+    </div>
+    <div role="main" class="ui-content">
+      <form id="form-aggiungi-popup" autocomplete="on" accept-charset="utf-8" data-ajax="false">
+        <label for="titolo-aggiungi-popup">Titolo:</label>
+        <input type="text" name="titolo" id="titolo-aggiungi-popup" value="" placeholder="Inserire il ruolo" data-theme="a" required>
+        <label for="presso-aggiungi-popup">Presso:</label>
+        <input type="text" name="presso" id="presso-aggiungi-popup" value="" placeholder="Inserire il luogo" data-theme="a">
+        <label for="data-aggiungi-popup">Data:</label>
+        <input type="number" name="data" id="data-aggiungi-popup" value="" placeholder="Inserire la data" data-theme="a">
+        <button type="submit" class="ui-btn ui-btn-icon-right ui-icon-plus">Aggiungi</button>
+      </form>
+      <a href="#" data-rel="back" data-theme="a" class="ui-btn ui-icon-delete ui-btn-icon-right">Annulla</a>
+    </div>
+  </div>
+  <!--Fine Popup Aggiungi-->
+  <!--Inizio Popups-->
+  <!--Multimedia-->
+  <div data-role="popup" id="multimedia-popup" data-overlay-theme="a" data-theme="a" data-corners="false">
+    <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Chiudi</a>
+    <!--TODO: Aggiungere testo alternativo da nome file via DB-->
+    <img class="multimedia-popup-foto" src="img/" alt="">
+    <div class="like-popup">
+      <a href="#"><i class="like-popup-icona" aria-hidden="true"></i> Mi piace</a>
+    </div>
+  </div>
+  <!--Toolbar - Profilo-->
+  <div data-role="popup" id="popup-toolbar-profilo" data-theme="a" class="ui-content">
+    <a href="#modifica-profilo" title="Aggiorna dati personali utente">Modifica Profilo</a>
+  </div>
+  <!--Fine Popups-->
 </div>
-<!--Fine Bacheca-->
-<!--Inizio Popup Cookies-->
+<!--Fine Profilo-->
+<!--Inizio Modifica Profilo-->
+<div data-role="page" data-theme="a" id="modifica-profilo" data-url="modifica-profilo">
+  <!--Inizio Header-->
+  <div data-role="header" id="header">
+    <div id="icona-menu"> 
+      <a id="hamburger" href="#" class="ui-btn ui-btn-icon-notext"></a>
+    </div>
+    <div id="logo-header"></div>
+    <div id="icona-toolbar"> 
+      <a id="toolbar-pulsante" href="#popup-toolbar-profilo" class="ui-btn ui-btn-icon-notext" data-rel="popup"></a>
+    </div>
+    <div id="icona-notifiche"> 
+      <a id="notifiche-pulsante" href="#notifiche" class="ui-btn ui-btn-icon-notext"></a>
+    </div>
+  </div>
+  <!--Fine Header-->
+</div>
+<!--Fine Modifica Profilo-->
+<!--Inizio Notifiche-->
+<!--Fine Notifiche-->
+<div data-role="page" data-theme="a" id="notifiche">
+  <!--Inizio Header-->
+  <div data-role="header" id="header">
+    <div id="icona-menu"> 
+      <a id="hamburger" href="#" class="ui-btn ui-btn-icon-notext"></a>
+    </div>
+    <div id="logo-header"></div>
+    <div id="icona-toolbar"> 
+      <a id="toolbar-pulsante" href="#popup-toolbar-profilo" class="ui-btn ui-btn-icon-notext" data-rel="popup"></a>
+    </div>
+    <div id="icona-notifiche"> 
+      <a id="notifiche-pulsante" href="#notifiche" class="ui-btn ui-btn-icon-notext"></a>
+    </div>
+  </div>
+  <!--Fine Header-->
+</div>
+<!--Inizio Popups esterne-->
+<!--Cookies-->
 <div data-role="popup" id="cookies-alert">
   <p>Cookies disabilitati. Alcune funzioni sono disattivate</p>
 </div>
-<!--Fine Popup Cookies-->
+<!--Fine Popups esterne-->

@@ -8,8 +8,12 @@ $(document).ready(() => {
     let file = $('#video-input').get(0).files[0];
     Video.uploadTestVideo(file);
   });
-  $('body').addClass('ui-alt-icon');
+  inizializza();
   accedi();
+  aggiungiEsperienze();
+  eliminaEsperienze();
+  follow();
+  multimediaPopup();
   registrati();
   salta();
   splashScreen();
@@ -23,15 +27,11 @@ $(document).bind('pagecontainershow', () => {
 
 // Swipe
 $(document).on('pagecreate', '.ui-page', () => {
-  console.log('creata');
-  $(document).on('swipeleft', '[data-role="page"]', (event) => {
-    console.log('sx');
+  $(document).on('swipeleft', '[data-role="page"]', function(event) {
     if (event.handled !== true) {
       let nextPage = $(this).next('[data-role="page"]');
       let id = $.mobile.activePage.attr('id');
-      console.log(nextPage + 'next -  ', id + ' id - ', 'catturato');
       if (nextPage.length > 0 && (id === 'start')) {
-        console.log('cambio');
         $(':mobile-pagecontainer').pagecontainer('change', nextPage, {
           transition: 'slide',
           reverse: false,
@@ -41,14 +41,11 @@ $(document).on('pagecreate', '.ui-page', () => {
     }
     return false;
   });
-  $(document).on('swiperight', '[data-role="page"]', (event) => {
-    console.log('dx');
+  $(document).on('swiperight', '[data-role="page"]', function(event) {
     if (event.handled !== true) {
       let prevPage = $(this).prev('[data-role="page"]');
       let id = $.mobile.activePage.attr('id');
-      console.log(prevPage + 'prev -  ', id + ' id - ', 'catturato');
       if (prevPage.length > 0 && (id === 'tour-1')) {
-        console.log('cambio');
         $( ':mobile-pagecontainer' ).pagecontainer('change', prevPage, {
           transition: 'slide',
           reverse: true,
@@ -59,6 +56,17 @@ $(document).on('pagecreate', '.ui-page', () => {
     return false;
   });
 });
+
+/**
+ * Inizializzazione
+ *
+ * Gestisce le inizializzazioni degli elementi front-end.
+ */
+function inizializza() {
+  $('body').addClass('ui-alt-icon');
+  $('#cookies-alert').enhanceWithin().popup();
+  $('#popup-notifiche').enhanceWithin().popup();
+}
 
 /**
  * Accesso
@@ -75,6 +83,73 @@ function accedi() {
   $('#accedi-google').on('vclick tap', () => {
     // TODO: Qui avviene l'invio delle informazioni a Google
   });
+}
+
+/**
+ * Aggiungi Esperienze
+ *
+ * Gestisce le funzionalità di aggiunta degli elementi descrittivi
+ * nel profilo utente
+ */
+function aggiungiEsperienze() {
+  // TODO: Caricamento/Memorizzazione stato/dati su DB
+}
+
+/**
+ * Elimina Esperienze
+ *
+ * Gestisce le funzionalità di cancellazione degli elementi descrittivi
+ * nel profilo utente
+ */
+function eliminaEsperienze() {
+  $('.elimina-esperienza').on('vclick tap', function() {
+    $(this).parents('.anagrafica-container').remove();
+    toast('Esperienza eliminata.');
+  });
+  // TODO: Caricamento/Memorizzazione stato/dati su DB
+}
+
+/**
+ * Follow
+ *
+ * Gestisce le funzionalità di feed di profili, bacheche, varie ed eventuali
+ */
+function follow() {
+  $('#segui-summary').on('vclick tap', function() {
+    $(this).addClass('seguito');
+    $(this).html('Seguito');
+    toast('Profilo seguito.');
+    /*
+    TODO: Verificare condizione
+    if ($(this).hasClass('seguito')) {
+      $(this).addClass('seguito');
+      $(this).html('Seguito');
+      toast('Profilo seguito.')
+    } else {
+      $(this).removeClass('seguito');
+      $(this).html('Segui');
+      toast('Profilo rimosso.')
+    }
+    */
+  });
+  // TODO: Caricamento/Memorizzazione stato/dati su DB
+}
+
+/**
+ * Multimedia - Popup
+ *
+ * Gestisce l'apertura dinamica di foto e video a tutto schermo
+ */
+function multimediaPopup() {
+  $('#multimedia a').on('vclick tap', function() {
+    let url = $('.foto-video', this).attr('data-url');
+    $('.multimedia-popup-foto').attr('src', url);
+    $('#multimedia-popup').removeClass('ui-overlay-shadow');
+  });
+  $('.like-popup a').on('vclick tap', function() {
+    $(this).toggleClass('a fa-thumbs-up');
+  });
+  // TODO: Caricamento/Memorizzazione stato/dati su DB
 }
 
 /**
@@ -150,25 +225,50 @@ function splashScreen() {
 }
 
 /**
+ * Toast
+ * @param {string} messaggio - Testo della notifica
+ * Gestisce le notifiche al volo in popup
+ */
+function toast(messaggio) {
+  $('<div id="toast" '+
+  'class="ui-loader ui-overlay-shadow ui-body-a ui-corner-all"><h3>'
+  +messaggio+'</h3></div>').css({
+    'display': 'block',
+    'position': 'fixed',
+    'text-align': 'center',
+    'width': '270px',
+    'z-index': 9999,
+    'font-size': '.8rem',
+    'top': 'auto',
+    'left': '0',
+    'right': '0',
+    'margin': '0 auto',
+    'bottom': '2em'})
+    .appendTo( $.mobile.pageContainer ).delay( 1500 ).fadeOut( 400, function() {
+      $(this).remove();
+    });
+}
+
+/**
  * Valutazione
  * Gestisce le interazioni con il sistema di valutazione utente:
  * - Selezione e aspetto
  */
 function valutazione() {
-  $('.stella').hover(() => {
+  $('.stella').hover(function() {
     if (!$('.stella').hasClass('stella-attiva-click')) {
-      $('.stella').removeClass('stella-disattiva');
-      $('.stella').addClass('stella-attiva');
-      $(this).next().removeClass('stella-attiva');
-      $(this).next().addClass('stella-disattiva');
+      $(this).addClass('stella-attiva');
+      $(this).prevAll().addClass('stella-attiva');
     }
-  }, () => {
-    if (!$('.stella').hasClass('stella-attiva-click')) {
+  }, function() {
+    if (!$('.stella').hasClass('stella-attiva-click'))
       $('.stella').removeClass('stella-attiva');
-      $('.stella').addClass('stella-disattiva');
-    }
   });
-  $('.stella').on('vclick tap', () => {
-    $(this).addClass('stella-attiva-click');
+  $('.stella').on('vclick tap', function() {
+    $('.stella').removeClass('stella-attiva stella-attiva-click');
+    $(this).addClass('stella-attiva stella-attiva-click');
+    $(this).prevAll().addClass('stella-attiva stella-attiva-click');
+    toast('Votazione effettuata.');
   });
+  // TODO: Caricamento/Memorizzazione stato/dati su DB
 }
