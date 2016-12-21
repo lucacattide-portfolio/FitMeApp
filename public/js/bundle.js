@@ -65,7 +65,9 @@
 	  aggiungiEsperienze();
 	  eliminaEsperienze();
 	  follow();
+	  modificaProfilo();
 	  multimediaPopup();
+	  notifiche();
 	  registrati();
 	  salta();
 	  splashScreen();
@@ -116,7 +118,7 @@
 	 */
 	function inizializza() {
 	  $('body').addClass('ui-alt-icon');
-	  $('#cookies-alert').enhanceWithin().popup();
+	  $('#menu-principale').panel();
 	  $('#popup-notifiche').enhanceWithin().popup();
 	}
 	
@@ -124,6 +126,7 @@
 	 * Accesso
 	 *
 	 * Gestisce le procedure di accesso dell'utente registrato.
+	 * - Proprietario e opt-in;
 	 */
 	function accedi() {
 	  $('#accedi-login').on('vclick tap', function () {
@@ -143,9 +146,15 @@
 	 * Gestisce le funzionalità di aggiunta degli elementi descrittivi
 	 * nel profilo utente
 	 */
-	function aggiungiEsperienze() {}
-	// TODO: Caricamento/Memorizzazione stato/dati su DB
-	
+	function aggiungiEsperienze() {
+	  $('[data-name="esperienze"]').on('vclick tap', function () {
+	    $('#aggiungi-esperienza-popup h2').html('Aggiungi Esperienza');
+	  });
+	  $('[data-name="qualifiche"]').on('vclick tap', function () {
+	    $('#aggiungi-esperienza-popup h2').html('Aggiungi Qualifica');
+	  });
+	  // TODO: Caricamento/Memorizzazione stato/dati su DB
+	}
 	
 	/**
 	 * Elimina Esperienze
@@ -156,7 +165,7 @@
 	function eliminaEsperienze() {
 	  $('.elimina-esperienza').on('vclick tap', function () {
 	    $(this).parents('.anagrafica-container').remove();
-	    toast('Esperienza eliminata.');
+	    toast('Esperienza eliminata');
 	  });
 	  // TODO: Caricamento/Memorizzazione stato/dati su DB
 	}
@@ -164,28 +173,38 @@
 	/**
 	 * Follow
 	 *
-	 * Gestisce le funzionalità di feed di profili, bacheche, varie ed eventuali
+	 * Gestisce le funzionalità di feed di:
+	 * - Profili;
+	 * - Bacheche;
+	 * - Varie ed eventuali;
 	 */
 	function follow() {
 	  $('#segui-summary').on('vclick tap', function () {
 	    $(this).addClass('seguito');
 	    $(this).html('Seguito');
-	    toast('Profilo seguito.');
-	    /*
-	    TODO: Verificare condizione
-	    if ($(this).hasClass('seguito')) {
+	    toast('Profilo seguito');
+	    // TODO: Verificare condizione
+	    /* if (!$(this).hasClass('seguito')) {
 	      $(this).addClass('seguito');
 	      $(this).html('Seguito');
-	      toast('Profilo seguito.')
+	      toast('Profilo seguito');
 	    } else {
 	      $(this).removeClass('seguito');
 	      $(this).html('Segui');
-	      toast('Profilo rimosso.')
-	    }
-	    */
+	      toast('Profilo rimosso');
+	    }*/
 	  });
 	  // TODO: Caricamento/Memorizzazione stato/dati su DB
 	}
+	
+	/**
+	 * Modifica Profilo
+	 *
+	 * Gestisce la modifica dei dati personali
+	 */
+	function modificaProfilo() {}
+	// TODO: Caricamento/Memorizzazione stato/dati su DB
+	
 	
 	/**
 	 * Multimedia - Popup
@@ -199,9 +218,72 @@
 	    $('#multimedia-popup').removeClass('ui-overlay-shadow');
 	  });
 	  $('.like-popup a').on('vclick tap', function () {
-	    $(this).toggleClass('a fa-thumbs-up');
+	    // TODO: Verificare metodo - toggle buggato?
+	    $('i', this).toggleClass('a fa-thumbs-up');
 	  });
 	  // TODO: Caricamento/Memorizzazione stato/dati su DB
+	}
+	
+	/**
+	 * Notifiche
+	 *
+	 * Gestisce il sistema di notifiche.
+	 * - Stati di ricezione e lettura;
+	 * - Aspetto;
+	 */
+	function notifiche() {
+	  /* TODO: Riattivare stati in fase back-end
+	  * Output automatico dei messaggi di notifica in base all'azione
+	  * Al trigger di un evento viene invocata la proprietà corrispondente
+	  * e resa come testo in notifica.
+	  * Legenda:
+	  * evento -> .evento-notifica
+	  ** like -> .social-keyword
+	  * oggetto -> .oggetto-notifica
+	  let stati = {
+	    'evento': {
+	      'azione': {
+	        'messo': 'ha messo',
+	        'like': 'mi piace'
+	      },
+	      'commento': 'ha commentato',
+	      'valutazione': {
+	        'voto': 'ti ha valutato'
+	      },
+	      'aggiornamento': 'ha aggiornato',
+	      'pubblicazione': 'ha pubblicato',
+	      'modifica': 'ha modificato',
+	      'follow': {
+	        'segue': 'ora segue',
+	        'seguito': 'ti segue'
+	      },
+	      'messaggio': {
+	        'ricevuto': 'ti ha mandato un messaggio'
+	      }
+	    },
+	    'oggetto': {
+	      'like-foto': 'alla tua foto',
+	      'like-foto-utente': 'alla sua foto',
+	      'like-video': 'al tuo video',
+	      'like-video-utente': 'al suo video',
+	      'commento-foto': 'la tua foto',
+	      'commento-foto-utente': 'la sua foto',
+	      'commento-video': 'il tuo video',
+	      'commento-video-utente': 'il suo video',
+	      'aggiornamento-avatar': 'la sua foto del profilo',
+	      'aggiornamento-nome': 'il suo nome',
+	      'aggiornamento-eta': 'la sua età',
+	      'aggiornamento-citta': 'la sua città',
+	      'pubblicazione-esperienza': 'una nuova esperienza',
+	      'pubblicazione-qualifica': 'una nuova qualifica',
+	      'pubblicazione-foto': 'una nuova foto',
+	      'pubblicazione-video: 'un nuovo video',
+	      'modifica-foto': 'una sua foto',
+	      'modifica-video': 'un suo video'
+	    }
+	  };
+	  */
+	  $('.link-notifica[data-state="unread"] .notifica-container').addClass('sfondo-accento');
 	}
 	
 	/**
@@ -236,16 +318,7 @@
 	        window.localStorage.setItem('tour', 'disattivo');
 	      });
 	    }
-	  } else {
-	    $('cookies-alert').addClass('cookies-avviso');
-	    $('cookies-alert').popup('open', {
-	      transition: 'fade'
-	    });
-	    setTimeout(function () {
-	      $('cookies-alert').popup('close');
-	      $('cookies-alert').removeClass('cookies-avviso');
-	    }, 3000);
-	  }
+	  } else toast('Cookies disabilitati. Alcune funzioni sono disattivate');
 	}
 	
 	/**
@@ -264,22 +337,13 @@
 	        $('#splash').remove();
 	      }, 3000);
 	    }
-	  } else {
-	    $('cookies-alert').addClass('cookies-avviso');
-	    $('cookies-alert').popup('open', {
-	      transition: 'fade'
-	    });
-	    setTimeout(function () {
-	      $('cookies-alert').popup('close');
-	      $('cookies-alert').removeClass('cookies-avviso');
-	    }, 3000);
-	  }
+	  } else toast('Cookies disabilitati. Alcune funzioni sono disattivate');
 	}
 	
 	/**
 	 * Toast
 	 * @param {string} messaggio - Testo della notifica
-	 * Gestisce le notifiche al volo in popup
+	 * Gestisce le notifiche di sistema.
 	 */
 	function toast(messaggio) {
 	  $('<div id="toast" ' + 'class="ui-loader ui-overlay-shadow ui-body-a ui-corner-all"><h3>' + messaggio + '</h3></div>').css({
@@ -301,7 +365,7 @@
 	/**
 	 * Valutazione
 	 * Gestisce le interazioni con il sistema di valutazione utente:
-	 * - Selezione e aspetto
+	 * - Selezione e aspetto;
 	 */
 	function valutazione() {
 	  $('.stella').hover(function () {
@@ -316,7 +380,7 @@
 	    $('.stella').removeClass('stella-attiva stella-attiva-click');
 	    $(this).addClass('stella-attiva stella-attiva-click');
 	    $(this).prevAll().addClass('stella-attiva stella-attiva-click');
-	    toast('Votazione effettuata.');
+	    toast('Votazione effettuata');
 	  });
 	  // TODO: Caricamento/Memorizzazione stato/dati su DB
 	}

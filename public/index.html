@@ -13,12 +13,9 @@
 <link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.min.css">
 <!--TODO: Eliminare il protocollo in produzione-->
 <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
-<script 
-  src="https://code.jquery.com/jquery-2.1.4.min.js" 
-  integrity="sha256-8WqyJLuWKRBVhxXIL1jBDD7SDxU936oZkCnxQbWwJVw=" 
-  crossorigin="anonymous"></script>
-<script src="js/bundle.js"></script>
+<script src="js/jquery-2.1.4.min.js"></script>
 <script src="js/jquery.mobile-1.4.5.min.js"></script>
+<script src="js/bundle.js"></script>
 <style>
   /* FOUC Fix */
   body { 
@@ -225,14 +222,14 @@
   <!--Inizio Header-->
   <div data-role="header" id="header" data-position="fixed">
     <div id="icona-menu"> 
-      <a id="hamburger" href="#" class="ui-btn ui-btn-icon-notext"></a>
+      <a id="hamburger" href="#menu-principale" class="ui-btn ui-btn-icon-notext"></a>
     </div>
     <div id="logo-header"></div>
     <div id="icona-toolbar"> 
       <a id="toolbar-pulsante" href="#popup-toolbar-profilo" class="ui-btn ui-btn-icon-notext" data-rel="popup"></a>
     </div>
     <div id="icona-notifiche"> 
-      <a id="notifiche-pulsante" href="#profilo" class="ui-btn ui-btn-icon-notext"></a>
+      <a id="notifiche-pulsante" href="#notifiche" class="ui-btn ui-btn-icon-notext"></a>
     </div>
   </div>
   <!--Fine Header-->
@@ -340,7 +337,7 @@
         </div>
       </div>
     </div>
-    <a href="#aggiungi-esperienza-popup" data-rel="popup" data-position-to="window" data-transition="pop">
+    <a href="#aggiungi-esperienza-popup" data-rel="popup" data-position-to="window" data-transition="pop" data-name="esperienze">
       <button class="aggiungi-esperienza ui-btn ui-icon-plus ui-btn-icon-right" type="button">Aggiungi Esperienza</button>
     </a>
   </div>
@@ -384,7 +381,7 @@
         </div>
       </div>
     </div>
-    <a href="#aggiungi-esperienza-popup" data-rel="popup" data-position-to="window" data-transition="pop">
+    <a href="#aggiungi-esperienza-popup" data-rel="popup" data-position-to="window" data-transition="pop" data-name="qualifiche">
       <button class="aggiungi-esperienza ui-btn ui-icon-plus ui-btn-icon-right" type="button">Aggiungi Qualifica</button>
     </a>
   </div>
@@ -471,6 +468,7 @@
   </div>
   <!--Fine Luoghi-->
   <!--Inizio Following-->
+  <!--TODO: Aggiornare i links ai profili degli utenti seguiti-->
   <div id="following" class="custom-corners">
     <div class="ui-bar ui-bar-a">
       <h2 class="titolo-sezione">Persone che seguo</h2>
@@ -505,10 +503,12 @@
             </div>
           </div>
         </a>
+      </div>
     </div>
   </div>
   <!--Fine Following-->
   <!--Inizio Followers-->
+  <!--TODO: Aggiornare i links ai profili degli utenti seguaci-->
   <div id="followers" class="custom-corners">
     <div class="ui-bar ui-bar-a">
       <h2 class="titolo-sezione">Persone che mi seguono</h2>
@@ -588,40 +588,99 @@
   <!--Inizio Header-->
   <div data-role="header" id="header">
     <div id="icona-menu"> 
-      <a id="hamburger" href="#" class="ui-btn ui-btn-icon-notext"></a>
+      <a id="hamburger" href="#menu-principale" class="ui-btn ui-btn-icon-notext"></a>
     </div>
     <div id="logo-header"></div>
-    <div id="icona-toolbar"> 
-      <a id="toolbar-pulsante" href="#popup-toolbar-profilo" class="ui-btn ui-btn-icon-notext" data-rel="popup"></a>
-    </div>
     <div id="icona-notifiche"> 
       <a id="notifiche-pulsante" href="#notifiche" class="ui-btn ui-btn-icon-notext"></a>
     </div>
   </div>
   <!--Fine Header-->
+  <!--Inizio Form-->
+  <div id="header-modifica" class="ui-bar sfondo-accento">
+    <h2>Modifica Profilo</h2>
+  </div>
+  <div class="ui-body ui-body-a">
+    <form id="form-modifica-profilo" autocomplete="on" accept-charset="utf-8" data-ajax="false">
+        <label>Carica Avatar:</label>
+        <span class="maschera-sfoglia">Sfoglia...</span>
+        <label for="avatar-modifica">Seleziona immagine</label>
+        <input type="file" name="avatar-modifica" id="avatar-modifica" placeholder="Selezionare immagine" value="">
+        <label for="nome-modifica">Nome e Cognome:</label>
+        <input type="text" name="nome-modifica" id="nome-modifica" placeholder="Inserire Nome e Cognome" value="">
+        <label for="eta-modifica">Età:</label>
+        <input type="text" name="eta-modifica" id="eta-modifica" placeholder="Inserire l'età'" value="">
+        <label for="luogo-modifica">Città/Luogo:</label>
+        <input type="text" name="luogo-modifica" id="luogo-modifica" placeholder="Inserire la città" value="">
+      <button type="submit" id="invia-modifica" class="ui-btn">MODIFICA</button>
+    </form>
+    <a href="#profilo" class="ui-btn">ANNULLA</a>
+  </div>
+  <!--Fine Form-->
 </div>
 <!--Fine Modifica Profilo-->
 <!--Inizio Notifiche-->
-<!--Fine Notifiche-->
 <div data-role="page" data-theme="a" id="notifiche">
   <!--Inizio Header-->
   <div data-role="header" id="header">
     <div id="icona-menu"> 
-      <a id="hamburger" href="#" class="ui-btn ui-btn-icon-notext"></a>
+      <a id="hamburger" href="#menu-principale" class="ui-btn ui-btn-icon-notext"></a>
     </div>
     <div id="logo-header"></div>
-    <div id="icona-toolbar"> 
-      <a id="toolbar-pulsante" href="#popup-toolbar-profilo" class="ui-btn ui-btn-icon-notext" data-rel="popup"></a>
-    </div>
     <div id="icona-notifiche"> 
-      <a id="notifiche-pulsante" href="#notifiche" class="ui-btn ui-btn-icon-notext"></a>
+      <a data-rel="back" class="i-btn ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-notext"></a>
     </div>
   </div>
   <!--Fine Header-->
+  <div id="header-modifica" class="ui-bar sfondo-accento">
+    <h2>Notifiche</h2>
+  </div>
+  <!--TODO: Aggiungere link all'oggetto in evento-->
+  <a class="link-notifica" href="#" title="Visualizza evento da revisionare">
+    <div class="notifica-container">
+      <div class="avatar-notifiche" style="background-image: url(img/avatar-1.png);">
+      </div>
+      <div class="azioni-notifiche">
+        <span class="utente-notifica evidenza">Tiziana Ferrini</span> <span class="evento-notifica">ha messo</span> <span class="social-keyword">mi piace</span> <span class="oggetto-notifica">alla tua foto</span> <span class="destinatario-notifica evidenza"></span>.
+        <div class="timestamp-notifiche">
+          13:40
+        </div>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </a>
+  <a class="link-notifica" href="#" title="Visualizza evento da revisionare" data-state="unread">
+    <div class="notifica-container">
+      <div class="avatar-notifiche" style="background-image: url(img/avatar-2.png);">
+      </div>
+      <div class="azioni-notifiche">
+        <span class="utente-notifica evidenza">Elisa Mariani</span> <span class="evento-notifica">ha aggiornato</span> <span class="social-keyword"></span> <span class="oggetto-notifica">la foto del suo profilo</span> <span class="destinatario-notifica evidenza"></span>.
+        <div class="timestamp-notifiche">
+          13:40
+        </div>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </a>
+  <a class="link-notifica" href="#" title="Visualizza evento da revisionare">
+    <div class="notifica-container">
+      <div class="avatar-notifiche" style="background-image: url(img/avatar-3.png);">
+      </div>
+      <div class="azioni-notifiche">
+        <span class="utente-notifica evidenza">Gianluigi Pedrone</span> <span class="evento-notifica">ora segue</span> <span class="social-keyword"></span> <span class="oggetto-notifica"></span> <span class="destinatario-notifica evidenza">Mario Marreli</span>.
+        <div class="timestamp-notifiche">
+          13:40
+        </div>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </a>
 </div>
-<!--Inizio Popups esterne-->
-<!--Cookies-->
-<div data-role="popup" id="cookies-alert">
-  <p>Cookies disabilitati. Alcune funzioni sono disattivate</p>
+<!--Fine Notifiche-->
+<!--Inizio Menu Principale-->
+<div data-role="panel" id="menu-principale"  data-position="left" data-display="overlay" data-theme="a">
+  <div class="ui-bar ui-bar-a">
+    
+  </div>
 </div>
-<!--Fine Popups esterne-->
+<!--Fine Menu Principale-->
