@@ -627,9 +627,12 @@
       <a id="hamburger" href="#menu-principale" class="ui-btn ui-btn-icon-notext"></a>
     </div>
     <div id="logo-header"></div>
-    <div id="icona-notifiche"> 
-      <a data-rel="back" class="i-btn ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-notext"></a>
-    </div>
+    <div id="icona-chiudi">
+      <a id="chiudi" data-rel="back" class="ui-btn ui-btn-icon-notext"></a>
+    </div>
+    <!--<div id="icona-notifiche"> 
+      <a data-rel="back" class="ui-btn ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-notext"></a>
+    </div>-->
   </div>
   <!--Fine Header-->
   <div id="header-modifica" class="ui-bar sfondo-accento">
@@ -679,8 +682,42 @@
 <!--Fine Notifiche-->
 <!--Inizio Menu Principale-->
 <div data-role="panel" id="menu-principale"  data-position="left" data-display="overlay" data-theme="a">
-  <div class="ui-bar ui-bar-a">
-    
+  <div id="header-menu" class="ui-bar ui-bar-a">
+    <div id="logo-menu"></div>
+    <div id="icona-chiudi">
+      <a id="chiudi" href="#header" data-rel="close"></a>
+    </div>
+  </div>
+  <a href="#bacheca" title="News Feed e riepilogo attività" class="ui-btn ui-icon-grid ui-btn-icon-left link-menu">
+    Bacheca
+  </a>
+  <a href="#profilo" title="Profilo personale - Informazioni e dati" class="ui-btn ui-icon-user ui-btn-icon-left link-menu">
+    Profilo
+  </a>
+  <a href="#check-in" title="Localizzazione e classifiche allenamenti" class="ui-btn ui-icon-location ui-btn-icon-left link-menu">
+    Check-In
+  </a>
+  <a href="#faq" title="Domande frequenti su strumenti e funzioni" class="ui-btn ui-icon-info ui-btn-icon-left link-menu">
+    FAQ
+  </a>
+  <a href="#privacy" title="Informativa sul trattamento dei dati personali" class="ui-btn ui-icon-lock ui-btn-icon-left link-menu">
+    Privacy
+  </a>
+  <a href="#cookies" title="Tracciamento dati sensibili di utilizzo del sistema" class="ui-btn ui-icon-eye ui-btn-icon-left link-menu">
+    Cookies
+  </a>
+  <a href="#note-legali" title="Estremi giuridici e nozioni amministrative" class="ui-btn ui-icon-shop ui-btn-icon-left link-menu">
+    Note Legali
+  </a>
+  <a href="#disclaimer" title="Limitazioni di utilizzo e responsabilità" class="ui-btn ui-icon-forbidden ui-btn-icon-left link-menu">
+    Disclaimer
+  </a>
+  <a href="#licenze" title="Permessi e certficazioni di utilizzo ed esercizio" class="ui-btn ui-icon-tag ui-btn-icon-left link-menu">
+    Licenze
+  </a>
+  <a href="#impostazioni" title="Opzioni di utilizzo del sistema" class="ui-btn ui-icon-gear ui-btn-icon-left link-menu">
+    Impostazioni
+  </a>
   </div>
 </div>
 <!--Fine Menu Principale-->
