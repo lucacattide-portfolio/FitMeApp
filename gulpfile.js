@@ -3,6 +3,7 @@ const del = require('del');
 // const exec = require('child_process').exec;
 const eslint = require('gulp-eslint');
 const webpack = require('webpack-stream');
+const connect = require('gulp-connect');
 
 const paths = {
   allSrcJs: 'src/**/*.js?(x)',
@@ -37,4 +38,12 @@ gulp.task('watch', () => {
   gulp.watch(paths.allSrcJs, ['build']);
 });
 
-gulp.task('default', ['watch', 'build']);
+gulp.task('connect', ['build'], () => {
+  connect.server({
+    root: ['public'],
+    port: 5000,
+    livereload: true,
+  });
+});
+
+gulp.task('default', ['watch', 'build', 'connect']);
