@@ -185,6 +185,21 @@ a:link {
     width: 70px;
   }
 
+  .avatar-post {
+    background-attachment: scroll;
+    background-color: #fff;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 50%;
+    display: inline-block;
+    height: 40px;
+    margin: 0 auto;
+    max-width: 124px;
+    position: relative;
+    width: 40px;
+  }
+
   .azioni-notifiche {
     display: block;
     float: right;
@@ -421,7 +436,8 @@ a:link {
   form input[type='text'], 
   form input[type='number'],
   form input[type='password'],
-  form input[type='file'] {
+  form input[type='file'],
+  form input[data-type='search'] {
     background-color: #fff;
     color: #797979;
     font-size: .9rem;
@@ -438,6 +454,10 @@ a:link {
 
   #form-modifica-profilo .ui-input-text {
     margin-top: -10px;
+  }
+
+  #form-ricerca {
+    margin: -30px auto 0;
   }
 
   .foto-tutorial {
@@ -578,6 +598,10 @@ a:link {
 
   label[for='data-aggiungi-popup'] {
     margin-top: 1em !important;
+  }
+
+  label[for='pubblica'] {
+    color: #FCEA10;
   }
 
   .like-popup {
@@ -817,6 +841,33 @@ a:link {
     padding: 0 1em;
   }
 
+  .post-container {
+    border-bottom: 1px solid #797979;
+    padding: 1em 0;
+  }
+
+  .post-notifiche {
+    display: block;
+    float: right;
+    font-size: .9rem;
+    height: auto;
+    position: relative;
+    width: calc(100% - 64px);
+  }
+
+  #pubblica {
+    background-color: #fff;
+    color: #797979;
+    font-size: .9rem;
+    max-height: 5em;
+    margin-top: 0;
+    padding: .7em; 
+  }
+
+  #pubblica-pulsante {
+    padding: .5em 0;
+  }
+
   #registra-invia {
     margin-bottom: .5em;
   }
@@ -827,6 +878,10 @@ a:link {
 
   #registrazione .ui-input-text {
     margin: -10px 0 0;
+  }
+
+  #ricerca-bacheca {
+    text-indent: 16px;
   }
 
   #segui-summary {
@@ -952,6 +1007,27 @@ a:link {
     text-transform: uppercase;
   }
 
+  .toolbar-cella {
+    border-bottom: 1px solid #000;
+    display: block;
+    position: relative;
+  }
+
+  .toolbar-cella:last-child {
+    border-bottom: none;
+  }
+
+  .toolbar-cella a {
+    display: block;
+    padding: 1em 16px;
+    position: relative;
+  }
+
+  .toolbar-cella a:hover {
+    background-color: #FCEA10;
+    color: #000 !important;
+  }
+
   #toolbar-pulsante {
     background-attachment: scroll;
     background-color: transparent;
@@ -991,6 +1067,10 @@ a:link {
     margin-top: .5em;
     position: relative;
     width: 100%;
+  }
+
+  .vert-divider {
+    padding: 0 8px;
   }
 
   @-webkit-keyframes spinner {

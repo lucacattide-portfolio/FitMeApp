@@ -218,6 +218,58 @@
   </div>
 </div>
 <!--Fine Registrazione-->
+<!--Inizio Bacheca-->
+<div data-role="page" data-theme="a" id="bacheca" class="ui-responsive-panel">
+  <!--Inizio Header-->
+  <div data-role="header" id="header" data-position="fixed">
+    <div id="icona-menu"> 
+      <a id="hamburger" href="#menu-principale" class="ui-btn ui-btn-icon-notext"></a>
+    </div>
+    <div id="logo-header"></div>
+    <div id="icona-toolbar"> 
+      <a id="toolbar-pulsante" href="#popup-toolbar-bacheca" class="ui-btn ui-btn-icon-notext" data-rel="popup"></a>
+    </div>
+    <div id="icona-notifiche"> 
+      <a id="notifiche-pulsante" href="#notifiche" class="ui-btn ui-btn-icon-notext"></a>
+    </div>
+  </div>
+  <!--Fine Header-->
+  <!--Inizio Feed-->
+  <div class="ui-content">
+    <form id="form-ricerca">
+      <input data-type="search" id="ricerca-bacheca" data-filter-placeholder="Cerca...">
+    </form>
+    <div class="post-container">
+      <div class="avatar-post" style="background-image: url(img/avatar-1.png);">
+      </div>
+      <div class="post-notifiche">
+        <form id="form-post-bacheca" autocomplete="on" accept-charset="utf-8" data-ajax="false">
+          <textarea type="textarea" name="pubblica" id="pubblica" required></textarea>
+          <button type="submit" class="ui-btn" id="pubblica-pulsante">Pubblica</button>
+        </form>
+        <div class="tipologie-post">
+          <span><a htef="#" title="Carica foto">Foto</a></span><span class="vert-divider">|</span><span><a href="#" title="Carica video">Video</a></span>
+        </div>
+      </div>
+      <div class="clear"></div>
+    </div>    
+    <div id="feed-container" data-filter="true" data-input="#ricerca-bacheca">
+    </div>
+  </div>
+  <!--Fine Feed-->
+  <!--Inizio Popups-->
+  <!--Toolbar - Bacheca-->
+  <div data-role="popup" id="popup-toolbar-bacheca" data-theme="a">
+    <div class="toolbar-cella">
+      <a href="#ricerca-avanzata" title="Avvia la ricerca avanzata dei contenuti">Ricerca avanzata</a>
+    </div>
+    <div class="toolbar-cella">
+      <a href="#filtro-contenuti" title="Seleziona i contenuti in base alla tipologia">Filtra</a>
+    </div>
+  </div>
+  <!--Fine Popups-->
+</div>
+<!--Fine Bacheca-->
 <!--Inizio Profilo-->
 <div data-role="page" data-theme="a" id="profilo" class="ui-responsive-panel">
   <!--Inizio Header-->

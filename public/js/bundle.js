@@ -268,9 +268,9 @@
 	      lingua = window.localStorage.getItem('linguaImpostazioni');
 	    } else {
 	      // TODO: Cambiare path in produzione
-	      if (window.location === ('file:///android_asset/www/index.html' || 'file:///android_asset/www/index.html#impostazioni')) {
+	      if (window.location === ('http://localhost:5000/index.html' || 'http://localhost:5000/index.html#impostazioni')) {
 	        lingua = 'it';
-	      } else if (window.location === ('file:///android_asset/www/index_en.html' || 'file:///android_asset/www/index_en.html#impostazioni')) {
+	      } else if (window.location === ('http://localhost:5000/index.html/index_en.html' || 'http://localhost:5000/index_en.html#impostazioni')) {
 	        lingua = 'en';
 	      }
 	    }
