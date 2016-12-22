@@ -90,7 +90,7 @@
         "no-throw-literal": 2,         // restrict what can be thrown as an exception (off by default)
         "no-unused-labels": 1,      // disallow unused labels
         "no-with": 2,                  // disallow use of the with statement
-        "no-unused-vars": 2,               // disallow declaration of variables that are not used in the code
+        "no-unused-vars": 1,               // disallow declaration of variables that are not used in the code
         "array-bracket-spacing": 2,          // enforce spacing inside array brackets (off by default)
         "brace-style": 2,                    // enforce one true brace style (off by default)
         "camelcase": 2,                      // require camel case names
