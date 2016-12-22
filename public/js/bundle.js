@@ -50,7 +50,17 @@
 	
 	var _Video2 = _interopRequireDefault(_Video);
 	
+	var _Firebase = __webpack_require__(2);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	// Variabili Globali
+	var linguaPrec = null;
+	var lingua = null;
+	var dntPrec = null;
+	var dnt = null;
+	var cookiesPrec = null;
+	var cookies = null;
 	
 	// Main
 	$(document).ready(function () {
@@ -65,6 +75,7 @@
 	  aggiungiEsperienze();
 	  eliminaEsperienze();
 	  follow();
+	  impostazioni();
 	  modificaProfilo();
 	  multimediaPopup();
 	  notifiche();
@@ -77,6 +88,20 @@
 	// Opacità contenuti (FOUC Fix)
 	$(document).bind('pagecontainershow', function () {
 	  $('body').css('opacity', '1');
+	});
+	
+	// Impostazioni
+	$(document).bind('pagecontainerbeforechange', '#impostazioni', function () {
+	  salva();
+	});
+	$(document).on('pagecreate', '#impostazioni', function () {
+	  document.addEventListener('ready', function () {
+	    opzioni();
+	    salva();
+	  }, false);
+	  $(document).bind('pagecontainerbeforechange', function () {
+	    salva();
+	  });
 	});
 	
 	// Swipe
@@ -129,14 +154,38 @@
 	 * - Proprietario e opt-in;
 	 */
 	function accedi() {
+	  console.log('accedi');
 	  $('#accedi-login').on('vclick tap', function () {
 	    // TODO: Qui avviene l'invio delle informazioni a firebase
 	  });
 	  $('#accedi-facebook').on('vclick tap', function () {
 	    // TODO: Qui avviene l'invio delle informazioni a Facebook
 	  });
-	  $('#accedi-google').on('vclick tap', function () {
-	    // TODO: Qui avviene l'invio delle informazioni a Google
+	  $('#accedi-google').on('vclick', function () {
+	    console.log('provider');
+	    var provider = new firebase.auth.GoogleAuthProvider();
+	    // provider.addScope('https://www.googleapis.com/auth/plus.login');
+	    // provider.setCustomParameters({
+	    //   'login_hint': 'user@example.com'
+	    // });
+	    _Firebase.auth.onAuthStateChanged(function (user) {
+	      console.log('user');
+	      console.log(user);
+	    });
+	    _Firebase.auth.signInWithRedirect(provider);
+	    _Firebase.auth.getRedirectResult().then(function (result) {
+	      if (result.credential) {
+	        // This gives you a Google Access Token.
+	        // You can use it to access the Google API.
+	        var token = result.credential.accessToken;
+	        // ...
+	      }
+	      // The signed-in user info.
+	      var user = result.user;
+	    }).catch(function (error) {
+	      console.log(error);
+	      // TODO: Handle Errors here.
+	    });
 	  });
 	}
 	
@@ -195,6 +244,102 @@
 	    }*/
 	  });
 	  // TODO: Caricamento/Memorizzazione stato/dati su DB
+	}
+	
+	/**
+	 * Impostazioni
+	 *@param {linguaPrec} linguaPrec - Impostazione lingua
+	 precedentemente selezionata;
+	 *@param {lingua} lingua - Lingua attiva;
+	 *@param {dntPrec} dntPrec - Impostazione anti-tracciamento
+	 precedentemente selezionata;
+	 *@param {dnt} dnt - Anti-tracciamento attivo;
+	 *@param {cookiesPrec} cookiesPrec -Impostazione cookies
+	 precedentemente selezionata;
+	 *@param {cookies} cookies - Cookies attivi;
+	 * Gestisce il caricamento ed il salvataggio delle opzioni disponibili.
+	 */
+	function impostazioni() {
+	  linguaPrec = $('#lingua option:selected').val();
+	  dntPrec = $('#dnt option:selected').val();
+	  cookiesPrec = $('#cookies_terze_parti option:selected').val();
+	  if (typeof Storage !== 'undefined') {
+	    if (window.localStorage.getItem('linguaImpostazioni') !== null) {
+	      lingua = window.localStorage.getItem('linguaImpostazioni');
+	    } else {
+	      // TODO: Cambiare path in produzione
+	      if (window.location === ('file:///android_asset/www/index.html' || 'file:///android_asset/www/index.html#impostazioni')) {
+	        lingua = 'it';
+	      } else if (window.location === ('file:///android_asset/www/index_en.html' || 'file:///android_asset/www/index_en.html#impostazioni')) {
+	        lingua = 'en';
+	      }
+	    }
+	    if (window.localStorage.getItem('dntImpostazioni') !== null) {
+	      dnt = window.localStorage.getItem('dntImpostazioni');
+	    } else {
+	      dnt = 'off';
+	    }
+	    if (window.localStorage.getItem('cookiesImpostazioni') !== null) {
+	      cookies = window.localStorage.getItem('cookiesImpostazioni');
+	    } else {
+	      cookies = 'off';
+	    }
+	    if (linguaPrec !== lingua) {
+	      $('#lingua option:selected').removeAttr('selected');
+	    }
+	    if (dntPrec !== dnt) {
+	      $('#dnt option:selected').removeAttr('selected');
+	    }
+	    if (cookiesPrec !== cookies) {
+	      $('#cookies_terze_parti option:selected').removeAttr('selected');
+	    }
+	    if ($('#lingua option[value="' + lingua + '"]').attr('selected') === undefined) {
+	      $('#lingua option[value="' + lingua + '"]').attr('selected', 'selected');
+	    }
+	    if ($('#dnt option[value="' + dnt + '"]').attr('selected') === undefined) {
+	      $('#dnt option[value="' + dnt + '"]').attr('selected', 'selected');
+	    }
+	    if ($('#cookies_terze_parti option[value="' + cookies + '"]').attr('selected') === undefined) {
+	      $('#cookies_terze_parti option[value="' + cookies + '"]').attr('selected', 'selected');
+	    }
+	    if ($('#lingua option[value="' + lingua + '"]:selected').val() === 'on') {
+	      $('#lingua-menu a:contains("' + lingua + '")').addClass('ui-btn-active');
+	    } else {
+	      $('#lingua-menu a:contains("' + lingua + '")').removeClass('ui-btn-active');
+	    }
+	    if ($('#dnt option[value="' + dnt + '"]:selected').val() === 'on') {
+	      $('#dnt').parent('.ui-flipswitch').addClass('ui-flipswitch-active');
+	    } else {
+	      $('#dnt').parent('.ui-flipswitch').removeClass('ui-flipswitch-active');
+	    }
+	    if ($('#cookies_terze_parti option[value="' + cookies + '"]:selected').val() === 'on') {
+	      $('#cookies_terze_parti').parent('.ui-flipswitch').addClass('ui-flipswitch-active');
+	    } else {
+	      $('#cookies_terze_parti').parent('.ui-flipswitch').removeClass('ui-flipswitch-active');
+	    }
+	    $(document).on('change', '#lingua', function () {
+	      lingua = this.value;
+	      window.localStorage.setItem('linguaImpostazioni', lingua);
+	      if (window.localStorage.getItem('linguaImpostazioni') === 'it') {
+	        window.location = 'index.html#impostazioni';
+	      } else if (window.localStorage.getItem('linguaImpostazioni') === 'en') {
+	        window.location = 'index_en.html#impostazioni';
+	      }
+	    });
+	    $(document).on('change', '#dnt', function () {
+	      dnt = this.value;
+	      window.localStorage.setItem('dntImpostazioni', dnt);
+	    });
+	    $(document).on('change', '#cookies_terze_parti', function () {
+	      cookies = this.value;
+	      window.localStorage.setItem('cookiesImpostazioni', cookies);
+	    });
+	    if (window.localStorage.getItem('dntImpostazioni') !== null) {
+	      window.localStorage.removeItem('privacyGeo');
+	    }
+	  } else {
+	    toast('Cookies disabilitati. Alcune funzioni sono disattivate');
+	  }
 	}
 	
 	/**
@@ -304,6 +449,24 @@
 	}
 	
 	/**
+	 * Salvataggio impostazioni
+	 *@param {dnt} dnt - Anti-tracciamento attivo;
+	 *@param {cookiesPrec} cookiesPrec -Impostazione cookies
+	 precedentemente selezionata;
+	 *@param {cookies} cookies - Cookies attivi;
+	 * Gestisce il salvataggio delle opzioni disponibili.
+	 */
+	function salva() {
+	  if (typeof Storage !== 'undefined') {
+	    window.localStorage.setItem('linguaImpostazioni', lingua);
+	    window.localStorage.setItem('dntImpostazioni', dnt);
+	    window.localStorage.setItem('cookiesImpostazioni', cookies);
+	  } else {
+	    toast('Cookies disabilitati. Alcune funzioni sono disattivate');
+	  }
+	}
+	
+	/**
 	 * Salta tour iniziale
 	 *
 	 * Verifica se è il primo avvio od un successivo;
@@ -318,7 +481,9 @@
 	        window.localStorage.setItem('tour', 'disattivo');
 	      });
 	    }
-	  } else toast('Cookies disabilitati. Alcune funzioni sono disattivate');
+	  } else {
+	    toast('Cookies disabilitati. Alcune funzioni sono disattivate');
+	  }
 	}
 	
 	/**
@@ -337,7 +502,9 @@
 	        $('#splash').remove();
 	      }, 3000);
 	    }
-	  } else toast('Cookies disabilitati. Alcune funzioni sono disattivate');
+	  } else {
+	    toast('Cookies disabilitati. Alcune funzioni sono disattivate');
+	  }
 	}
 	
 	/**
@@ -374,7 +541,9 @@
 	      $(this).prevAll().addClass('stella-attiva');
 	    }
 	  }, function () {
-	    if (!$('.stella').hasClass('stella-attiva-click')) $('.stella').removeClass('stella-attiva');
+	    if (!$('.stella').hasClass('stella-attiva-click')) {
+	      $('.stella').removeClass('stella-attiva');
+	    }
 	  });
 	  $('.stella').on('vclick tap', function () {
 	    $('.stella').removeClass('stella-attiva stella-attiva-click');
@@ -481,9 +650,11 @@
 	
 	var store = firebase.storage();
 	var db = firebase.database();
+	var auth = firebase.auth();
 	var TIMESTAMP = firebase.database.ServerValue.TIMESTAMP;
 	// const fileRef = ref.child('test-video.avi');
 	
+	exports.auth = auth;
 	exports.db = db;
 	exports.store = store;
 	exports.TIMESTAMP = TIMESTAMP;

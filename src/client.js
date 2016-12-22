@@ -1,6 +1,14 @@
 import Video from 'Video';
 import {auth} from 'Firebase';
 
+// Variabili Globali
+let linguaPrec = null;
+let lingua = null;
+let dntPrec = null;
+let dnt = null;
+let cookiesPrec = null;
+let cookies = null;
+
 // Main
 $(document).ready(() => {
   console.log('document ready event');
@@ -14,6 +22,7 @@ $(document).ready(() => {
   aggiungiEsperienze();
   eliminaEsperienze();
   follow();
+  impostazioni();
   modificaProfilo();
   multimediaPopup();
   notifiche();
@@ -26,6 +35,20 @@ $(document).ready(() => {
 // Opacità contenuti (FOUC Fix)
 $(document).bind('pagecontainershow', () => {
   $('body').css('opacity', '1');
+});
+
+// Impostazioni
+$(document).bind('pagecontainerbeforechange', '#impostazioni', function() {
+  salva();
+});
+$(document).on('pagecreate', '#impostazioni', function() {
+  document.addEventListener('ready', function() {
+    opzioni();
+    salva();
+  }, false);
+  $(document).bind('pagecontainerbeforechange', function() {
+    salva();
+  });
 });
 
 // Swipe
@@ -171,6 +194,114 @@ function follow() {
 }
 
 /**
+ * Impostazioni
+ *@param {linguaPrec} linguaPrec - Impostazione lingua
+ precedentemente selezionata;
+ *@param {lingua} lingua - Lingua attiva;
+ *@param {dntPrec} dntPrec - Impostazione anti-tracciamento
+ precedentemente selezionata;
+ *@param {dnt} dnt - Anti-tracciamento attivo;
+ *@param {cookiesPrec} cookiesPrec -Impostazione cookies
+ precedentemente selezionata;
+ *@param {cookies} cookies - Cookies attivi;
+ * Gestisce il caricamento ed il salvataggio delle opzioni disponibili.
+ */
+function impostazioni() {
+  linguaPrec = $('#lingua option:selected').val();
+  dntPrec = $('#dnt option:selected').val();
+  cookiesPrec = $('#cookies_terze_parti option:selected').val();
+  if (typeof(Storage) !== 'undefined') {
+    if (window.localStorage.getItem('linguaImpostazioni') !== null) {
+      lingua = window.localStorage.getItem('linguaImpostazioni');
+    } else {
+      // TODO: Cambiare path in produzione
+      if (window.location === (('file:///android_asset/www/index.html')
+      || ('file:///android_asset/www/index.html#impostazioni'))) {
+        lingua = 'it';
+      } else if (window.location === (('file:///android_asset/www/index_en.html')
+      || ('file:///android_asset/www/index_en.html#impostazioni'))) {
+        lingua = 'en';
+      }
+    }
+    if (window.localStorage.getItem('dntImpostazioni') !== null) {
+      dnt = window.localStorage.getItem('dntImpostazioni');
+    } else {
+      dnt = 'off';
+    }
+    if (window.localStorage.getItem('cookiesImpostazioni') !== null) {
+      cookies = window.localStorage.getItem('cookiesImpostazioni');
+    } else {
+      cookies = 'off';
+    }
+    if (linguaPrec !== lingua) {
+      $('#lingua option:selected').removeAttr('selected');
+    }
+    if (dntPrec !== dnt) {
+      $('#dnt option:selected').removeAttr('selected');
+    }
+    if (cookiesPrec !== cookies) {
+      $('#cookies_terze_parti option:selected').removeAttr('selected');
+    }
+    if ($('#lingua option[value="'+ lingua +'"]')
+    .attr('selected') === undefined) {
+      $('#lingua option[value="'+ lingua +'"]').attr('selected', 'selected');
+    }
+    if ($('#dnt option[value="'+ dnt +'"]').attr('selected') === undefined) {
+      $('#dnt option[value="'+ dnt +'"]').attr('selected', 'selected');
+    }
+    if ($('#cookies_terze_parti option[value="'+ cookies +'"]')
+    .attr('selected') === undefined) {
+      $('#cookies_terze_parti option[value="'+ cookies +'"]')
+      .attr('selected', 'selected');
+    }
+    if ($('#lingua option[value="'+ lingua +'"]:selected')
+    .val() === 'on') {
+      $('#lingua-menu a:contains("'+ lingua +'")')
+      .addClass('ui-btn-active');
+    } else {
+      $('#lingua-menu a:contains("'+ lingua +'")')
+      .removeClass('ui-btn-active');
+    }
+    if ($('#dnt option[value="'+ dnt +'"]:selected')
+    .val() === 'on') {
+      $('#dnt').parent('.ui-flipswitch').addClass('ui-flipswitch-active');
+    } else {
+      $('#dnt').parent('.ui-flipswitch').removeClass('ui-flipswitch-active');
+    }
+    if ($('#cookies_terze_parti option[value="'+ cookies +'"]:selected')
+    .val() === 'on') {
+      $('#cookies_terze_parti').parent('.ui-flipswitch')
+      .addClass('ui-flipswitch-active');
+    } else {
+      $('#cookies_terze_parti').parent('.ui-flipswitch')
+      .removeClass('ui-flipswitch-active');
+    }
+    $(document).on('change', '#lingua', function() {
+      lingua = this.value;
+      window.localStorage.setItem('linguaImpostazioni', lingua);
+      if (window.localStorage.getItem('linguaImpostazioni') === 'it') {
+        window.location = 'index.html#impostazioni';
+      } else if (window.localStorage.getItem('linguaImpostazioni') === 'en') {
+        window.location = 'index_en.html#impostazioni';
+      }
+    });
+    $(document).on('change', '#dnt', function() {
+      dnt = this.value;
+      window.localStorage.setItem('dntImpostazioni', dnt);
+    });
+    $(document).on('change', '#cookies_terze_parti', function() {
+      cookies = this.value;
+      window.localStorage.setItem('cookiesImpostazioni', cookies);
+    });
+    if (window.localStorage.getItem('dntImpostazioni') !== null) {
+      window.localStorage.removeItem('privacyGeo');
+    }
+  } else {
+    toast('Cookies disabilitati. Alcune funzioni sono disattivate');
+  }
+}
+
+/**
  * Modifica Profilo
  *
  * Gestisce la modifica dei dati personali
@@ -275,6 +406,24 @@ function registrati() {
   $('#registrati-signup').on('vclick tap', () => {
     // TODO: Qui avviene l'invio delle informazioni a firebase
   });
+}
+
+/**
+ * Salvataggio impostazioni
+ *@param {dnt} dnt - Anti-tracciamento attivo;
+ *@param {cookiesPrec} cookiesPrec -Impostazione cookies
+ precedentemente selezionata;
+ *@param {cookies} cookies - Cookies attivi;
+ * Gestisce il salvataggio delle opzioni disponibili.
+ */
+function salva() {
+  if (typeof(Storage) !== 'undefined') {
+    window.localStorage.setItem('linguaImpostazioni', lingua);
+    window.localStorage.setItem('dntImpostazioni', dnt);
+    window.localStorage.setItem('cookiesImpostazioni', cookies);
+  } else {
+    toast('Cookies disabilitati. Alcune funzioni sono disattivate');
+  }
 }
 
 /**

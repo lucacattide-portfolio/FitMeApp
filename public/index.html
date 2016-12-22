@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="css/fitmeapp.min.css">
 <link rel="stylesheet" href="css/jquery.mobile.icons.min.css">
 <link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.min.css">
+<link rel="icon" type="image/png" href="favicon.png" />
 <!--TODO: Eliminare il protocollo in produzione-->
 <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
 <script src="js/jquery-2.1.4.min.js"></script>
@@ -218,7 +219,7 @@
 </div>
 <!--Fine Registrazione-->
 <!--Inizio Profilo-->
-<div data-role="page" data-theme="a" id="profilo">
+<div data-role="page" data-theme="a" id="profilo" class="ui-responsive-panel">
   <!--Inizio Header-->
   <div data-role="header" id="header" data-position="fixed">
     <div id="icona-menu"> 
@@ -584,7 +585,7 @@
 </div>
 <!--Fine Profilo-->
 <!--Inizio Modifica Profilo-->
-<div data-role="page" data-theme="a" id="modifica-profilo" data-url="modifica-profilo">
+<div data-role="page" data-theme="a" id="modifica-profilo" data-url="modifica-profilo" class="ui-responsive-panel">
   <!--Inizio Header-->
   <div data-role="header" id="header">
     <div id="icona-menu"> 
@@ -620,7 +621,7 @@
 </div>
 <!--Fine Modifica Profilo-->
 <!--Inizio Notifiche-->
-<div data-role="page" data-theme="a" id="notifiche">
+<div data-role="page" data-theme="a" id="notifiche" class="ui-responsive-panel">
   <!--Inizio Header-->
   <div data-role="header" id="header">
     <div id="icona-menu"> 
@@ -680,6 +681,234 @@
   </a>
 </div>
 <!--Fine Notifiche-->
+<!--Inizio FAQ-->
+<div data-role="page" data-theme="a" id="faq" class="ui-responsive-panel">
+  <!--Inizio Header-->
+  <div data-role="header" id="header">
+    <div id="icona-menu"> 
+      <a id="hamburger" href="#menu-principale" class="ui-btn ui-btn-icon-notext"></a>
+    </div>
+    <div id="logo-header"></div>
+    <div id="icona-notifiche"> 
+      <a id="notifiche-pulsante" href="#notifiche" class="ui-btn ui-btn-icon-notext"></a>
+    </div>
+  </div>
+  <!--Fine Header-->
+  <div id="header-modifica" class="ui-bar sfondo-accento">
+    <h2>Domande Frequenti</h2>
+  </div>
+  <!--Inizio Domande-->
+  <div data-role="collapsible">
+    <h4>Cosa posso fare con l'App?</h4>
+    <p class="risposta">I'm the collapsible content. By default I'm closed, but you can click the header to open me.</p>
+  </div>
+  <div data-role="collapsible">
+    <h4>Posso trovare nuovi compagni?</h4>
+    <p class="risposta">I'm the collapsible content. By default I'm closed, but you can click the header to open me.</p>
+  </div>
+  <!--Fine Domande-->
+</div>
+<!--Fine FAQ-->
+<!--Inizio Privacy-->
+<div data-role="page" data-theme="a" id="privacy" class="ui-responsive-panel">
+  <!--Inizio Header-->
+  <div data-role="header" id="header">
+    <div id="icona-menu"> 
+      <a id="hamburger" href="#menu-principale" class="ui-btn ui-btn-icon-notext"></a>
+    </div>
+    <div id="logo-header"></div>
+    <div id="icona-notifiche"> 
+      <a id="notifiche-pulsante" href="#notifiche" class="ui-btn ui-btn-icon-notext"></a>
+    </div>
+  </div>
+  <!--Fine Header-->
+  <div id="header-modifica" class="ui-bar sfondo-accento">
+    <h2>Privacy</h2>
+  </div>
+  <!--Inizio Informativa-->
+  <div class="ui-body ui-body-a">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras lacinia nec massa id bibendum. 
+    Sed lacus est, hendrerit interdum est tincidunt, pulvinar blandit dui. Donec accumsan elit est, 
+    id blandit lorem sollicitudin vel. 
+    Mauris vehicula aliquet convallis. Donec quam erat, rutrum quis nunc pulvinar, euismod elementum nisl. 
+    Etiam finibus in nisl bibendum tempor. Morbi eleifend lorem ac dui feugiat, efficitur ultrices nibh venenatis.
+  </div>
+  <!--Fine Informativa-->
+</div>
+<!--Fine Privacy-->
+<!--Inizio Cookies-->
+<div data-role="page" data-theme="a" id="cookies" class="ui-responsive-panel">
+  <!--Inizio Header-->
+  <div data-role="header" id="header">
+    <div id="icona-menu"> 
+      <a id="hamburger" href="#menu-principale" class="ui-btn ui-btn-icon-notext"></a>
+    </div>
+    <div id="logo-header"></div>
+    <div id="icona-notifiche"> 
+      <a id="notifiche-pulsante" href="#notifiche" class="ui-btn ui-btn-icon-notext"></a>
+    </div>
+  </div>
+  <!--Fine Header-->
+  <div id="header-modifica" class="ui-bar sfondo-accento">
+    <h2>Cookies</h2>
+  </div>
+  <!--Inizio Informativa-->
+  <div class="ui-body ui-body-a">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras lacinia nec massa id bibendum. 
+    Sed lacus est, hendrerit interdum est tincidunt, pulvinar blandit dui. Donec accumsan elit est, 
+    id blandit lorem sollicitudin vel. 
+    Mauris vehicula aliquet convallis. Donec quam erat, rutrum quis nunc pulvinar, euismod elementum nisl. 
+    Etiam finibus in nisl bibendum tempor. Morbi eleifend lorem ac dui feugiat, efficitur ultrices nibh venenatis.
+  </div>
+  <!--Fine Informativa-->
+</div>
+<!--Fine Cookies-->
+<!--Inizio Note Legali-->
+<div data-role="page" data-theme="a" id="note-legali" class="ui-responsive-panel">
+  <!--Inizio Header-->
+  <div data-role="header" id="header">
+    <div id="icona-menu"> 
+      <a id="hamburger" href="#menu-principale" class="ui-btn ui-btn-icon-notext"></a>
+    </div>
+    <div id="logo-header"></div>
+    <div id="icona-notifiche"> 
+      <a id="notifiche-pulsante" href="#notifiche" class="ui-btn ui-btn-icon-notext"></a>
+    </div>
+  </div>
+  <!--Fine Header-->
+  <div id="header-modifica" class="ui-bar sfondo-accento">
+    <h2>Note Legali</h2>
+  </div>
+  <!--Inizio Informativa-->
+  <div class="ui-body ui-body-a">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras lacinia nec massa id bibendum. 
+    Sed lacus est, hendrerit interdum est tincidunt, pulvinar blandit dui. Donec accumsan elit est, 
+    id blandit lorem sollicitudin vel. 
+    Mauris vehicula aliquet convallis. Donec quam erat, rutrum quis nunc pulvinar, euismod elementum nisl. 
+    Etiam finibus in nisl bibendum tempor. Morbi eleifend lorem ac dui feugiat, efficitur ultrices nibh venenatis.
+  </div>
+  <!--Fine Informativa-->
+</div>
+<!--Fine Note Legali-->
+<!--Inizio Disclaimer-->
+<div data-role="page" data-theme="a" id="disclaimer" class="ui-responsive-panel">
+  <!--Inizio Header-->
+  <div data-role="header" id="header">
+    <div id="icona-menu"> 
+      <a id="hamburger" href="#menu-principale" class="ui-btn ui-btn-icon-notext"></a>
+    </div>
+    <div id="logo-header"></div>
+    <div id="icona-notifiche"> 
+      <a id="notifiche-pulsante" href="#notifiche" class="ui-btn ui-btn-icon-notext"></a>
+    </div>
+  </div>
+  <!--Fine Header-->
+  <div id="header-modifica" class="ui-bar sfondo-accento">
+    <h2>Disclaimer</h2>
+  </div>
+  <!--Inizio Informativa-->
+  <div class="ui-body ui-body-a">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras lacinia nec massa id bibendum. 
+    Sed lacus est, hendrerit interdum est tincidunt, pulvinar blandit dui. Donec accumsan elit est, 
+    id blandit lorem sollicitudin vel. 
+    Mauris vehicula aliquet convallis. Donec quam erat, rutrum quis nunc pulvinar, euismod elementum nisl. 
+    Etiam finibus in nisl bibendum tempor. Morbi eleifend lorem ac dui feugiat, efficitur ultrices nibh venenatis.
+  </div>
+  <!--Fine Disclaimer-->
+</div>
+<!--Fine Note Legali-->
+<!--Inizio Licenze-->
+<div data-role="page" data-theme="a" id="licenze" class="ui-responsive-panel">
+  <!--Inizio Header-->
+  <div data-role="header" id="header">
+    <div id="icona-menu"> 
+      <a id="hamburger" href="#menu-principale" class="ui-btn ui-btn-icon-notext"></a>
+    </div>
+    <div id="logo-header"></div>
+    <div id="icona-notifiche"> 
+      <a id="notifiche-pulsante" href="#notifiche" class="ui-btn ui-btn-icon-notext"></a>
+    </div>
+  </div>
+  <!--Fine Header-->
+  <div id="header-modifica" class="ui-bar sfondo-accento">
+    <h2>Licenze</h2>
+  </div>
+  <!--Inizio Informativa-->
+  <div class="ui-body ui-body-a">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras lacinia nec massa id bibendum. 
+    Sed lacus est, hendrerit interdum est tincidunt, pulvinar blandit dui. Donec accumsan elit est, 
+    id blandit lorem sollicitudin vel. 
+    Mauris vehicula aliquet convallis. Donec quam erat, rutrum quis nunc pulvinar, euismod elementum nisl. 
+    Etiam finibus in nisl bibendum tempor. Morbi eleifend lorem ac dui feugiat, efficitur ultrices nibh venenatis.
+  </div>
+  <!--Fine Informativa-->
+</div>
+<!--Fine Licenze-->
+<!--Inizio Impostazioni-->
+<div data-role="page" data-theme="a" id="impostazioni" class="ui-responsive-panel">
+  <!--Inizio Header-->
+  <div data-role="header" id="header">
+    <div id="icona-menu"> 
+      <a id="hamburger" href="#menu-principale" class="ui-btn ui-btn-icon-notext"></a>
+    </div>
+    <div id="logo-header"></div>
+    <div id="icona-notifiche"> 
+      <a id="notifiche-pulsante" href="#notifiche" class="ui-btn ui-btn-icon-notext"></a>
+    </div>
+  </div>
+  <!--Fine Header-->
+  <div id="header-modifica" class="ui-bar sfondo-accento">
+    <h2>Impostazioni</h2>
+  </div>
+  <!--Inizio Opzioni-->
+  <div data-role="content" class="ui-content">
+    <div class="ui-grid-a">
+      <div id="lingua-container" class="ui-block-a">
+        <span>Lingua</span>
+      </div>
+      <div class="ui-block-b">
+        <form>
+          <select name="lingua" id="lingua" data-native-menu="false">
+            <option value="it" selected>Italiano</option>
+            <option value="en">English</option>
+          </select>
+        </form>
+      </div>
+      <hr>
+      <div id="dnt-container" class="ui-block-a">
+        <span>DNT</span>
+      </div>
+      <div class="ui-block-b">
+        <form>
+          <select name="dnt" id="dnt" data-role="flipswitch">
+            <option value="off" selected>Off</option>
+            <option value="on">On</option>
+          </select>
+        </form>
+      </div>
+      <h6>Attiva il sistema anti-tracciamento. Blocca l'esecuzione dei 
+      <span class="straniere">cookies</span> tecnici per l'autorizzazione alla 
+      geolocalizzazione</h6>
+      <hr>
+      <div id="cookies-container" class="ui-block-a">
+        <span class="action">Disattivazione Cookies</span>
+      </div>
+      <div class="ui-block-b">
+        <form class="action">
+          <select name="cookies_terze_parti" id="cookies_terze_parti" data-role="flipswitch">
+            <option value="off" selected>Off</option>
+            <option value="on">On</option>
+          </select>
+        </form>
+      </div> 
+      <h6>Blocca l'esecuzione dei <span class="straniere" lang="en">cookies</span> 
+      di terze parti per l'autenticazione sulla piattaforma di recensione, 
+      l'analisi di utilizzo e l'interazione con gli annunci pubblicitari</h6>
+    </div>
+  </div>
+  <!--Fine Opzioni-->
+</div>
+<!--Fine Impostazioni-->
 <!--Inizio Menu Principale-->
 <div data-role="panel" id="menu-principale"  data-position="left" data-display="overlay" data-theme="a">
   <div id="header-menu" class="ui-bar ui-bar-a">
