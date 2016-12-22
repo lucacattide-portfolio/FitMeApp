@@ -10,7 +10,8 @@ firebase.initializeApp(firebaseConfig);
 
 const store = firebase.storage();
 const db = firebase.database();
+const auth = firebase.auth();
 const TIMESTAMP = firebase.database.ServerValue.TIMESTAMP;
 // const fileRef = ref.child('test-video.avi');
 
-export {db, store, TIMESTAMP};
+export {auth, db, store, TIMESTAMP};

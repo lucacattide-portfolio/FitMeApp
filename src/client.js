@@ -1,4 +1,5 @@
 import Video from 'Video';
+import {auth} from 'Firebase';
 
 // Main
 $(document).ready(() => {
@@ -77,14 +78,38 @@ function inizializza() {
  * - Proprietario e opt-in;
  */
 function accedi() {
+  console.log('accedi');
   $('#accedi-login').on('vclick tap', () => {
     // TODO: Qui avviene l'invio delle informazioni a firebase
   });
   $('#accedi-facebook').on('vclick tap', () => {
     // TODO: Qui avviene l'invio delle informazioni a Facebook
   });
-  $('#accedi-google').on('vclick tap', () => {
-    // TODO: Qui avviene l'invio delle informazioni a Google
+  $('#accedi-google').on('vclick', () => {
+    console.log('provider');
+    const provider = new firebase.auth.GoogleAuthProvider();
+    // provider.addScope('https://www.googleapis.com/auth/plus.login');
+    // provider.setCustomParameters({
+    //   'login_hint': 'user@example.com'
+    // });
+    auth.onAuthStateChanged((user) => {
+      console.log('user');
+      console.log(user);
+    });
+    auth.signInWithRedirect(provider);
+    auth.getRedirectResult().then(function(result) {
+      if (result.credential) {
+        // This gives you a Google Access Token.
+        // You can use it to access the Google API.
+        const token = result.credential.accessToken;
+        // ...
+      }
+      // The signed-in user info.
+      const user = result.user;
+    }).catch(function(error) {
+      console.log(error);
+      // TODO: Handle Errors here.
+    });
   });
 }
 
@@ -259,22 +284,24 @@ function registrati() {
  * Determina la visualizzazione o l'oscuramento del tutorial iniziale.
  */
 function salta() {
-  if (typeof(Storage) !== 'undefined')
+  if (typeof(Storage) !== 'undefined') {
     if (window.localStorage.getItem('tour') !== null) {
       $('.tour').remove();
     } else {
       $('#salta, #avvia').on('vclick tap', () => {
         window.localStorage.setItem('tour', 'disattivo');
       });
-    } else
-      toast('Cookies disabilitati. Alcune funzioni sono disattivate');
+    }
+  } else {
+    toast('Cookies disabilitati. Alcune funzioni sono disattivate');
+  }
 }
 
 /**
  * Splash Screen
  */
 function splashScreen() {
-  if (typeof(Storage) !== 'undefined')
+  if (typeof(Storage) !== 'undefined') {
     if (window.localStorage.getItem('tour') !== null) {
       setTimeout(() => {
         $.mobile.changePage('#accesso', 'fade');
@@ -286,8 +313,9 @@ function splashScreen() {
         $('#splash').remove();
       }, 3000);
     }
-  else
-  toast('Cookies disabilitati. Alcune funzioni sono disattivate');
+  } else {
+    toast('Cookies disabilitati. Alcune funzioni sono disattivate');
+  }
 }
 
 /**
@@ -327,8 +355,9 @@ function valutazione() {
       $(this).prevAll().addClass('stella-attiva');
     }
   }, function() {
-    if (!$('.stella').hasClass('stella-attiva-click'))
+    if (!$('.stella').hasClass('stella-attiva-click')) {
       $('.stella').removeClass('stella-attiva');
+    }
   });
   $('.stella').on('vclick tap', function() {
     $('.stella').removeClass('stella-attiva stella-attiva-click');
