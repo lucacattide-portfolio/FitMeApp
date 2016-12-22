@@ -99,7 +99,8 @@ rules:
   # consistent-return: off        # require return statements to either always or never specify values
   curly:                       # specify curly brace conventions for all control statements
    - error
-   - multi  # Should be 'all' but with an exception for single-line then statements when there's no else clause
+   - multi-line
+   - consistent  # Should be 'all' but with an exception for single-line then statements when there's no else clause
   default-case: error             # require default case in switch statements (off by default)
   dot-location:               # enforces consistent newlines before or after dots (off by default)
    - error

@@ -61,7 +61,8 @@
         "valid-typeof": 2,
         "curly": [
             "2",
-            "multi"
+            "multi-line",
+            "consistent"
         ],
         "default-case": 2,
         "dot-location": [
@@ -71,8 +72,8 @@
         "eqeqeq": 1,
         "guard-for-in": 2,
         "no-alert": 1,
-        "no-caller": 2 ,               
-        "no-case-declarations": 1,     
+        "no-caller": 2 ,
+        "no-case-declarations": 1,
         "no-else-return": 1,           // disallow else after a return in an if (off by default)
         "no-empty-pattern": 1,           // disallow empty destructuring patterns
         "no-eval": 2,                  // disallow use of eval()
@@ -142,7 +143,7 @@
         ],
   "require-jsdoc": {                    // require JSDoc comments
      "2",
-     "require": [ 
+     "require": [
         "FunctionDeclaration": true,
         "MethodDefinition": true,
         "ClassDeclaration": true
