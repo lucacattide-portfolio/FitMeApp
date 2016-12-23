@@ -1,6 +1,6 @@
 @import url(normalize.css);
 @import url(fonts.css);
-@import url(font-awesome.min.css);
+@import url(font-awesome.css);
 
 /* Generale */
 
@@ -32,6 +32,10 @@ a:link {
   -moz-user-select: none;    
   -ms-user-select: none;     
   user-select: none;             
+}
+
+.colore-accento {
+  color: #FCEA10;
 }
 
 .evidenza {
@@ -448,6 +452,14 @@ a:link {
     padding: 0 32px;
   }
 
+  #form-filtro-contenuti label {
+    margin-top: -20px;  
+  }
+
+  #form-filtro-contenuti legend {
+    margin-bottom: 1em;
+  }
+
   #form-modifica-profilo label {
     color: #FCEA10;
   }
@@ -456,8 +468,17 @@ a:link {
     margin-top: -10px;
   }
 
+  #form-post-bacheca {
+    margin-bottom: 0;
+    text-align: right;
+  }
+
   #form-ricerca {
     margin: -30px auto 0;
+  }
+
+  #form-ricerca .ui-input-has-clear {
+    background-color: #fff;
   }
 
   .foto-tutorial {
@@ -577,6 +598,10 @@ a:link {
     width: 100%;
   }
 
+  #invia-filtro {
+    margin-top: -20px;
+  }
+
   label[for='avatar-modifica'] {
     color: #000 !important;
     font-size: .9rem !important;
@@ -604,14 +629,14 @@ a:link {
     color: #FCEA10;
   }
 
+  #legenda-tags {
+    float: right;
+  }
+
   .like-popup {
     bottom: .5em;
     left: .5em;
     position: absolute;
-  }
-
-  .like-popup-icona {
-    display: none;
   }
 
   #lingua-container {
@@ -865,7 +890,9 @@ a:link {
   }
 
   #pubblica-pulsante {
-    padding: .5em 0;
+    display: inline-block;
+    padding: .5em 16px;
+    width: auto;
   }
 
   #registra-invia {
@@ -884,6 +911,10 @@ a:link {
     text-indent: 16px;
   }
 
+  #scrivi-summary {
+    margin-left: 4px;
+  }
+
   #segui-summary {
     margin-right: 4px;
   }
@@ -892,11 +923,6 @@ a:link {
     background-color: #fff !important;
     color: #000 !important;
   }
-
-  #scrivi-summary {
-    margin-left: 4px;
-  }
-
   .separatore {
     background-color: #FCEA10;
     border: 0;
@@ -909,6 +935,10 @@ a:link {
     display: block;
     width: 70%;
     top: .5em;
+  }
+
+  #sesso-modifica-button {
+    margin-bottom: 1.5em;
   }
 
   .skip {
@@ -995,6 +1025,12 @@ a:link {
     width: 100%;
   }
 
+  .tipologie-post {
+    border-bottom: 1px solid #797979;
+    margin-bottom: 1em;
+    padding-bottom: 1em;
+  }
+
   .titolo-sezione {
     color: #FCEA10;
     font-size: 1.1rem;
@@ -1044,6 +1080,10 @@ a:link {
 
   #toolbar-pulsante::after {
     display: none;
+  }
+
+  #tooltip-pubblica li {
+    margin-bottom: 1em;
   }
 
   .tour {

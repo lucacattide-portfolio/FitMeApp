@@ -142,9 +142,20 @@
 	 * Gestisce le inizializzazioni degli elementi front-end.
 	 */
 	function inizializza() {
+	  var placeholder = $('#pubblica').val();
 	  $('body').addClass('ui-alt-icon');
 	  $('#menu-principale').panel();
 	  $('#popup-notifiche').enhanceWithin().popup();
+	  $('#pubblica').focus(function () {
+	    if ($(this).val() === placeholder) {
+	      $(this).val('');
+	    }
+	  });
+	  $('#pubblica').blur(function () {
+	    if ($(this).val() === '') {
+	      $(this).val(placeholder);
+	    }
+	  });
 	}
 	
 	/**
@@ -155,10 +166,10 @@
 	 */
 	function accedi() {
 	  console.log('accedi');
-	  $('#accedi-login').on('vclick tap', function () {
+	  $('#accedi-login').on('vclick', function () {
 	    // TODO: Qui avviene l'invio delle informazioni a firebase
 	  });
-	  $('#accedi-facebook').on('vclick tap', function () {
+	  $('#accedi-facebook').on('vclick', function () {
 	    // TODO: Qui avviene l'invio delle informazioni a Facebook
 	  });
 	  $('#accedi-google').on('vclick', function () {
@@ -196,10 +207,10 @@
 	 * nel profilo utente
 	 */
 	function aggiungiEsperienze() {
-	  $('[data-name="esperienze"]').on('vclick tap', function () {
+	  $('[data-name="esperienze"]').on('vclick', function () {
 	    $('#aggiungi-esperienza-popup h2').html('Aggiungi Esperienza');
 	  });
-	  $('[data-name="qualifiche"]').on('vclick tap', function () {
+	  $('[data-name="qualifiche"]').on('vclick', function () {
 	    $('#aggiungi-esperienza-popup h2').html('Aggiungi Qualifica');
 	  });
 	  // TODO: Caricamento/Memorizzazione stato/dati su DB
@@ -212,7 +223,7 @@
 	 * nel profilo utente
 	 */
 	function eliminaEsperienze() {
-	  $('.elimina-esperienza').on('vclick tap', function () {
+	  $('.elimina-esperienza').on('vclick', function () {
 	    $(this).parents('.anagrafica-container').remove();
 	    toast('Esperienza eliminata');
 	  });
@@ -228,12 +239,8 @@
 	 * - Varie ed eventuali;
 	 */
 	function follow() {
-	  $('#segui-summary').on('vclick tap', function () {
-	    $(this).addClass('seguito');
-	    $(this).html('Seguito');
-	    toast('Profilo seguito');
-	    // TODO: Verificare condizione
-	    /* if (!$(this).hasClass('seguito')) {
+	  $('#segui-summary').on('vclick', function () {
+	    if (!$(this).hasClass('seguito')) {
 	      $(this).addClass('seguito');
 	      $(this).html('Seguito');
 	      toast('Profilo seguito');
@@ -241,7 +248,7 @@
 	      $(this).removeClass('seguito');
 	      $(this).html('Segui');
 	      toast('Profilo rimosso');
-	    }*/
+	    }
 	  });
 	  // TODO: Caricamento/Memorizzazione stato/dati su DB
 	}
@@ -357,14 +364,13 @@
 	 * Gestisce l'apertura dinamica di foto e video a tutto schermo
 	 */
 	function multimediaPopup() {
-	  $('#multimedia a').on('vclick tap', function () {
+	  $('#multimedia a').on('vclick', function () {
 	    var url = $('.foto-video', this).attr('data-url');
 	    $('.multimedia-popup-foto').attr('src', url);
 	    $('#multimedia-popup').removeClass('ui-overlay-shadow');
 	  });
-	  $('.like-popup a').on('vclick tap', function () {
-	    // TODO: Verificare metodo - toggle buggato?
-	    $('i', this).toggleClass('a fa-thumbs-up');
+	  $('.like-popup a').on('vclick', function () {
+	    $('i', this).toggleClass('fa fa-thumbs-up');
 	  });
 	  // TODO: Caricamento/Memorizzazione stato/dati su DB
 	}
@@ -385,7 +391,8 @@
 	  * evento -> .evento-notifica
 	  ** like -> .social-keyword
 	  * oggetto -> .oggetto-notifica
-	  let stati = {
+	  */
+	  var stati = {
 	    'evento': {
 	      'azione': {
 	        'messo': 'ha messo',
@@ -422,12 +429,11 @@
 	      'pubblicazione-esperienza': 'una nuova esperienza',
 	      'pubblicazione-qualifica': 'una nuova qualifica',
 	      'pubblicazione-foto': 'una nuova foto',
-	      'pubblicazione-video: 'un nuovo video',
+	      'pubblicazione-video': 'un nuovo video',
 	      'modifica-foto': 'una sua foto',
 	      'modifica-video': 'un suo video'
 	    }
 	  };
-	  */
 	  $('.link-notifica[data-state="unread"] .notifica-container').addClass('sfondo-accento');
 	}
 	
@@ -437,13 +443,13 @@
 	 * Gestisce le procedure di registrazione dell'utente ospite.
 	 */
 	function registrati() {
-	  $('#registrati-login').on('vclick tap', function () {
+	  $('#registrati-login').on('vclick', function () {
 	    $(':mobile-pagecontainer').pagecontainer('change', '#registrazione', {
 	      transition: 'slide',
 	      reverse: false
 	    }, true, true);
 	  });
-	  $('#registrati-signup').on('vclick tap', function () {
+	  $('#registrati-signup').on('vclick', function () {
 	    // TODO: Qui avviene l'invio delle informazioni a firebase
 	  });
 	}
@@ -477,7 +483,7 @@
 	    if (window.localStorage.getItem('tour') !== null) {
 	      $('.tour').remove();
 	    } else {
-	      $('#salta, #avvia').on('vclick tap', function () {
+	      $('#salta, #avvia').on('vclick', function () {
 	        window.localStorage.setItem('tour', 'disattivo');
 	      });
 	    }
@@ -545,7 +551,7 @@
 	      $('.stella').removeClass('stella-attiva');
 	    }
 	  });
-	  $('.stella').on('vclick tap', function () {
+	  $('.stella').on('vclick', function () {
 	    $('.stella').removeClass('stella-attiva stella-attiva-click');
 	    $(this).addClass('stella-attiva stella-attiva-click');
 	    $(this).prevAll().addClass('stella-attiva stella-attiva-click');

@@ -89,9 +89,20 @@ $(document).on('pagecreate', '.ui-page', () => {
  * Gestisce le inizializzazioni degli elementi front-end.
  */
 function inizializza() {
+  let placeholder = $('#pubblica').val();
   $('body').addClass('ui-alt-icon');
   $('#menu-principale').panel();
   $('#popup-notifiche').enhanceWithin().popup();
+  $('#pubblica').focus(function() {
+    if ($(this).val() === placeholder) {
+      $(this).val('');
+    }
+  });
+  $('#pubblica').blur(function() {
+    if ($(this).val() === '') {
+      $(this).val(placeholder);
+    }
+  });
 }
 
 /**
@@ -102,10 +113,10 @@ function inizializza() {
  */
 function accedi() {
   console.log('accedi');
-  $('#accedi-login').on('vclick tap', () => {
+  $('#accedi-login').on('vclick', () => {
     // TODO: Qui avviene l'invio delle informazioni a firebase
   });
-  $('#accedi-facebook').on('vclick tap', () => {
+  $('#accedi-facebook').on('vclick', () => {
     // TODO: Qui avviene l'invio delle informazioni a Facebook
   });
   $('#accedi-google').on('vclick', () => {
@@ -143,10 +154,10 @@ function accedi() {
  * nel profilo utente
  */
 function aggiungiEsperienze() {
-  $('[data-name="esperienze"]').on('vclick tap', function() {
+  $('[data-name="esperienze"]').on('vclick', function() {
     $('#aggiungi-esperienza-popup h2').html('Aggiungi Esperienza');
   });
-  $('[data-name="qualifiche"]').on('vclick tap', function() {
+  $('[data-name="qualifiche"]').on('vclick', function() {
     $('#aggiungi-esperienza-popup h2').html('Aggiungi Qualifica');
   });
   // TODO: Caricamento/Memorizzazione stato/dati su DB
@@ -159,7 +170,7 @@ function aggiungiEsperienze() {
  * nel profilo utente
  */
 function eliminaEsperienze() {
-  $('.elimina-esperienza').on('vclick tap', function() {
+  $('.elimina-esperienza').on('vclick', function() {
     $(this).parents('.anagrafica-container').remove();
     toast('Esperienza eliminata');
   });
@@ -175,12 +186,8 @@ function eliminaEsperienze() {
  * - Varie ed eventuali;
  */
 function follow() {
-  $('#segui-summary').on('vclick tap', function() {
-    $(this).addClass('seguito');
-    $(this).html('Seguito');
-    toast('Profilo seguito');
-    // TODO: Verificare condizione
-    /* if (!$(this).hasClass('seguito')) {
+  $('#segui-summary').on('vclick', function() {
+    if (!$(this).hasClass('seguito')) {
       $(this).addClass('seguito');
       $(this).html('Seguito');
       toast('Profilo seguito');
@@ -188,7 +195,7 @@ function follow() {
       $(this).removeClass('seguito');
       $(this).html('Segui');
       toast('Profilo rimosso');
-    }*/
+    }
   });
   // TODO: Caricamento/Memorizzazione stato/dati su DB
 }
@@ -316,14 +323,13 @@ function modificaProfilo() {
  * Gestisce l'apertura dinamica di foto e video a tutto schermo
  */
 function multimediaPopup() {
-  $('#multimedia a').on('vclick tap', function() {
+  $('#multimedia a').on('vclick', function() {
     let url = $('.foto-video', this).attr('data-url');
     $('.multimedia-popup-foto').attr('src', url);
     $('#multimedia-popup').removeClass('ui-overlay-shadow');
   });
-  $('.like-popup a').on('vclick tap', function() {
-    // TODO: Verificare metodo - toggle buggato?
-    $('i', this).toggleClass('a fa-thumbs-up');
+  $('.like-popup a').on('vclick', function() {
+    $('i', this).toggleClass('fa fa-thumbs-up');
   });
   // TODO: Caricamento/Memorizzazione stato/dati su DB
 }
@@ -344,26 +350,27 @@ function notifiche() {
   * evento -> .evento-notifica
   ** like -> .social-keyword
   * oggetto -> .oggetto-notifica
+  */
   let stati = {
     'evento': {
       'azione': {
         'messo': 'ha messo',
-        'like': 'mi piace'
+        'like': 'mi piace',
       },
       'commento': 'ha commentato',
       'valutazione': {
-        'voto': 'ti ha valutato'
+        'voto': 'ti ha valutato',
       },
       'aggiornamento': 'ha aggiornato',
       'pubblicazione': 'ha pubblicato',
       'modifica': 'ha modificato',
       'follow': {
         'segue': 'ora segue',
-        'seguito': 'ti segue'
+        'seguito': 'ti segue',
       },
       'messaggio': {
-        'ricevuto': 'ti ha mandato un messaggio'
-      }
+        'ricevuto': 'ti ha mandato un messaggio',
+      },
     },
     'oggetto': {
       'like-foto': 'alla tua foto',
@@ -381,12 +388,11 @@ function notifiche() {
       'pubblicazione-esperienza': 'una nuova esperienza',
       'pubblicazione-qualifica': 'una nuova qualifica',
       'pubblicazione-foto': 'una nuova foto',
-      'pubblicazione-video: 'un nuovo video',
+      'pubblicazione-video': 'un nuovo video',
       'modifica-foto': 'una sua foto',
-      'modifica-video': 'un suo video'
-    }
+      'modifica-video': 'un suo video',
+    },
   };
-  */
   $('.link-notifica[data-state="unread"] .notifica-container')
   .addClass('sfondo-accento');
 }
@@ -397,13 +403,13 @@ function notifiche() {
  * Gestisce le procedure di registrazione dell'utente ospite.
  */
 function registrati() {
-  $('#registrati-login').on('vclick tap', () => {
+  $('#registrati-login').on('vclick', () => {
     $(':mobile-pagecontainer').pagecontainer('change', '#registrazione', {
       transition: 'slide',
       reverse: false,
     }, true, true);
   });
-  $('#registrati-signup').on('vclick tap', () => {
+  $('#registrati-signup').on('vclick', () => {
     // TODO: Qui avviene l'invio delle informazioni a firebase
   });
 }
@@ -437,7 +443,7 @@ function salta() {
     if (window.localStorage.getItem('tour') !== null) {
       $('.tour').remove();
     } else {
-      $('#salta, #avvia').on('vclick tap', () => {
+      $('#salta, #avvia').on('vclick', () => {
         window.localStorage.setItem('tour', 'disattivo');
       });
     }
@@ -508,7 +514,7 @@ function valutazione() {
       $('.stella').removeClass('stella-attiva');
     }
   });
-  $('.stella').on('vclick tap', function() {
+  $('.stella').on('vclick', function() {
     $('.stella').removeClass('stella-attiva stella-attiva-click');
     $(this).addClass('stella-attiva stella-attiva-click');
     $(this).prevAll().addClass('stella-attiva stella-attiva-click');

@@ -236,25 +236,43 @@
   <!--Fine Header-->
   <!--Inizio Feed-->
   <div class="ui-content">
+    <!--Inizio Pubblicazione-->
     <form id="form-ricerca">
-      <input data-type="search" id="ricerca-bacheca" data-filter-placeholder="Cerca...">
+      <input data-type="search" id="ricerca-bacheca" data-filter-placeholder="Cerca..." placeholder="Cerca...">
     </form>
     <div class="post-container">
+      <div class="tipologie-post">
+        <a htef="#" title="Carica foto"><i class="fa fa-camera" aria-hidden="true"></i> Foto</a><span class="vert-divider">|</span><a href="#" title="Carica video"><i class="fa fa-video-camera" aria-hidden="true"></i> Video</a><a id="legenda-tags" href="#tooltip-pubblica" data-rel="popup" data-transition="pop" title="Tags - Legenda categorie contenuti">#Tags</a>
+      </div>
       <div class="avatar-post" style="background-image: url(img/avatar-1.png);">
       </div>
       <div class="post-notifiche">
-        <form id="form-post-bacheca" autocomplete="on" accept-charset="utf-8" data-ajax="false">
-          <textarea type="textarea" name="pubblica" id="pubblica" required></textarea>
+        <form id="form-post-bacheca" autocomplete="on" accept-charset="utf-8" data-ajax="false">          
+          <textarea type="textarea" name="pubblica" id="pubblica" required>Aggiorna il tuo stato...</textarea>
           <button type="submit" class="ui-btn" id="pubblica-pulsante">Pubblica</button>
         </form>
-        <div class="tipologie-post">
-          <span><a htef="#" title="Carica foto">Foto</a></span><span class="vert-divider">|</span><span><a href="#" title="Carica video">Video</a></span>
-        </div>
       </div>
       <div class="clear"></div>
     </div>    
     <div id="feed-container" data-filter="true" data-input="#ricerca-bacheca">
+      <div class="post-container">
+        <div class="avatar-post" style="background-image: url(img/avatar-4.png);">
+        </div>
+        <div class="post-notifiche">
+          <span class="utente-post evidenza">Tiziana Ferrini</span> <span class="evento-post">ha aggiornato</span> <span class="social-keyword"></span> <span class="oggetto-post">lo stato</span> <span class=""> <span class="destinatario-post evidenza"></span>.
+        </div>
+        <div class="clear"></div>
+      </div> 
+      <div class="post-container">
+        <div class="avatar-post" style="background-image: url(img/avatar-3.png);">
+        </div>
+        <div class="post-notifiche">
+          <span class="utente-post evidenza">Elisabetta Alessi</span> <span class="evento-post">ha commentato</span> <span class="social-keyword"></span> <span class="oggetto-post">la foto</span> <span class="destinatario-post evidenza">di Aldo Mariani</span>.
+        </div>
+        <div class="clear"></div>
+      </div> 
     </div>
+    <!--Fine Pubblicazione-->
   </div>
   <!--Fine Feed-->
   <!--Inizio Popups-->
@@ -267,9 +285,63 @@
       <a href="#filtro-contenuti" title="Seleziona i contenuti in base alla tipologia">Filtra</a>
     </div>
   </div>
+  <!--Tags-->
+  <div data-role="popup" id="tooltip-pubblica" class="ui-content" data-theme="a">
+    <ul>
+      <li>
+        <span class="colore-accento">#functional</span> - Fitness e Functional Training
+      </li>
+      <li>
+        <span class="colore-accento">#body</span> - Fitness e BodyBuilding
+      </li>
+      <li>
+        <span class="colore-accento">#calisthenics</span> - Calisthenics
+      </li>
+      <li>
+        <span class="colore-accento">#combat</span> - Combat
+      </li>
+    </ul>
+  </div>
   <!--Fine Popups-->
 </div>
 <!--Fine Bacheca-->
+<!--Inizio Filtro Bacheca-->
+<div data-role="page" data-theme="a" id="filtro-contenuti" data-url="filtro-contenuti" class="ui-responsive-panel">
+  <!--Inizio Header-->
+  <div data-role="header" id="header">
+    <div id="icona-menu"> 
+      <a id="hamburger" href="#menu-principale" class="ui-btn ui-btn-icon-notext"></a>
+    </div>
+    <div id="logo-header"></div>
+    <div id="icona-notifiche"> 
+      <a id="notifiche-pulsante" href="#notifiche" class="ui-btn ui-btn-icon-notext"></a>
+    </div>
+  </div>
+  <!--Fine Header-->
+  <!--Inizio Form-->
+  <div id="header-modifica" class="ui-bar sfondo-accento">
+    <h2>Filtra</h2>
+  </div>
+  <div class="ui-body ui-body-a">
+    <form id="form-filtro-contenuti" autocomplete="on" accept-charset="utf-8" data-ajax="false">
+      <fieldset data-role="controlgroup">
+      <legend>Filtra contenuti per:</legend>
+        <input type="radio" name="filtro-bacheca" id="filtro-1" value="functional-training" checked="checked">
+        <label for="filtro-1">Fitness e Functional Training</label>
+        <input type="radio" name="filtro-bacheca" id="filtro-2" value="body-building">
+        <label for="filtro-2">Fintess e Body Building</label>
+        <input type="radio" name="filtro-bacheca" id="filtro-3" value="calisthenics">
+        <label for="filtro-3">Calisthenics</label>
+        <input type="radio" name="filtro-bacheca" id="filtro-4" value="combat">
+        <label for="filtro-4">Combat</label>
+      </fieldset>
+      <button type="submit" id="invia-filtro" class="ui-btn">FILTRA</button>
+    </form>
+    <a href="#bacheca" class="ui-btn">ANNULLA</a>
+  </div>
+  <!--Fine Form-->
+</div>
+<!--Fine Filtro Bacheca-->
 <!--Inizio Profilo-->
 <div data-role="page" data-theme="a" id="profilo" class="ui-responsive-panel">
   <!--Inizio Header-->
@@ -330,8 +402,16 @@
       <hr class="separatore">
     </div>
     <div class="ui-body sfondo-primario anagrafica-container">
-      <div class="ui-grid-a anagrafica">
+      <div class="ui-grid-b anagrafica">
         <div class="ui-block-a deseleziona">
+          <span class="evidenza">
+            Sesso: 
+          </span>
+          <span>
+            Uomo
+          </span>
+        </div>
+        <div class="ui-block-b deseleziona">
           <span class="evidenza">
             Età: 
           </span>
@@ -661,7 +741,12 @@
         <input type="file" name="avatar-modifica" id="avatar-modifica" placeholder="Selezionare immagine" value="">
         <label for="nome-modifica">Nome e Cognome:</label>
         <input type="text" name="nome-modifica" id="nome-modifica" placeholder="Inserire Nome e Cognome" value="">
-        <label for="eta-modifica">Età:</label>
+        <label for="sesso-modifica">Sesso:</label>
+        <select name="sesso-modifica" id="sesso-modifica">
+          <option value="uomo">Uomo</option>
+          <option value="donna">Donna</option>
+        </select>
+        <label for="eta-modifica">Età:</label>
         <input type="text" name="eta-modifica" id="eta-modifica" placeholder="Inserire l'età'" value="">
         <label for="luogo-modifica">Città/Luogo:</label>
         <input type="text" name="luogo-modifica" id="luogo-modifica" placeholder="Inserire la città" value="">
