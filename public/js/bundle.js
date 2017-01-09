@@ -79,13 +79,13 @@
 	  modificaProfilo();
 	  multimediaPopup();
 	  notifiche();
+	  post();
 	  registrati();
 	  salta();
 	  splashScreen();
 	  valutazione();
 	});
 	
-	// Opacità contenuti (FOUC Fix)
 	$(document).bind('pagecontainershow', function () {
 	  $('body').css('opacity', '1');
 	});
@@ -146,15 +146,22 @@
 	  $('body').addClass('ui-alt-icon');
 	  $('#menu-principale').panel();
 	  $('#popup-notifiche').enhanceWithin().popup();
-	  $('#pubblica').focus(function () {
+	  $('#pubblica').hashtags();
+	  $('#pubblica, .pubblica-commento').focus(function () {
 	    if ($(this).val() === placeholder) {
 	      $(this).val('');
+	      $(this).css('color', '#fff');
 	    }
 	  });
-	  $('#pubblica').blur(function () {
+	  $('#pubblica, .pubblica-commento').blur(function () {
 	    if ($(this).val() === '') {
 	      $(this).val(placeholder);
+	      $(this).css('color', '#3C3C3B');
 	    }
+	  });
+	  $('#ricerca-avanzata').on('vclick', function (e) {
+	    e.preventDefault();
+	    $('#ricerca-avanzata-container').slideDown();
 	  });
 	}
 	
@@ -369,7 +376,20 @@
 	    $('.multimedia-popup-foto').attr('src', url);
 	    $('#multimedia-popup').removeClass('ui-overlay-shadow');
 	  });
-	  $('.like-popup a').on('vclick', function () {
+	  $('.multimedia-post').on('vclick', function () {
+	    var url = $('img', this).attr('src');
+	    // TODO: Inizializzare variabile con path video destinazione
+	    var urlVideo = void 0;
+	    $('#multimedia-post-popup img').remove();
+	    if ($(this).attr('data-ext') === 'foto') {
+	      $('#multimedia-post-popup').append('<img class="multimedia-popup-foto" src="' + url + '" alt="">');
+	    } else if ($(this).attr('data-ext') === 'video') {
+	      $('#multimedia-post-popup video').remove();
+	      $('#multimedia-post-popup').append('<video class="multimedia-popup-video" poster="' + url + '" type="video/mp4" controls>' + '<source src="' + urlVideo + '"</source>' + '</video>');
+	    }
+	    $('#multimedia-post-popup').removeClass('ui-overlay-shadow');
+	  });
+	  $('.like-bacheca a:not(".commenta"), .like-popup a').on('vclick', function () {
 	    $('i', this).toggleClass('fa fa-thumbs-up');
 	  });
 	  // TODO: Caricamento/Memorizzazione stato/dati su DB
@@ -435,6 +455,34 @@
 	    }
 	  };
 	  $('.link-notifica[data-state="unread"] .notifica-container').addClass('sfondo-accento');
+	}
+	
+	/**
+	 * Posting
+	 *
+	 * Gestisce le azioni di pubblicazione degli inputs degli utenti.
+	 * - Bacheca
+	 * -- Status;
+	 * -- Foto;
+	 * -- Video;
+	 */
+	function post() {
+	  $('#post-foto-link').on('vclick', function () {
+	    $('#container-video-sfoglia').slideUp();
+	    $('#container-foto-sfoglia').slideDown();
+	  });
+	  $('#post-video-link').on('vclick', function () {
+	    $('#container-foto-sfoglia').slideUp();
+	    $('#container-video-sfoglia').slideDown();
+	  });
+	  $('.commenta').on('vclick', function () {
+	    $(this).addClass('opaco');
+	    $(this).parent().next().slideDown();
+	  });
+	  $(document).on('pagecontainerchange', function () {
+	    $('.commenta').removeClass('opaco');
+	    $('.container-sfoglia-post, .commenti-bacheca').slideUp();
+	  });
 	}
 	
 	/**
