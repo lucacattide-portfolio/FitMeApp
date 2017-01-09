@@ -1481,6 +1481,14 @@ a:link {
     bottom: 2em;
   }
 
+  label[for='foto-post'], label[for='video-post'] {
+    top: 5.8em;
+  }
+
+  .post-notifiche .maschera-sfoglia {
+    top: 5.3em;
+  }
+
   .skip {
     font-size: 1rem;
   }
