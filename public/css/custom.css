@@ -278,6 +278,29 @@ a:link {
     width: 100%;
   }
 
+  #checkin-form {
+    padding: 1em 16px;
+  }
+
+  #checkin-form h2 {
+    color: #FCEA10;
+    display: inline-block;
+    float: left;
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  #checkin-form hr {
+    border: 1px solid #FCEA10;
+    display: inline-block;
+    float: right;
+    width: 42%;
+  }
+
+  #checkin-form legend {
+    color: #FCEA10;
+  }
+
   #chiudi {
     background-attachment: scroll;
     background-color: #1D1D1D !important;
@@ -346,6 +369,20 @@ a:link {
     position: relative;
   }
 
+  .container-avatar-info {
+    background-attachment: scroll;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: inline-block;
+    height: 62px;
+    float: left;  
+    max-width: 62px;
+    padding-top: .5em;
+    position: relative;
+    width: 62px;
+  }
+
   .container-bullets {
     display: inline-block;
     margin: 0 auto;
@@ -358,14 +395,19 @@ a:link {
     margin-top: 1em;
   }
 
-  .container-links-post {
-    display: inline-block;
-    padding-top: .9em;
+  .container-info {
+    height: auto;
+    max-width: 220px;
+    width: 100%;
   }
 
-  .container-sfoglia-post {
-    display: none;
-    margin-top: -20px;
+  .container-info hr {
+    border: 1px solid #1D1D1D;
+  }
+
+  .container-links-post {
+    display: inline-block;
+    padding-top: .5em;
   }
   
   #container-logo {
@@ -377,6 +419,16 @@ a:link {
     -moz-transform-style: preserve-3d;
     transform-style: preserve-3d;
     width: 100%;
+  }
+
+  .container-sfoglia-post {
+    display: none;
+    margin-top: -20px;
+  }
+
+  .container-sfoglia-post .ui-input-text {
+    background-color: #F7F4F4 !important;
+    border-color: transparent !important;
   }
 
   #container-summary {
@@ -394,12 +446,34 @@ a:link {
     width: 100%;
   }
 
+  .container-training-info {
+    color: #1D1D1D;
+    font-size: .9rem;
+    margin: 1em 0;
+  }
+
   .container-tutorial {
     display: block;
     height: 50%;
     min-height: 50%;
     position: relative;
     width: 100%;
+  }
+
+  .container-user-info {
+    color: #000;
+  }
+
+  .container-user-info .valutazione {
+    padding-left: 78px;
+  }
+
+  .contatta-info {
+    border-radius: 6px;
+    float: right;
+    font-size: .7rem !important;
+    margin: 0 !important;
+    padding: .3em !important;
   }
 
   .contenuti-tutorial {
@@ -430,6 +504,20 @@ a:link {
     line-height: 1.5rem;
     margin: 0;
     position: relative;
+  }
+
+  [data-role='footer'] {
+    text-align: center;
+  }
+
+  [data-role='footer'] a.ui-btn {
+    background-color: #3C3C3B;
+    font-size: 24px;
+    margin: 0;
+  } 
+
+  #distanza-checkin {
+    padding: .2em;
   }
 
   #dnt-container {
@@ -559,7 +647,7 @@ a:link {
 
   #form-ricerca {
     margin: -30px auto 0;
-    padding: 0 1em;
+    padding: 0 1em .5em;
   }
 
   #form-ricerca #range-1a-label {
@@ -722,6 +810,10 @@ a:link {
     width: 100%;
   }
 
+  .indirizzo-info {
+    text-transform: capitalize;
+  }
+
   #invia-filtro {
     margin-top: -20px;
   }
@@ -788,6 +880,11 @@ a:link {
   .like-bacheca a {
     position: relative;
     color: #343434 !important;
+  }
+
+  .like-info {
+    color: #1D1D1D !important;
+    padding-top: .5em;
   }
 
   .like-popup {
@@ -897,6 +994,15 @@ a:link {
     max-width: 45%;
   }
 
+  #mappa {
+    background-color: #ccc;
+    height: auto;
+    margin: 0;
+    min-height: 20em;
+    padding: 0;
+    width: 100%;
+  }
+
   .maschera-sfoglia {
     background-color: #FCEA10;
     border-radius: 6px;
@@ -985,6 +1091,13 @@ a:link {
     vertical-align: middle;
   }
 
+  .nome-info {
+    font-size: 1.2rem;
+    margin: 0;
+    padding-left: 82px;
+    text-transform: capitalize;
+  }
+
   .notifica-container {
     border-bottom: 1px solid #797979;
     padding: .8em 1em;
@@ -1045,7 +1158,7 @@ a:link {
     border-bottom: 1em solid #3C3C3B;
     color: #3C3C3B;
     font-size: .9rem;
-    padding: 1em 0;
+    padding: 0;
   }
 
   .post-container:nth-child(odd) {
@@ -1091,6 +1204,7 @@ a:link {
 
   #pubblica {
     background-color: #fff;
+    border-color: #efefef;
     color: #3C3C3B;
     font-size: .9rem;
     max-height: 5em;
@@ -1112,9 +1226,11 @@ a:link {
   }
 
   #pubblica-pulsante {
+    background-color: #000;
     border-radius: 6px;
     display: inline-block;
     float: right;
+    font-size: .7rem;
     padding: .2em 16px;
     width: auto;
   }
@@ -1159,6 +1275,7 @@ a:link {
     background-color: #fff !important;
     color: #000 !important;
   }
+
   .separatore {
     background-color: #FCEA10;
     border: 0;
@@ -1220,10 +1337,6 @@ a:link {
     display: block;
   }
 
-  #status {
-    background-color: transparent;
-  }
-
   .stella {
     background-attachment: scroll;
     background-color: transparent;
@@ -1269,10 +1382,18 @@ a:link {
     width: 100%;
   }
 
+  .tipo-info {
+    text-transform: capitalize;
+  }
+
   .tipologie-post {
     background-color: #FCEA10;
     margin-bottom: 1em;
     padding: 1em;
+  }
+
+  .titolo-info {
+    padding-left: 20px;
   }
 
   .titolo-sezione {
@@ -1411,6 +1532,10 @@ a:link {
     max-width: 40%;
   }
 
+  #mappa {
+    min-height: 14em;
+  }
+
 }
 
 @media screen and (min-width: 28em) {
@@ -1423,6 +1548,10 @@ a:link {
     width: 64%;
   }
 
+  #mappa {
+    min-height: 17em;
+  }
+
 }
 
 @media screen and (min-width: 30em) {
@@ -1431,12 +1560,20 @@ a:link {
     width: 68%;
   }
 
+  #mappa {
+    min-height: 19em;
+  }
+
 }
 
 @media screen and (min-width: 35em) {
 
   #container-summary {
     width: 72%;
+  }
+
+  #mappa {
+    min-height: 22em;
   }
 
 }
@@ -1449,6 +1586,10 @@ a:link {
 
   #container-summary {
     width: 76%;
+  }
+
+  #mappa {
+    min-height: 25em;
   }
 
 }
@@ -1464,6 +1605,10 @@ a:link {
     padding-bottom: 16.5em;
   }
 
+  #mappa {
+    min-height: 31em;
+  }
+
 }
 
 @media screen and (min-width: 55em) {
@@ -1477,16 +1622,20 @@ a:link {
     padding-bottom: 18em;
   }
 
+  #mappa {
+    min-height: 34em;
+  }
+
 }
 
 @media screen and (max-height: 667px) {
 
-  .post-notifiche .maschera-sfoglia {
-    top: 5.5em;
-  }
-
   label[for='foto-post'], label[for='video-post'] {
     top: 6em;
+  }
+
+  .post-notifiche .maschera-sfoglia {
+    top: 5.5em;
   }
 
 }

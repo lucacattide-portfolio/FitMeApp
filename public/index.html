@@ -6,13 +6,14 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-<meta http-equiv="Content-Security-Policy" content="default-src * data: 'unsafe-eval' 'unsafe-inline'" /> 
+<meta http-equiv="Content-Security-Policy" content="default-src * data: 'unsafe-eval' 'unsafe-inline' Access-Control-Allow-Origin: *" /> 
 <link rel="stylesheet" href="css/custom.css">
 <link rel="stylesheet" href="css/fitmeapp.min.css">
 <link rel="stylesheet" href="css/jquery.mobile.icons.min.css">
 <link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.min.css">
 <link rel="icon" type="image/png" href="favicon.png" />
-<!--TODO: Eliminare il protocollo in produzione-->
+<!--TODO: Eliminare il protocollo in produzione (Solo se si supporta anche l'SSL)-->
+<script id="maps-api" async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDums4cqifOn7NuKQYLhQ2tCNfg78QHeq0&callback=allenamenti"></script>
 <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
 <script src="js/jquery-2.1.4.min.js"></script>
 <script src="js/jquery.mobile-1.4.5.min.js"></script>
@@ -239,7 +240,7 @@
   <!--Inizio Feed-->
   <div id="bacheca-container" class="ui-content">
     <!--Inizio Pubblicazione-->
-    <form id="form-ricerca">
+    <form id="form-ricerca" autocomplete="on" accept-charset="utf-8">
       <input data-type="search" id="ricerca-bacheca" data-filter-placeholder="Cerca..." placeholder="Cerca...">
       <div id="ricerca-avanzata-container">
         <div id="ricerca-bacheca-voto" data-role="rangeslider">
@@ -328,7 +329,7 @@
           <img src="img/prova.jpg" alt="" />
         </a>
         <div class="like-bacheca">
-          <a href="#"><i class="like-popup-icona" aria-hidden="true"></i> Mi piace</a><span class="vert-divider">|</span><a href="#" class="commenta"><i class="fa fa-comment" aria-hidden="true"></i> Commenta</a>
+          <a href="#" class="mi-piace"><i class="like-popup-icona" aria-hidden="true"></i> Mi piace</a><span class="vert-divider">|</span><a href="#" class="commenta"><i class="fa fa-comment" aria-hidden="true"></i> Commenta</a>
         </div>
         <!--Inizio Commenti-->
         <div class="commenti-bacheca">
@@ -379,7 +380,7 @@
             <img src="img/video-1.png" alt="" />
           </a>
           <div class="like-bacheca">
-            <a href="#"><i class="like-popup-icona" aria-hidden="true"></i> Mi piace</a><span class="vert-divider">|</span><a href="#" class="commenta"><i class="fa fa-comment" aria-hidden="true"></i> Commenta</a>
+            <a href="#" class="mi-piace"><i class="like-popup-icona" aria-hidden="true"></i> Mi piace</a><span class="vert-divider">|</span><a href="#" class="commenta"><i class="fa fa-comment" aria-hidden="true"></i> Commenta</a>
           </div>
           <!--Inizio Commenti-->
           <div class="commenti-bacheca">
@@ -426,7 +427,6 @@
   <div data-role="popup" id="multimedia-post-popup" data-overlay-theme="a" data-theme="a" data-corners="false">
     <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Chiudi</a>
     <!--TODO: Aggiungere testo alternativo da nome file via DB-->
-    
   </div>
   <!--Toolbar - Bacheca-->
   <div data-role="popup" id="popup-toolbar-bacheca" data-theme="a">
@@ -540,8 +540,8 @@
           Titolo
         </p>
         <div id="azioni-summary" class="ui-grid-a">
-            <button id="segui-summary" class="ui-btn">Segui</button>
-            <button id="scrivi-summary" class="ui-btn">Scrivi</button>
+          <button id="segui-summary" class="ui-btn">Segui</button>
+          <button id="scrivi-summary" class="ui-btn">Scrivi</button>
         </div>
       </div>
     </div>
@@ -909,6 +909,66 @@
   <!--Fine Form-->
 </div>
 <!--Fine Modifica Profilo-->
+<!--Inizio Check-In-->
+<div data-role="page" data-theme="a" id="checkin" class="ui-responsive-panel">
+  <!--Inizio Header-->
+  <div data-role="header" id="header" data-position="fixed">
+    <div id="icona-menu"> 
+      <a id="hamburger" href="#menu-principale" class="ui-btn ui-btn-icon-notext"></a>
+    </div>
+    <div id="logo-header"></div>
+    <div id="icona-toolbar"> 
+      <a id="toolbar-pulsante" href="#popup-toolbar-checkin" class="ui-btn ui-btn-icon-notext" data-rel="popup"></a>
+    </div>
+    <div id="icona-notifiche"> 
+      <a id="notifiche-pulsante" href="#notifiche" class="ui-btn ui-btn-icon-notext"></a>
+    </div>
+  </div>
+  <!--Fine Header-->
+  <!--Inizio Mappa-->
+  <div role="main" class="ui-content" id="mappa">
+  </div>
+  <!--Fine Mappa-->
+  <!--Inizio Form-->
+  <form id="checkin-form" autocomplete="on" accept-charset="utf-8" data-ajax="false">
+    <h2>Trova Allenamenti</h2>
+    <hr>
+    <div class="ui-field-contain">
+      <label for="categoria-checkin" class="select">Categoria:</label>
+      <select name="categoria-checkin" id="categoria-checkin">
+          <option value="functional-checkin">Fitness e Functional Training</option>
+          <option value="body-building-checkin">Fitness e Body Building</option>
+          <option value="calisthenics-checkin">Calisthenics</option>
+          <option value="combat-checkin">Combat</option>
+      </select>
+    </div>
+    <div class="ui-field-contain">
+      <label for="citta-checkin">Località:</label>
+      <input type="text" name="citta-checkin" id="citta-checkin" value="" placeholder="Inserire una località">
+    </div>
+    <div class="ui-field-contain">
+      <label for="distanza-checkin">Distanza (Km):</label>
+      <input type="range" name="distanza-checkin" id="distanza-checkin" value="10" min="0" max="50" step="5" data-highlight="true">
+    </div>
+    <input type="submit" value="CERCA ALLENAMENTO">
+  </form>
+  <!--Fine Form-->
+  <!--Inizio Footer-->
+  <div data-role="footer" data-position="fixed">
+    <a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i></a>
+    <a href="#"><i class="fa fa-bar-chart" aria-hidden="true"></i></a>
+  </div>
+  <!--Fine Footer-->
+  <!--Inizio Popups-->
+  <!--Toolbar - Check-In-->
+  <div data-role="popup" id="popup-toolbar-checkin" data-theme="a">
+    <div class="toolbar-cella">
+      <a href="#" id="aggiorna-mappa" title="Avvia la localizzazione dei dispositivi segnalati">Aggiorna mappa</a>
+    </div>
+  </div>
+  <!--Fine Popups-->
+</div>
+<!--Fine Check-In-->
 <!--Inizio Notifiche-->
 <div data-role="page" data-theme="a" id="notifiche" class="ui-responsive-panel">
   <!--Inizio Header-->
@@ -1212,7 +1272,7 @@
   <a href="#profilo" title="Profilo personale - Informazioni e dati" class="ui-btn ui-icon-user ui-btn-icon-left link-menu">
     Profilo
   </a>
-  <a href="#check-in" title="Localizzazione e classifiche allenamenti" class="ui-btn ui-icon-location ui-btn-icon-left link-menu">
+  <a href="#checkin" title="Localizzazione e classifiche allenamenti" class="ui-btn ui-icon-location ui-btn-icon-left link-menu">
     Check-In
   </a>
   <a href="#faq" title="Domande frequenti su strumenti e funzioni" class="ui-btn ui-icon-info ui-btn-icon-left link-menu">

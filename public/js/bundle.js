@@ -55,12 +55,22 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	// Variabili Globali
+	// Salvataggio
 	var linguaPrec = null;
 	var lingua = null;
 	var dntPrec = null;
 	var dnt = null;
 	var cookiesPrec = null;
 	var cookies = null;
+	// Check-In
+	var mappa = null;
+	// Milano
+	var defaultLatLng = new google.maps.LatLng(45.4626482, 9.0376489);
+	var latlng = null;
+	var indirizzo = null;
+	// let pulsante = null;
+	var timer = null;
+	var markers = [];
 	
 	// Main
 	$(document).ready(function () {
@@ -73,6 +83,7 @@
 	  inizializza();
 	  accedi();
 	  aggiungiEsperienze();
+	  allenamenti();
 	  eliminaEsperienze();
 	  follow();
 	  impostazioni();
@@ -94,6 +105,11 @@
 	$(document).bind('pagecontainerbeforechange', '#impostazioni', function () {
 	  salva();
 	});
+	$(document).on('pagecreate', '#checkin', function () {
+	  document.addEventListener('ready', function () {
+	    allenamenti();
+	  }, false);
+	});
 	$(document).on('pagecreate', '#impostazioni', function () {
 	  document.addEventListener('ready', function () {
 	    opzioni();
@@ -102,6 +118,9 @@
 	  $(document).bind('pagecontainerbeforechange', function () {
 	    salva();
 	  });
+	});
+	$(document).on('vclick', '#scrivi-summary', function () {
+	  $.mobile.changePage($(this).attr('href'), 'fade');
 	});
 	
 	// Swipe
@@ -224,6 +243,87 @@
 	}
 	
 	/**
+	 * Allenamenti
+	 * Gestisce le procedure di inizializzazione e geolocalizzazione
+	 * dei dispositivi degli utenti:
+	 * - I dati dei marker sono estratti dal file 'allenamenti-callback'
+	 * @param {mappa} mappa - Oggetto mappa visualizzata
+	 */
+	function allenamenti() {
+	  mappa = new google.maps.Map(document.getElementById('mappa'), {
+	    zoom: 12,
+	    center: defaultLatLng,
+	    mapTypeId: google.maps.MapTypeId.ROADMAP
+	  });
+	  $('<script src="js/allenamenti-callback.js"></script>').insertBefore('#maps-api');
+	  $('#aggiorna-mappa').on('vclick', function () {
+	    toast('Mappa aggiornata');
+	  });
+	}
+	window.allenamentiCallback = function (results) {
+	  var _loop = function _loop(i) {
+	    var coords = results.features[i].geometry.coordinates;
+	    var latLng = new google.maps.LatLng(coords[0], coords[1]);
+	    var valutazione = results.features[i].properties.valutazione;
+	    var stelle = null;
+	    switch (valutazione) {
+	      case 1:
+	        stelle = '<span class="stella stella-attiva"></span>';
+	        break;
+	      case 2:
+	        stelle = '<span class="stella stella-attiva"></span>' + '<span class="stella stella-attiva"></span>';
+	        break;
+	      case 3:
+	        stelle = '<span class="stella stella-attiva"></span>' + '<span class="stella stella-attiva"></span>' + '<span class="stella stella-attiva"></span>';
+	        break;
+	      case 4:
+	        stelle = '<span class="stella stella-attiva"></span>' + '<span class="stella stella-attiva"></span>' + '<span class="stella stella-attiva"></span>' + '<span class="stella stella-attiva"></span>';
+	        break;
+	      case 5:
+	        stelle = '<span class="stella stella-attiva"></span>' + '<span class="stella stella-attiva"></span>' + '<span class="stella stella-attiva"></span>' + '<span class="stella stella-attiva"></span>' + '<span class="stella stella-attiva"></span>';
+	        break;
+	      default:
+	        stelle = null;
+	    }
+	    var contentString = '<div id="content">' + '<div id="siteNotice">' + '</div>' + '<div id="bodyContent">' + '<div class="container-info">' + '<div class="container-avatar-info"' + ' style="background-image: url(img/avatar-2.png);"></div>' + '<div class="container-user-info">' + '<h2 class="nome-info">' + results.features[i].properties.nome + ' ' + results.features[i].properties.cognome + '</h2>' + '<span class="titolo-info">Trainer</span>' + '<div class="valutazione">' + stelle + '</div>' + '</div>' + '<div class="container-training-info">' + '<div>Allenamento: ' + '<span class="tipo-info evidenza">' + results.features[i].properties.allenamento + '</span></div>' + '<div>Presso: ' + '<span class="indirizzo-info evidenza">' + results.features[i].properties.indirizzo + '</span></div>' + '</div>' + '<hr>' + '<div class="social-info">' +
+	    /* TODO: Questo like deve comparire in bacheca come un aggiornamento e
+	     * nelle notifiche dell'utente destinatario
+	     */
+	    '<a href="#" class="like-info"><i aria-hidden="true"></i> Mi piace</a>' + '<a href="#chat" class="contatta-info ui-btn ui-btn-inline">CONTATTA</a>' + '</div>' + '</div>' + '</div>' + '</div>';
+	    var infowindow = new google.maps.InfoWindow({
+	      content: contentString,
+	      maxWidth: 220,
+	      minHeight: 186
+	    });
+	    var marker = new google.maps.Marker({
+	      position: latLng,
+	      map: mappa,
+	      title: 'Allenamenti in corso'
+	    });
+	    marker.addListener('click', function () {
+	      infowindow.open(mappa, marker);
+	    });
+	  };
+	
+	  for (var i = 0; i < results.features.length; i++) {
+	    _loop(i);
+	  }
+	  $(document).on('vclick', '.like-info', function () {
+	    if (!$('i', this).hasClass('fa fa-thumbs-up')) {
+	      $('i', this).addClass('fa fa-thumbs-up');
+	      $(this).addClass('opaco');
+	      toast('Hai messo mi piace al workout di ' + $(this).parents('.container-info').find('.nome-info').text());
+	    } else {
+	      $('i', this).removeClass('fa fa-thumbs-up');
+	      $(this).removeClass('opaco');
+	    }
+	  });
+	  $(document).on('vclick', '.contatta-info', function () {
+	    $.mobile.changePage($(this).attr('href'), 'fade');
+	  });
+	};
+	
+	/**
 	 * Elimina Esperienze
 	 *
 	 * Gestisce le funzionalità di cancellazione degli elementi descrittivi
@@ -262,15 +362,15 @@
 	
 	/**
 	 * Impostazioni
-	 *@param {linguaPrec} linguaPrec - Impostazione lingua
+	 * @param {linguaPrec} linguaPrec - Impostazione lingua
 	 precedentemente selezionata;
-	 *@param {lingua} lingua - Lingua attiva;
-	 *@param {dntPrec} dntPrec - Impostazione anti-tracciamento
+	 * @param {lingua} lingua - Lingua attiva;
+	 * @param {dntPrec} dntPrec - Impostazione anti-tracciamento
 	 precedentemente selezionata;
-	 *@param {dnt} dnt - Anti-tracciamento attivo;
-	 *@param {cookiesPrec} cookiesPrec -Impostazione cookies
+	 * @param {dnt} dnt - Anti-tracciamento attivo;
+	 * @param {cookiesPrec} cookiesPrec -Impostazione cookies
 	 precedentemente selezionata;
-	 *@param {cookies} cookies - Cookies attivi;
+	 * @param {cookies} cookies - Cookies attivi;
 	 * Gestisce il caricamento ed il salvataggio delle opzioni disponibili.
 	 */
 	function impostazioni() {
@@ -336,17 +436,29 @@
 	      window.localStorage.setItem('linguaImpostazioni', lingua);
 	      if (window.localStorage.getItem('linguaImpostazioni') === 'it') {
 	        window.location = 'index.html#impostazioni';
+	        toast('Italiano selezionato');
 	      } else if (window.localStorage.getItem('linguaImpostazioni') === 'en') {
 	        window.location = 'index_en.html#impostazioni';
+	        toast('English selected');
 	      }
 	    });
 	    $(document).on('change', '#dnt', function () {
 	      dnt = this.value;
 	      window.localStorage.setItem('dntImpostazioni', dnt);
+	      if (!$(this).parent().hasClass('ui-flipswitch-active')) {
+	        toast('Sistema anti-tracciamento attivato');
+	      } else {
+	        toast('Sistema anti-tracciamento disattivato');
+	      }
 	    });
 	    $(document).on('change', '#cookies_terze_parti', function () {
 	      cookies = this.value;
 	      window.localStorage.setItem('cookiesImpostazioni', cookies);
+	      if (!$(this).parent().hasClass('ui-flipswitch-active')) {
+	        toast('Cookies disattivati');
+	      } else {
+	        toast('Cookies attivati');
+	      }
 	    });
 	    if (window.localStorage.getItem('dntImpostazioni') !== null) {
 	      window.localStorage.removeItem('privacyGeo');
@@ -380,7 +492,7 @@
 	    var url = $('img', this).attr('src');
 	    // TODO: Inizializzare variabile con path video destinazione
 	    var urlVideo = void 0;
-	    $('#multimedia-post-popup img').remove();
+	    $('#multimedia-post-popup img, #multimedia-post-popup video,').remove();
 	    if ($(this).attr('data-ext') === 'foto') {
 	      $('#multimedia-post-popup').append('<img class="multimedia-popup-foto" src="' + url + '" alt="">');
 	    } else if ($(this).attr('data-ext') === 'video') {
@@ -465,6 +577,8 @@
 	 * -- Status;
 	 * -- Foto;
 	 * -- Video;
+	 * TODO: La gestione dei testi predefiniti dei post segue lo stesso sistema
+	 * utilizzato per le notifiche (vedi funzione).
 	 */
 	function post() {
 	  $('#post-foto-link').on('vclick', function () {
@@ -474,6 +588,12 @@
 	  $('#post-video-link').on('vclick', function () {
 	    $('#container-foto-sfoglia').slideUp();
 	    $('#container-video-sfoglia').slideDown();
+	  });
+	  $('.mi-piace').on('vclick', function () {
+	    if ($('i', this).hasClass('fa fa-thumbs-up')) {
+	      $(this).addClass('opaco');
+	      toast('Hai messo mi piace al post di ' + $(this).parents('.post-container').find('.post-notifiche .utente-post').text());
+	    }
 	  });
 	  $('.commenta').on('vclick', function () {
 	    $(this).addClass('opaco');
@@ -504,10 +624,10 @@
 	
 	/**
 	 * Salvataggio impostazioni
-	 *@param {dnt} dnt - Anti-tracciamento attivo;
-	 *@param {cookiesPrec} cookiesPrec -Impostazione cookies
+	 * @param {dnt} dnt - Anti-tracciamento attivo;
+	 * @param {cookiesPrec} cookiesPrec -Impostazione cookies
 	 precedentemente selezionata;
-	 *@param {cookies} cookies - Cookies attivi;
+	 * @param {cookies} cookies - Cookies attivi;
 	 * Gestisce il salvataggio delle opzioni disponibili.
 	 */
 	function salva() {

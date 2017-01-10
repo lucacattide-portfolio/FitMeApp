@@ -190,7 +190,7 @@ rules:
 
   array-bracket-spacing: error          # enforce spacing inside array brackets (off by default)
   brace-style: error                    # enforce one true brace style (off by default)
-  camelcase: error                      # require camel case names
+  camelcase: warn                      # require camel case names
   comma-spacing: error                  # enforce spacing before and after comma
   comma-style: error                    # enforce one true comma style (off by default)
   computed-property-spacing: error      # require or disallow padding inside computed properties (off by default)
