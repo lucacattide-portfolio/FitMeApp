@@ -1085,6 +1085,10 @@ a:link {
     width: 66px;
   }
 
+  #profilo .ui-collapsible-inset .ui-collapsible-heading .ui-btn {
+    margin: 1em 0;
+  }
+
   #pubblica {
     background-color: #fff;
     color: #3C3C3B;
@@ -1471,6 +1475,18 @@ a:link {
   #logo {
     max-width: 282px;
     padding-bottom: 18em;
+  }
+
+}
+
+@media screen and (max-height: 667px) {
+
+  .post-notifiche .maschera-sfoglia {
+    top: 5.5em;
+  }
+
+  label[for='foto-post'], label[for='video-post'] {
+    top: 6em;
   }
 
 }
