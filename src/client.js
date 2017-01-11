@@ -2,7 +2,7 @@ import Video from 'Video';
 import {auth} from 'Firebase';
 
 // Variabili Globali
-// Salvataggio
+// Salvataggio/Caricamento Impostazioni
 let linguaPrec = null;
 let lingua = null;
 let dntPrec = null;
@@ -11,13 +11,9 @@ let cookiesPrec = null;
 let cookies = null;
 // Check-In
 let mappa = null;
-// Milano
+let durata = null;
+// - Milano - Posizione Default
 let defaultLatLng = new google.maps.LatLng(45.4626482, 9.0376489);
-let latlng = null;
-let indirizzo = null;
-// let pulsante = null;
-let timer = null;
-let markers = [];
 
 // Main
 $(document).ready(() => {
@@ -31,6 +27,9 @@ $(document).ready(() => {
   accedi();
   aggiungiEsperienze();
   allenamenti();
+  cercaAllenamenti();
+  controlloCheckIn();
+  creaAllenamenti();
   eliminaEsperienze();
   follow();
   impostazioni();
@@ -43,33 +42,33 @@ $(document).ready(() => {
   splashScreen();
   valutazione();
 });
-
+// FOUC Fix
 $(document).bind('pagecontainershow', () => {
   $('body').css('opacity', '1');
 });
-
+// Check-In
+$(document).on('pagecontainerbeforeshow', '#checkin', function() {
+  document.addEventListener('ready', function() {
+    controlloCheckIn();
+  }, false);
+});
 // Impostazioni
 $(document).bind('pagecontainerbeforechange', '#impostazioni', function() {
+  impostazioni();
   salva();
-});
-$(document).on('pagecreate', '#checkin', function() {
-  document.addEventListener('ready', function() {
-    allenamenti();
-  }, false);
 });
 $(document).on('pagecreate', '#impostazioni', function() {
   document.addEventListener('ready', function() {
-    opzioni();
     salva();
   }, false);
   $(document).bind('pagecontainerbeforechange', function() {
     salva();
   });
 });
+// TODO: Spostare nell'apposita funzione quando pronta
 $(document).on('vclick', '#scrivi-summary', function() {
   $.mobile.changePage($(this).attr('href'), 'fade');
 });
-
 // Swipe
 $(document).on('pagecreate', '.ui-page', () => {
   $(document).on('swipeleft', '[data-role="page"]', function(event) {
@@ -113,22 +112,6 @@ function inizializza() {
   $('#menu-principale').panel();
   $('#popup-notifiche').enhanceWithin().popup();
   $('#pubblica').hashtags();
-  $('#pubblica, .pubblica-commento').focus(function() {
-    if ($(this).val() === placeholder) {
-      $(this).val('');
-      $(this).css('color', '#fff');
-    }
-  });
-  $('#pubblica, .pubblica-commento').blur(function() {
-    if ($(this).val() === '') {
-      $(this).val(placeholder);
-      $(this).css('color', '#3C3C3B');
-    }
-  });
-  $('#ricerca-avanzata').on('vclick', (e) => {
-    e.preventDefault();
-    $('#ricerca-avanzata-container').slideDown();
-  });
 }
 
 /**
@@ -178,6 +161,7 @@ function accedi() {
  *
  * Gestisce le funzionalità di aggiunta degli elementi descrittivi
  * nel profilo utente
+ * - url: localhost non è consentito. Verificare in produzione
  */
 function aggiungiEsperienze() {
   $('[data-name="esperienze"]').on('vclick', function() {
@@ -185,6 +169,58 @@ function aggiungiEsperienze() {
   });
   $('[data-name="qualifiche"]').on('vclick', function() {
     $('#aggiungi-esperienza-popup h2').html('Aggiungi Qualifica');
+  });
+  $(document).on('submit', '#form-aggiungi-popup', () => {
+    if ($('#form-aggiungi-popup input[required]').val().length > 0) {
+      $.ajax({
+        type: 'POST',
+        async: 'true',
+        url: window.location.href + '#profilo',
+        data: $('#form-aggiungi-popup').serializeArray(),
+        beforeSend: function() {
+          $.mobile.loading('show');
+        },
+        complete: function() {
+          $.mobile.loading('hide');
+        },
+        success: function(response) {
+          $(''+
+          '<div id="alfa" class="ui-body sfondo-primario'+
+          'anagrafica-container">'+
+          '<div class="ui-grid-a anagrafica">'+
+          '<div class="ui-block-a deseleziona">'+
+          '<span class="evidenza">'+
+          response[0].titolo +
+          '</span>'+
+          '<p class="palestra-esperienza">'+
+          response[0].presso +
+          '</p>'+
+          '</div>'+
+          '<div class="ui-block-b anno-esperienza">'+
+          '<span>'+
+          response[0].data +
+          '</span>'+
+          '<span href="#"'+
+          'class="ui-btn ui-shadow ui-corner-all ui-icon-delete'+
+          'ui-btn-icon-notext elimina-esperienza">'+
+          '</span>'+
+          '</div>'+
+          '</div>'+
+          '</div>'+
+          '').insertAfter('.esperienze .titolo-sezione');
+          toast('Esperienza aggiunta');
+          $('#form-aggiungi-popup').each(() => {
+            $(this).reset();
+          });
+        },
+        error: function(error) {
+          toast('Errore: '+ error +' - Impossibile aggiungere esperienza');
+        },
+      });
+    } else {
+      toast('Errore: compilare i campi richiesti');
+    }
+    return false;
   });
   // TODO: Caricamento/Memorizzazione stato/dati su DB
 }
@@ -205,13 +241,20 @@ function allenamenti() {
   $('<script src="js/allenamenti-callback.js"></script>')
   .insertBefore('#maps-api');
   $('#aggiorna-mappa').on('vclick', () => {
+    $.mobile.changePage('#checkin');
     toast('Mappa aggiornata');
+  });
+  $('#conferma').on('vclick', () => {
+    window.localStorage.setItem('privacyGeo', 'ok');
   });
 }
 window.allenamentiCallback = function(results) {
   for (let i = 0; i < results.features.length; i++) {
     let coords = results.features[i].geometry.coordinates;
     let latLng = new google.maps.LatLng(coords[0], coords[1]);
+    /**
+     * TODO: Decommentare in fase di integrazione DB.
+     * Stampa automaticamente le stelle in base alla proprietà 'valutazione'
     let valutazione = results.features[i].properties.valutazione;
     let stelle = null;
     switch (valutazione) {
@@ -243,21 +286,43 @@ window.allenamentiCallback = function(results) {
     default:
       stelle = null;
     }
+    */
+    let contatta = null;
+    if (results.features[i].properties.contatta === true) {
+      contatta = '<a href="#chat" '+
+      'class="contatta-info ui-btn ui-btn-inline">CONTATTA</a>';
+    } else {
+      contatta = '';
+    }
     let contentString = '<div id="content">'+
     '<div id="siteNotice">'+
     '</div>'+
     '<div id="bodyContent">'+
     '<div class="container-info">'+
     '<div class="container-avatar-info"'+
-    ' style="background-image: url(img/avatar-2.png);"></div>'+
+    ' style="background-image: url('+
+    results.features[i].properties.avatar +
+    ');"></div>'+
     '<div class="container-user-info">'+
     '<h2 class="nome-info">'+
     results.features[i].properties.nome +' '+
     results.features[i].properties.cognome +
     '</h2>'+
-    '<span class="titolo-info">Trainer</span>'+
+    '<span class="titolo-info">'+
+    results.features[i].properties.tipo +
+    '</span>'+
     '<div class="valutazione">'+
+    // TODO: Eliminare in fase di integrazione DB
+    '<span class="stella stella-attiva"></span>' +
+    '<span class="stella stella-attiva"></span>' +
+    '<span class="stella stella-attiva"></span>' +
+    '<span class="stella stella-attiva"></span>' +
+    '<span class="stella stella-attiva"></span>' +
+    /**
+     * TODO: Decommentare in fase di integrazione DB
+     * Stampa automaticamente le stelle in base alla proprietà 'valutazione'
     stelle +
+    */
     '</div>'+
     '</div>'+
     '<div class="container-training-info">'+
@@ -276,7 +341,7 @@ window.allenamentiCallback = function(results) {
      * nelle notifiche dell'utente destinatario
      */
     '<a href="#" class="like-info"><i aria-hidden="true"></i> Mi piace</a>'+
-    '<a href="#chat" class="contatta-info ui-btn ui-btn-inline">CONTATTA</a>'+
+    contatta +
     '</div>'+
     '</div>'+
     '</div>'+
@@ -286,11 +351,8 @@ window.allenamentiCallback = function(results) {
       maxWidth: 220,
       minHeight: 186,
     });
-    let marker = new google.maps.Marker({
-      position: latLng,
-      map: mappa,
-      title: 'Allenamenti in corso',
-    });
+    let marker = creaMarker(latLng, mappa,
+    results.features[i].properties.indirizzo);
     marker.addListener('click', function() {
       infowindow.open(mappa, marker);
     });
@@ -312,6 +374,139 @@ window.allenamentiCallback = function(results) {
 };
 
 /**
+ * Crea Marker
+ *
+ * Gestisce le procedure di creazione e rimozione dinamica
+ * dei marker della mappa
+ * @param {latLng} latLng - Coordinate di posizione
+ * @param {mappa} mappa - Oggetto mappa
+ * @return {marker} marker - Oggetto Marker generato
+ */
+function creaMarker(latLng, mappa) {
+  let marker = new google.maps.Marker({
+    position: latLng,
+    map: mappa,
+    icon: '../img/marker-mappa.png',
+    title: 'Allenamenti in corso',
+  });
+  if (durata !== null) {
+    setTimeout(function() {
+      marker.setMap(null);
+      delete marker.position;
+      delete marker.map;
+      delete marker.icon;
+      delete marker.title;
+    }, durata);
+  }
+  return marker;
+}
+
+/**
+ * Cerca Allenamenti
+ *
+ * Gestisce le procedure di ricerca e filtraggio degli allenamenti attivi
+ */
+function cercaAllenamenti() {
+  // TODO: Caricamento/Memorizzazione stato/dati su DB
+}
+
+/**
+ * Crea Allenamenti
+ *
+ * Gestisce le procedure di aggiunta deu nuovi allenamenti sulla mappa
+ * - url: localhost non è consentito. Verificare in produzione
+ */
+function creaAllenamenti() {
+  $(document).on('submit', '#form-checkin-crea', () => {
+    if ($('#form-checkin-crea input[required]').val().length > 0) {
+      durata = $('durata-checkin-crea').val();
+      $.ajax({
+        type: 'POST',
+        async: 'true',
+        url: window.location.href + '#checkin',
+        data: $('#form-checkin-crea').serializeArray(),
+        beforeSend: function() {
+          $.mobile.loading('show');
+        },
+        complete: function() {
+          $.mobile.loading('hide');
+        },
+        success: function(response) {
+          allenamentiCallback.features.push(
+            {
+              'type': 'Feature',
+              'properties': {
+                // TODO: Sostituire inputs con dati dell'utente attivo da DB
+                'avatar': '../img/avatar.png',
+                'nome': 'Pippo',
+                'cognome': 'Baudo',
+                'tipo': 'Fitter',
+                'valutazione': '3',
+                'allenamento': response[0].categoria-checkin-crea,
+                'indirizzo': response[0].localita-checkin-crea,
+                'durata': response[0].durata-checkin-crea * 60000,
+                'contatta': response[0].contatta-checkin-crea,
+              },
+              'geometry': {
+                'type': 'Point',
+                'coordinates': estraiCoordinate(response[0]
+                .localita-checkin-crea),
+              },
+            }
+          );
+          $.mobile.changePage('#checkin', 'fade');
+          toast('Allenamento creato');
+          $('#form-checkin-crea').each(() => {
+            $(this).reset();
+          });
+        },
+        error: function(error) {
+          toast('Errore: '+ error +' - Impossibile creare allenamento');
+        },
+      });
+    } else {
+      toast('Errore: compilare i campi richiesti');
+    }
+    return false;
+  });
+  // TODO: Caricamento/Memorizzazione stato/dati su DB
+}
+
+/**
+ * Controllo Checkin
+ *
+ * Gestisce le procedure di attivazione e disattivazione
+ * della geolocalizzazione in base alle impostazioni selezionate
+ */
+function controlloCheckIn() {
+  if (typeof(Storage) === 'undefined') {
+    toast('Cookies disabilitati. Alcune funzioni sono disattivate');
+  } else {
+    if ((window.localStorage.getItem('dntImpostazioni') === null) ||
+    (window.localStorage.getItem('dntImpostazioni') === 'off')) {
+      if ((window.localStorage.getItem('privacyGeo') === null)) {
+        $('#checkin-pulsante').attr({
+          'href': '#consenso',
+          'data-rel': 'popup',
+          'data-position-to': 'window',
+          'data-transition': 'pop',
+        });
+      } else {
+        $('#checkin-pulsante').attr('href', '#checkin-crea')
+        .removeAttr('data-rel data-position-to data-transition');
+      }
+    } else {
+      $('#checkin-pulsante').attr({
+        'href': '#avviso-dnt',
+        'data-rel': 'popup',
+        'data-position-to': 'window',
+        'data-transition': 'pop',
+      });
+    }
+  }
+}
+
+/**
  * Elimina Esperienze
  *
  * Gestisce le funzionalità di cancellazione degli elementi descrittivi
@@ -323,6 +518,30 @@ function eliminaEsperienze() {
     toast('Esperienza eliminata');
   });
   // TODO: Caricamento/Memorizzazione stato/dati su DB
+}
+
+/**
+ * Estrai Coordinate
+ *
+ * Gestisce le funzionalità di estrazione di coordinate geografiche
+ * a partire da un indirizzo
+ * @param {localita} localita - Indirizzo inseito dall'utente
+ */
+function estraiCoordinate(localita) {
+  let geocoder = new google.maps.Geocoder();
+  let indirizzo = null;
+  geocoder.geocode({
+    'address': localita,
+  }, function(results, status) {
+    if (status === google.maps.GeocoderStatus.OK) {
+      let latitudine = results[0].geometry.location.lat();
+      let longitudine = results[0].geometry.location.lng();
+      indirizzo = '['+ latitudine +', '+ longitudine +']';
+    } else {
+      toast('Errore: Impossibile localizzare il dispositivo');
+    }
+    return indirizzo;
+  });
 }
 
 /**
@@ -446,9 +665,9 @@ function impostazioni() {
       dnt = this.value;
       window.localStorage.setItem('dntImpostazioni', dnt);
       if (!$(this).parent().hasClass('ui-flipswitch-active')) {
-        toast('Sistema anti-tracciamento attivato');
+        toast('Sistema anti-tracciamento disttivato');
       } else {
-        toast('Sistema anti-tracciamento disattivato');
+        toast('Sistema anti-tracciamento attivato');
       }
     });
     $(document).on('change', '#cookies_terze_parti', function() {
@@ -460,7 +679,8 @@ function impostazioni() {
         toast('Cookies attivati');
       }
     });
-    if (window.localStorage.getItem('dntImpostazioni') !== null) {
+    if (window.localStorage.getItem('dntImpostazioni') !== null ||
+    window.localStorage.getItem('dntImpostazioni') !== 'off') {
       window.localStorage.removeItem('privacyGeo');
     }
   } else {
@@ -472,8 +692,45 @@ function impostazioni() {
  * Modifica Profilo
  *
  * Gestisce la modifica dei dati personali
+ * - url: localhost non è consentito. Verificare in produzione
  */
 function modificaProfilo() {
+  $(document).on('submit', '#form-modifica-profilo', () => {
+    if ($('#form-modifica-profilo input[required]').val().length > 0) {
+      $.ajax({
+        type: 'POST',
+        async: 'true',
+        url: window.location.href + '#profilo',
+        data: $('#form-modifica-profilo').serializeArray(),
+        beforeSend: function() {
+          $.mobile.loading('show');
+        },
+        complete: function() {
+          $.mobile.loading('hide');
+        },
+        success: function(response) {
+          $('#profilo .avatar').attr('style', 'background-image: url(img/'+
+          response[0].avatar-modifica +
+          '');
+          $('#profilo .nome-profilo').html(response[0].nome-modifica);
+          $('#profilo .sesso-profilo').html(response[0].sesso-modifica);
+          $('#profilo .eta-profilo').html(response[0].eta-modifica);
+          $('#profilo .citta-profilo').html(response[0].luogo-modifica);
+          $.mobile.changePage('#profilo', 'fade');
+          toast('Profilo aggiornato');
+          $('#form-modifica-profilo').each(() => {
+            $(this).reset();
+          });
+        },
+        error: function(error) {
+          toast('Errore: '+ error +' - Impossibile aggiornare il profilo');
+        },
+      });
+    } else {
+      toast('Errore: compilare i campi richiesti');
+    }
+    return false;
+  });
   // TODO: Caricamento/Memorizzazione stato/dati su DB
 }
 
@@ -529,7 +786,6 @@ function notifiche() {
   * evento -> .evento-notifica
   ** like -> .social-keyword
   * oggetto -> .oggetto-notifica
-  */
   let stati = {
     'evento': {
       'azione': {
@@ -572,6 +828,7 @@ function notifiche() {
       'modifica-video': 'un suo video',
     },
   };
+  */
   $('.link-notifica[data-state="unread"] .notifica-container')
   .addClass('sfondo-accento');
 }
@@ -607,6 +864,22 @@ function post() {
   $('.commenta').on('vclick', function() {
     $(this).addClass('opaco');
     $(this).parent().next().slideDown();
+  });
+  $('#pubblica, .pubblica-commento').focus(function() {
+    if ($(this).val() === placeholder) {
+      $(this).val('');
+      $(this).css('color', '#fff');
+    }
+  });
+  $('#pubblica, .pubblica-commento').blur(function() {
+    if ($(this).val() === '') {
+      $(this).val(placeholder);
+      $(this).css('color', '#3C3C3B');
+    }
+  });
+  $('#ricerca-avanzata').on('vclick', (e) => {
+    e.preventDefault();
+    $('#ricerca-avanzata-container').slideDown();
   });
   $(document).on('pagecontainerchange', () => {
     $('.commenta').removeClass('opaco');

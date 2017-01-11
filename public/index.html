@@ -514,7 +514,7 @@
   <div id="body-summary" class="ui-body sfondo-accento">
     <div class="ui-grid-a">
       <div id="container-avatar">
-          <div class="avatar">
+          <div class="avatar" style="background-image: url(img/avatar.png);">
           </div>
           <div class="valutazione">
             <span class="stella stella-disattiva">
@@ -530,7 +530,7 @@
           </div>
       </div>
       <div id="container-summary" class="deseleziona">
-        <p class="dati-summary">
+        <p class="nome-profilo dati-summary">
           Nome Cognome
         </p>
         <p class="dati-summary">
@@ -559,7 +559,7 @@
           <span class="evidenza">
             Sesso: 
           </span>
-          <span>
+          <span class="sesso-profilo">
             Uomo
           </span>
         </div>
@@ -567,7 +567,7 @@
           <span class="evidenza">
             Età: 
           </span>
-          <span>
+          <span class="eta-profilo">
             29 anni
           </span>
         </div>
@@ -575,7 +575,7 @@
           <span class="evidenza">
             Città: 
           </span>
-          <span>
+          <span class="citta-profilo">
             Milano
           </span>
         </div>
@@ -630,6 +630,7 @@
   <!--Inizio Qualifiche-->
   <div class="esperienze" data-role="collapsible">
     <h2 class="titolo-sezione">Le mie qualifiche <hr class="separatore"></h2>
+    <!--TODO: Rimuovere esempi in fase di Back-End-->
     <div class="ui-body sfondo-primario anagrafica-container">
       <div class="ui-grid-a anagrafica">
         <div class="ui-block-a deseleziona">
@@ -839,13 +840,13 @@
     </div>
     <div role="main" class="ui-content">
       <form id="form-aggiungi-popup" autocomplete="on" accept-charset="utf-8" data-ajax="false">
-        <label for="titolo-aggiungi-popup">Titolo:</label>
+        <label for="titolo-aggiungi-popup">Titolo*:</label>
         <input type="text" name="titolo" id="titolo-aggiungi-popup" value="" placeholder="Inserire il ruolo" data-theme="a" required>
         <label for="presso-aggiungi-popup">Presso:</label>
         <input type="text" name="presso" id="presso-aggiungi-popup" value="" placeholder="Inserire il luogo" data-theme="a">
         <label for="data-aggiungi-popup">Data:</label>
         <input type="number" name="data" id="data-aggiungi-popup" value="" placeholder="Inserire la data" data-theme="a">
-        <button type="submit" class="ui-btn ui-btn-icon-right ui-icon-plus">Aggiungi</button>
+        <button id="aggiungi-popup-pulsante" type="submit" class="ui-btn ui-btn-icon-right ui-icon-plus">Aggiungi</button>
       </form>
       <a href="#" data-rel="back" data-theme="a" class="ui-btn ui-icon-delete ui-btn-icon-right">Annulla</a>
     </div>
@@ -893,8 +894,8 @@
         <input type="file" name="avatar-modifica" id="avatar-modifica" placeholder="Selezionare immagine" value="">
         <label for="nome-modifica">Nome e Cognome:</label>
         <input type="text" name="nome-modifica" id="nome-modifica" placeholder="Inserire Nome e Cognome" value="">
-        <label for="sesso-modifica">Sesso:</label>
-        <select name="sesso-modifica" id="sesso-modifica">
+        <label for="sesso-modifica">Sesso*:</label>
+        <select name="sesso-modifica" id="sesso-modifica" required>
           <option value="uomo">Uomo</option>
           <option value="donna">Donna</option>
         </select>
@@ -954,9 +955,9 @@
   </form>
   <!--Fine Form-->
   <!--Inizio Footer-->
-  <div data-role="footer" data-position="fixed">
-    <a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i></a>
-    <a href="#"><i class="fa fa-bar-chart" aria-hidden="true"></i></a>
+  <div data-role="footer" data-position="fixed" id="footer">
+    <a id="checkin-pulsante" href="#checkin-crea" title="Segnala la tua posizione ed inizia allenamento"><i class="fa fa-map-marker" aria-hidden="true"></i></a>
+    <a id="classifica-pulsante" href="#" title="Controlla la classifica mondiale dei fitters"><i class="fa fa-bar-chart" aria-hidden="true"></i></a>
   </div>
   <!--Fine Footer-->
   <!--Inizio Popups-->
@@ -966,9 +967,75 @@
       <a href="#" id="aggiorna-mappa" title="Avvia la localizzazione dei dispositivi segnalati">Aggiorna mappa</a>
     </div>
   </div>
+  <!--Inizio Consenso-->
+  <div data-role="popup" id="consenso" data-overlay-theme="a" data-theme="a" data-dismissible="false">
+    <div role="main" data-role="content" class="ui-content">
+      <div class="ui-body ui-body-a">
+        <h2>Consentire l'accesso?</h2>
+        <p>Autorizza l'identificazione della propria posizione attraverso il dispositivo.
+        Questi dati sensibili sono raccolti ed utilizzati da FitMeApp per la fornitura degli interventi richiesti</p>
+        <!--TODO: Completare il testo dell'informativa sulla privacy e della cookie policy-->
+        <a href="#" class="ui-btn ui-btn-inline" data-rel="back">Annulla</a>
+        <a id="conferma" href="#checkin-crea" class="ui-btn ui-btn-inline">Conferma</a>
+      </div>
+    </div>
+  </div>
+  <!--Fine Consenso-->
+  <!--Inizio Avviso DNT-->
+  <div data-role="popup" id="avviso-dnt" data-overlay-theme="a" data-theme="a" data-dismissible="false">
+    <div role="main" data-role="content" class="ui-content">
+      <div class="ui-body ui-body-a">
+          <h2>DNT Abilitato</h2>
+          <p>Sistema Anti-Tracciamento attivo. Per disattivare il servizio andare su Impostazioni - DNT</p>
+          <a href="#" data-rel="back" class="ui-btn ui-btn-inline">Chiudi</a>
+      </div>
+    </div> 
+  </div>
+  <!--Fine Avviso DNT-->    
   <!--Fine Popups-->
 </div>
 <!--Fine Check-In-->
+<!--Inizio Check-In Creazione-->
+<div data-role="page" data-theme="a" id="checkin-crea" data-url="checkin-crea" class="ui-responsive-panel">
+  <!--Inizio Header-->
+  <div data-role="header" id="header">
+    <div id="icona-menu"> 
+      <a id="hamburger" href="#menu-principale" class="ui-btn ui-btn-icon-notext"></a>
+    </div>
+    <div id="logo-header"></div>
+    <div id="icona-notifiche"> 
+      <a id="notifiche-pulsante" href="#notifiche" class="ui-btn ui-btn-icon-notext"></a>
+    </div>
+  </div>
+  <!--Fine Header-->
+  <!--Inizio Form-->
+  <div id="header-modifica" class="ui-bar sfondo-accento">
+    <h2>Inizia Allenamento</h2>
+  </div>
+  <div class="ui-body ui-body-a">
+    <form id="form-checkin-crea" autocomplete="on" accept-charset="utf-8" data-ajax="false">
+        <label for="categoria-checkin-crea">Categoria:</label>
+        <select name="categoria-checkin-crea" id="categoria-checkin-crea">
+          <option value="functional">Fitness e Functional Training</option>
+          <option value="body-building">Fitness e Body Building</option>
+          <option value="calisthenics">Calisthenics</option>
+          <option value="combat">Combat</option>
+        </select>
+        <label for="localita-checkin-crea">Località*:</label>
+        <input type="text" name="localita-checkin-crea" id="localita-checkin-crea" placeholder="Inserire città o luogo" value="" required>
+        <label for="durata-checkin-crea">Durata (minuti)*:</label>
+        <input type="number" name="durata-checkin-crea" id="durata-checkin-crea" value="" required>
+        <fieldset data-role="controlgroup">
+          <input type="checkbox" name="contatta-checkin-crea" id="checkbox-1a">
+          <label for="checkbox-1a">Cerco compagni</label>
+        </fieldset>
+      <button type="submit" id="invia-checkin-crea" class="ui-btn">CHECK-IN</button>
+    </form>
+    <a href="#checkin" class="ui-btn">ANNULLA</a>
+  </div>
+  <!--Fine Form-->
+</div>
+<!--Fine Check-In Creazione-->
 <!--Inizio Notifiche-->
 <div data-role="page" data-theme="a" id="notifiche" class="ui-responsive-panel">
   <!--Inizio Header-->

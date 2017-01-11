@@ -147,7 +147,6 @@ a:link {
   .avatar {
     background-attachment: scroll;
     background-color: #fff;
-    background-image: url(../img/avatar.png);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -278,6 +277,14 @@ a:link {
     width: 100%;
   }
 
+  #classifica-pulsante {
+    background-color: #000;
+  }
+
+  #classifica-pulsante:hover {
+    color: #fff !important;
+  }
+
   #checkin-form {
     padding: 1em 16px;
   }
@@ -301,9 +308,17 @@ a:link {
     color: #FCEA10;
   }
 
+  #checkin-pulsante {
+    background-color: #000;
+  }
+
+  #checkin-pulsante:hover {
+    color: #fff;
+  }
+
   #chiudi {
     background-attachment: scroll;
-    background-color: #1D1D1D !important;
+    background-color: #000 !important;
     background-image: url(../img/chiudi.svg);
     background-position: center;
     background-repeat: no-repeat;
@@ -599,6 +614,10 @@ a:link {
     padding: .8em 1em;
   }
 
+  #footer {
+    background-color: #000;
+  }
+
   #footer-pubblica {
     background-color: #FCEA10;
     padding: 0 1em;
@@ -723,6 +742,7 @@ a:link {
   }
 
   #header {
+    background-color: #000;
     max-height: 64px;
     text-align: center;
     overflow: hidden;
@@ -909,6 +929,10 @@ a:link {
   .load-text {
     color: #797979;
     text-align: center;
+  }
+
+  #localita-checkin-crea {
+    margin-top: -20px;
   }
 
   #logo {
@@ -1335,6 +1359,7 @@ a:link {
 
   .stato-update {
     display: block;
+    font-family: 'UbuntuBold', sans-serif;
   }
 
   .stella {
@@ -1394,6 +1419,7 @@ a:link {
 
   .titolo-info {
     padding-left: 20px;
+    text-transform: capitalize;
   }
 
   .titolo-sezione {
