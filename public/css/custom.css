@@ -35,8 +35,12 @@ a:link {
   user-select: none;             
 }
 
+.disattiva {
+  pointer-events: none;
+}
+
 .colore-accento {
-  color: #FCEA10;
+  color: #E52736;
 }
 
 .evidenza {
@@ -48,7 +52,7 @@ a:link {
 }
 
 .sfondo-accento {
-  background-color: #FCEA10;
+  background-color: #E52736;
 }
 
 .sfondo-primario {
@@ -87,7 +91,7 @@ a:link {
   }
 
   #accesso-login label {
-    color: #FCEA10;
+    color: #E52736;
     font-size: 1.1rem;
     margin: -10px 0 0;
   }
@@ -121,7 +125,7 @@ a:link {
   }
 
   #accesso-signup label {
-    color: #FCEA10;
+    color: #E52736;
     font-size: 1.1rem;
     margin-bottom: 0;
     padding-top: 1em;
@@ -138,6 +142,11 @@ a:link {
 
   .anno-esperienza {
     padding-top: .5em !important;
+  }
+
+  .anno-esperienza span {
+    background-color: transparent !important;
+    border: 0 !important;
   }
 
   #attivita-container {
@@ -228,6 +237,7 @@ a:link {
 
   #azioni-summary button:hover{
     background-color: #fff;
+    color: #000 !important;
     text-shadow: none;
   }
 
@@ -260,12 +270,12 @@ a:link {
 
   .bullet:hover,  
   .bullet:focus { 
-    background-color: #FCEA10;
+    background-color: #E52736;
     cursor: pointer; 
   }
 
   .bullet-attivo {
-    background-color: #FCEA10 !important;
+    background-color: #E52736 !important;
   }
 
   #carica { 
@@ -277,6 +287,26 @@ a:link {
     width: 100%;
   }
 
+  .classifica-griglia {
+    margin-top: -60px;
+  }
+
+  .classifica-griglia a::before {
+    float: left;
+  }
+
+  .classifica-griglia a:hover .nome-classifica {
+    color: #fff !important;
+  }
+
+  .classifica-griglia li:nth-child(odd) a {
+    background-color: #1F1C1D !important;
+  }
+
+  .classifica-griglia li:nth-child(odd) a:hover {
+    background-color: #E52736 !important;
+  }
+
   #classifica-pulsante {
     background-color: #000;
   }
@@ -285,12 +315,20 @@ a:link {
     color: #fff !important;
   }
 
+  #classifica-tabs {
+    margin-top: -42px;
+  }
+
+  #classifica-tabs [data-role='navbar'] li:last-child {
+    margin-top: -20px;
+  }
+
   #checkin-form {
     padding: 1em 16px;
   }
 
   #checkin-form h2 {
-    color: #FCEA10;
+    color: #E52736;
     display: inline-block;
     float: left;
     font-size: 1rem;
@@ -298,14 +336,14 @@ a:link {
   }
 
   #checkin-form hr {
-    border: 1px solid #FCEA10;
+    border: 1px solid #E52736;
     display: inline-block;
     float: right;
     width: 42%;
   }
 
   #checkin-form legend {
-    color: #FCEA10;
+    color: #E52736;
   }
 
   #checkin-pulsante {
@@ -337,6 +375,7 @@ a:link {
   .clear { clear: both; }
 
   .commenta-pulsante {
+    background-color: #E52736 !important;
     border-radius: 6px;
     display: inline-block;
     float: right;
@@ -376,12 +415,35 @@ a:link {
     margin: 1em 0;
   }
 
+  #conferma {
+     background-color: #E52736 !important; 
+  }
+
+  #conferma:hover {
+     background-color: transparent !important;
+     color: #fff !important;
+  }
+
   #container-avatar {
     display: inline-block;
     float: left;  
     max-width: 124px;
     padding-top: .5em;
     position: relative;
+  }
+
+  .container-avatar-classifica {
+    background-attachment: scroll;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: inline-block;
+    float: left;
+    height: 62px;
+    max-width: 62px;
+    padding-top: .5em;
+    position: relative;
+    width: 62px;
   }
 
   .container-avatar-info {
@@ -417,7 +479,7 @@ a:link {
   }
 
   .container-info hr {
-    border: 1px solid #1D1D1D;
+    border: 1px solid rgba(31, 28, 29, 0.24);
   }
 
   .container-links-post {
@@ -442,7 +504,6 @@ a:link {
   }
 
   .container-sfoglia-post .ui-input-text {
-    background-color: #F7F4F4 !important;
     border-color: transparent !important;
   }
 
@@ -479,16 +540,39 @@ a:link {
     color: #000;
   }
 
+  .container-user-classifica {
+    display: inline-block;
+    margin-left: 16px;
+  }
+
+  .container-user-classifica .valutazione {
+    margin-top: .5em !important;
+    text-indent: 0 !important;
+  }
+
+  .container-user-classifica .valutazione .stella:first-child {
+    margin-left: 0 !important;
+  }
+
+  .container-user-classifica .valutazione .stella:last-child {
+    margin-right: 0 !important;
+  }
+
+  .container-user-info .valutazione {
+    padding-left: 78px;
+  }
+
   .container-user-info .valutazione {
     padding-left: 78px;
   }
 
   .contatta-info {
-    border-radius: 6px;
+    background-color: #E52736 !important;
+    border: 0 !important;
     float: right;
     font-size: .7rem !important;
     margin: 0 !important;
-    padding: .3em !important;
+    padding: .3em 8px !important;
   }
 
   .contenuti-tutorial {
@@ -513,7 +597,7 @@ a:link {
 
   .dati-summary {
     border-bottom: 1px solid #000;
-    color: #000;
+    color: #fff;
     display: block;
     font-size: .9rem;
     line-height: 1.5rem;
@@ -555,7 +639,7 @@ a:link {
 
   .esperienze .titolo-sezione a { 
     background-color: #3C3C3B !important; 
-    color: #FCEA10 !important;
+    color: #E52736 !important;
     border-radius: 0;
     margin: 0;
   }
@@ -578,7 +662,7 @@ a:link {
   }
 
   #feed-container .post-container {
-    border-bottom: 1em solid rgba(255, 255, 255, .5);
+    border-bottom: .5em solid rgba(255, 255, 255, .5);
     padding: 1em 16px;
   }
 
@@ -606,11 +690,12 @@ a:link {
   }
 
   #followers .nome-follow { 
-    color: #fff;
+    color: #000;
   }
 
   #followers .follow-container {
-    border-bottom: 1px solid #797979;
+    background-color: #efefef;
+    border-bottom: 1px solid #d8d8d8;
     padding: .8em 1em;
   }
 
@@ -618,9 +703,13 @@ a:link {
     background-color: #000;
   }
 
+  #footer a {
+    color: #E52736;
+  }
+
   #footer-pubblica {
-    background-color: #FCEA10;
-    padding: 0 1em;
+    background-color: #E52736;
+    padding: .3em 1em;
     text-align: left;
   }
 
@@ -648,7 +737,7 @@ a:link {
   }
 
   #form-modifica-profilo label {
-    color: #FCEA10;
+    color: #E52736;
   }
 
   #form-modifica-profilo .ui-input-text {
@@ -690,11 +779,12 @@ a:link {
   }
 
   #form-ricerca .ui-input-search::after {
-    background-color: #FCEA10;
+    background-color: #E52736;
     border-top-left-radius: 6px;
     border-bottom-left-radius: 6px;
     height: 8px;
     left: 0;
+    opacity: 1;
     padding: 1em 8px;
     top: 18%;
   }
@@ -802,6 +892,11 @@ a:link {
     width: 21px;
   }
 
+  .icona-tabs {
+    display: block;
+    font-size: 1.5rem; 
+  }
+
   #icona-toolbar {
     display: inline-block;
     float: right;
@@ -880,7 +975,7 @@ a:link {
   }
 
   label[for='pubblica'] {
-    color: #FCEA10;
+    color: #E52736;
   }
 
   label[for='ricerca-bacheca-citta'] {
@@ -888,7 +983,7 @@ a:link {
   }
 
   #legenda-tags {
-    color: #000;
+    color: #fff;
     float: right;
     padding-top: .5em;
   }
@@ -903,14 +998,20 @@ a:link {
   }
 
   .like-info {
-    color: #1D1D1D !important;
+    color: #E52736 !important;
     padding-top: .5em;
   }
 
   .like-popup {
+    background-color: #fff;
     bottom: .5em;
     left: .5em;
+    padding: .3em;
     position: absolute;
+  }
+
+  .like-popup a {
+    font-size: .7rem;
   }
 
   #lingua-container {
@@ -923,11 +1024,11 @@ a:link {
 
   .link-notifica[data-state="unread"] .azioni-notifiche,
   .link-notifica[data-state="unread"] .social-keyword {
-    color: #000;
+    color: #fff;
   }
 
   .load-text {
-    color: #797979;
+    color: #E52736 /* #797979 */;
     text-align: center;
   }
 
@@ -937,7 +1038,7 @@ a:link {
 
   #logo {
     background-attachment: scroll;
-    background-image: url(../img/logo.svg);
+    background-image: url(../img/logo-a.svg);
     background-position: 0 0;
     background-repeat: no-repeat;
     background-size: 100%;
@@ -957,7 +1058,7 @@ a:link {
 
   #logo-header {
     background-attachment: scroll;
-    background-image: url(../img/logo-header.svg);
+    background-image: url(../img/logo-header-1.svg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100%;
@@ -971,7 +1072,7 @@ a:link {
 
   #logo-menu {
     background-attachment: scroll;
-    background-image: url(../img/logo-header.svg);
+    background-image: url(../img/logo-header-2.svg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100%;
@@ -1028,7 +1129,7 @@ a:link {
   }
 
   .maschera-sfoglia {
-    background-color: #FCEA10;
+    background-color: #E52736;
     border-radius: 6px;
     display: block;
     color: #000;
@@ -1051,7 +1152,7 @@ a:link {
     background-color: #343434;
     border-bottom: none;
     border-color: #000;
-    color: #FCEA10;
+    color: #a7a7a7;
     margin: 0;
     text-align: left;
     text-indent: 32px;
@@ -1070,7 +1171,7 @@ a:link {
   }
 
   #menu-principale #header-menu {
-    background-color: #3C3C3B;
+    background-color: #E52736;
     border: 0;
   }
 
@@ -1101,7 +1202,7 @@ a:link {
   }
 
   .nome-follow {
-    color: #000;
+    color: #fff;
     display: table;
     float: right;
     height: 4.5em;
@@ -1115,6 +1216,15 @@ a:link {
     vertical-align: middle;
   }
 
+  .nome-classifica {
+    color: #E52736;
+    display: block !important;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 1.2rem !important;
+    margin: 0 !important;
+    text-transform: capitalize;
+  }
+
   .nome-info {
     font-size: 1.2rem;
     margin: 0;
@@ -1123,7 +1233,7 @@ a:link {
   }
 
   .notifica-container {
-    border-bottom: 1px solid #797979;
+    border-bottom: 1px solid #343434;
     padding: .8em 1em;
   }
 
@@ -1153,6 +1263,23 @@ a:link {
     margin: 0;
   }
 
+  #popup-toolbar-classifica label {
+    background-color: #1F1C1D;
+    border: 0;
+  }
+
+  #popup-toolbar-classifica legend {
+    padding: .7em;
+  }
+
+  #popup-toolbar-classifica label:hover {
+    color: #fff;
+  }
+
+  #popup-toolbar-classifica .ui-checkbox {
+    margin-top: -20px;
+  }
+
   .popups {
     left: 0;
     margin: 0 auto;
@@ -1165,7 +1292,7 @@ a:link {
   }
 
   .popups [data-role='header'] {
-    color: #FCEA10;
+    color: #E52736;
     text-transform: uppercase;
   }
 
@@ -1179,23 +1306,15 @@ a:link {
   }
 
   .post-container {
-    border-bottom: 1em solid #3C3C3B;
+    background-color: #efefef;
     color: #3C3C3B;
     font-size: .9rem;
     padding: 0;
   }
 
-  .post-container:nth-child(odd) {
-    background-color: #efefef;
-  }
-
-  .post-container:nth-child(even) {
-    background-color: #F7F4F4;
-  }
-
   #post-foto-link,
   #post-video-link {
-    color: #3C3C3B;
+    color: #fff;
   }
 
   .post-notifiche {
@@ -1208,7 +1327,7 @@ a:link {
   }
 
   .post-notifiche .maschera-sfoglia {
-    background-color: #FCEA10;
+    background-color: #E52736;
     border-radius: 6px;
     display: block;
     color: #000;
@@ -1223,7 +1342,7 @@ a:link {
   }
 
   #profilo .ui-collapsible-inset .ui-collapsible-heading .ui-btn {
-    margin: 1em 0;
+    margin: 1em 0 0;
   }
 
   #pubblica {
@@ -1301,7 +1420,7 @@ a:link {
   }
 
   .separatore {
-    background-color: #FCEA10;
+    background-color: #E52736;
     border: 0;
     height: 1px;
     margin: .5em 0 0 0;
@@ -1333,7 +1452,7 @@ a:link {
   }
 
   .social-keyword {
-    color: #FCEA10;
+    color: #E52736;
   }
 
   .spinner {
@@ -1354,7 +1473,7 @@ a:link {
   }
 
   #start .foto-tutorial {
-    background-image: url(../img/tutorial.png);
+    background-image: url(../img/tutorial.jpg);
   }
 
   .stato-update {
@@ -1362,10 +1481,13 @@ a:link {
     font-family: 'UbuntuBold', sans-serif;
   }
 
+  #status {
+    background-color: transparent;
+  }
+
   .stella {
     background-attachment: scroll;
     background-color: transparent;
-    background-image: url(../img/stella.svg);
     background-position: 0 0;
     background-repeat: no-repeat;
     background-size: 100%;
@@ -1379,12 +1501,29 @@ a:link {
     width: 15px;
   }
 
+  .stella-profilo {
+    background-image: url(../img/stella.svg);
+  }
+
+  .stella-attiva-profilo {
+    background-image: url(../img/stella-bianca.svg) !important;
+  }
+
+  .stella-mappa {
+    background-image: url(../img/stella-rossa.svg);
+  }
+
   .stella:hover {
     cursor: pointer;
   }
 
   .stella-attiva {
     opacity: 1 !important;
+  }
+
+  #tab-centrale {
+    border-left: 1px solid #1F1C1D;
+    border-right: 1px solid #1F1C1D;
   }
 
   .testo-tutorial {
@@ -1398,9 +1537,9 @@ a:link {
 
   .timestamp-notifiche {
     display: block;
+    color: #fff;
     font-size: .6rem;
     height: auto;
-    opacity: .3;
     padding-top: 1em;
     position: relative;
     text-align: right;
@@ -1412,9 +1551,14 @@ a:link {
   }
 
   .tipologie-post {
-    background-color: #FCEA10;
+    background-color: #E52736;
     margin-bottom: 1em;
     padding: 1em;
+  }
+
+  .titolo-classifica {
+    font-size: .9rem;
+    text-transform: capitalize;
   }
 
   .titolo-info {
@@ -1422,14 +1566,22 @@ a:link {
     text-transform: capitalize;
   }
 
+  .titolo-popup-checkin {
+    font-family: 'Ubuntu', sans-serif;
+    color: #E52736;
+  }
+
   .titolo-sezione {
-    color: #FCEA10;
+    color: #E52736;
     font-size: 1.1rem;
   }
 
   .titolo-tutorial {
-    color: #FCEA10;
-    margin-bottom: .5em;
+    color: #E52736;
+    font-family: 'Ubuntu', sans-serif;
+    letter-spacing: 1px;
+    line-height: 1.8rem;
+    margin: 0 0 .5em;
     text-align: left;
     text-transform: uppercase;
   }
@@ -1451,7 +1603,7 @@ a:link {
   }
 
   .toolbar-cella a:hover {
-    background-color: #FCEA10;
+    background-color: #E52736;
     color: #000 !important;
   }
 
@@ -1482,14 +1634,37 @@ a:link {
   }
 
   #tour-1 .foto-tutorial {
-    background-image: url(../img/tutorial.png);
+    background-image: url(../img/tutorial.jpg);
   }
   
   .tutorial {
-    color: #95989A;
-    font-size: 1.2rem;
+    color: #fff /* #95989A */;
+    font-size: 1.1rem;
     margin: 0 auto .5em;
     text-align: left;
+  }
+
+  .ui-input-btn input:hover {
+    color: #fff !important;
+  }
+
+  .ui-slider-track {
+    height: 6px !important;
+    margin: 0 9px 0 68px !important;
+    top: 9px !important;
+  }
+
+  .ui-slider-track .ui-btn.ui-slider-handle {
+    border-radius: 50%;
+    background-color: #fff !important;
+    height: 24px !important;
+    margin: -13px 0 0 -15px !important;
+    width: 24px !important;
+  }
+
+  .ui-btn:hover,
+  .ui-btn-active {
+    color: #fff !important;
   }
 
   .valutazione {
@@ -1501,6 +1676,7 @@ a:link {
   }
 
   .vert-divider {
+    color: #fff;
     padding: 0 8px;
   }
 

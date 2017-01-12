@@ -13,13 +13,290 @@
 <link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.min.css">
 <link rel="icon" type="image/png" href="favicon.png" />
 <!--TODO: Eliminare il protocollo in produzione (Solo se si supporta anche l'SSL)-->
-<script id="maps-api" async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDums4cqifOn7NuKQYLhQ2tCNfg78QHeq0&callback=allenamenti"></script>
 <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
 <script src="js/jquery-2.1.4.min.js"></script>
 <script src="js/jquery.mobile-1.4.5.min.js"></script>
 <script src="js/autosize.min.js"></script>
 <script src="js/jquery.hashtags.js"></script>
+<script>
+// Check-In
+let mappa = null;
+
+/**
+ * Allenamenti
+ * Gestisce le procedure di inizializzazione e geolocalizzazione
+ * dei dispositivi degli utenti:
+ * - I dati dei marker sono estratti dal file 'allenamenti-callback';
+ * - Lo scope della funzione è inserito in global per compatibilità con le API di
+ * - Google Maps;
+ * @param {mappa} mappa - Oggetto mappa visualizzata
+ */
+function allenamenti() {
+  let defaultLatLng = new google.maps.LatLng(45.4626482, 9.0376489);
+  mappa = new google.maps.Map(document.getElementById('mappa'), {
+    zoom: 12,
+    center: defaultLatLng,
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    styles: [
+  {
+    "elementType": "geometry",
+    "stylers": [
+          {
+            "color": "#212121"
+          }
+        ]
+      },
+      {
+        "elementType": "labels.icon",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#757575"
+          }
+        ]
+      },
+      {
+        "elementType": "labels.text.stroke",
+        "stylers": [
+          {
+            "color": "#212121"
+          }
+        ]
+      },
+      {
+        "featureType": "administrative",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#757575"
+          }
+        ]
+      },
+      {
+        "featureType": "administrative.country",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#9e9e9e"
+          }
+        ]
+      },
+      {
+        "featureType": "administrative.land_parcel",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "administrative.land_parcel",
+        "elementType": "labels",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "administrative.locality",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#bdbdbd"
+          }
+        ]
+      },
+      {
+        "featureType": "poi",
+        "elementType": "labels.text",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "poi",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#757575"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.park",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#181818"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.park",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#616161"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.park",
+        "elementType": "labels.text.stroke",
+        "stylers": [
+          {
+            "color": "#1b1b1b"
+          }
+        ]
+      },
+      {
+        "featureType": "road",
+        "elementType": "geometry.fill",
+        "stylers": [
+          {
+            "color": "#2c2c2c"
+          }
+        ]
+      },
+      {
+        "featureType": "road",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#8a8a8a"
+          }
+        ]
+      },
+      {
+        "featureType": "road.arterial",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#373737"
+          }
+        ]
+      },
+      {
+        "featureType": "road.arterial",
+        "elementType": "labels",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "road.highway",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#3c3c3c"
+          }
+        ]
+      },
+      {
+        "featureType": "road.highway",
+        "elementType": "labels",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "road.highway.controlled_access",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#4e4e4e"
+          }
+        ]
+      },
+      {
+        "featureType": "road.local",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "road.local",
+        "elementType": "labels",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "road.local",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#616161"
+          }
+        ]
+      },
+      {
+        "featureType": "transit",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#757575"
+          }
+        ]
+      },
+      {
+        "featureType": "water",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#000000"
+          }
+        ]
+      },
+      {
+        "featureType": "water",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#3d3d3d"
+          }
+        ]
+      }
+    ]
+  });
+  $('<script src="js/allenamenti-callback.js"></'+'script>')
+  .insertBefore('#maps-api');
+  $(document).on('pagecreate', '#checkin', function() { 
+    $(document).on('click', '#aggiorna-mappa', function () {
+      $( ':mobile-pagecontainer' ).pagecontainer('change', '#checkin', {  
+        reload : true, 
+        allowSamePageTransition : true, 
+        transition : 'none' 
+      });
+    });    
+  });
+  $('#conferma').on('vclick', () => {
+    window.localStorage.setItem('privacyGeo', 'ok');
+  });
+};
+
+</script>
+<script src="js/init.js"></script>
 <script src="js/bundle.js"></script>
+<script id="maps-api" async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDums4cqifOn7NuKQYLhQ2tCNfg78QHeq0&callback=allenamenti"></script>
 <style>
   /* FOUC Fix */
   body { 
@@ -517,15 +794,15 @@
           <div class="avatar" style="background-image: url(img/avatar.png);">
           </div>
           <div class="valutazione">
-            <span class="stella stella-disattiva">
+            <span class="stella stella-profilo stella-disattiva">
             </span>
-            <span class="stella stella-disattiva">
+            <span class="stella stella-profilo stella-disattiva">
             </span>
-            <span class="stella stella-disattiva">
+            <span class="stella stella-profilo stella-disattiva">
             </span>
-            <span class="stella stella-disattiva">
+            <span class="stella stella-profilo stella-disattiva">
             </span>
-            <span class="stella stella-disattiva">
+            <span class="stella stella-profilo stella-disattiva">
             </span>
           </div>
       </div>
@@ -957,7 +1234,7 @@
   <!--Inizio Footer-->
   <div data-role="footer" data-position="fixed" id="footer">
     <a id="checkin-pulsante" href="#checkin-crea" title="Segnala la tua posizione ed inizia allenamento"><i class="fa fa-map-marker" aria-hidden="true"></i></a>
-    <a id="classifica-pulsante" href="#" title="Controlla la classifica mondiale dei fitters"><i class="fa fa-bar-chart" aria-hidden="true"></i></a>
+    <a id="classifica-pulsante" href="#classifica" title="Controlla la classifica mondiale dei fitters"><i class="fa fa-trophy" aria-hidden="true"></i></a>
   </div>
   <!--Fine Footer-->
   <!--Inizio Popups-->
@@ -971,7 +1248,7 @@
   <div data-role="popup" id="consenso" data-overlay-theme="a" data-theme="a" data-dismissible="false">
     <div role="main" data-role="content" class="ui-content">
       <div class="ui-body ui-body-a">
-        <h2>Consentire l'accesso?</h2>
+        <h2 class="titolo-popup-checkin">Consentire l'accesso?</h2>
         <p>Autorizza l'identificazione della propria posizione attraverso il dispositivo.
         Questi dati sensibili sono raccolti ed utilizzati da FitMeApp per la fornitura degli interventi richiesti</p>
         <!--TODO: Completare il testo dell'informativa sulla privacy e della cookie policy-->
@@ -1036,6 +1313,426 @@
   <!--Fine Form-->
 </div>
 <!--Fine Check-In Creazione-->
+<!--Inizio Classifica-->
+<div data-role="page" data-theme="a" id="classifica" class="ui-responsive-panel">
+  <!--Inizio Header-->
+  <div data-role="header" id="header">
+    <div id="icona-menu"> 
+      <a id="hamburger" href="#menu-principale" class="ui-btn ui-btn-icon-notext"></a>
+    </div>
+    <div id="logo-header"></div>
+    <div id="icona-toolbar"> 
+      <a id="toolbar-pulsante" href="#popup-toolbar-classifica" class="ui-btn ui-btn-icon-notext" data-rel="popup"></a>
+    </div>
+    <div id="icona-notifiche"> 
+      <a id="notifiche-pulsante" href="#notifiche" class="ui-btn ui-btn-icon-notext"></a>
+    </div>
+  </div>
+  <!--Fine Header-->
+  <!--Inizio Sezioni-->
+  <div id="header-modifica" class="ui-bar sfondo-accento">
+    <h2>Classifica</h2>
+  </div>
+  <div data-role="tabs" id="classifica-tabs">
+    <div data-role="navbar">
+      <ul>
+        <li>
+          <a href="#locale" data-ajax="false"><i class="fa fa-map-marker icona-tabs" aria-hidden="true"></i>Locale</a>
+        </li>
+        <li>
+          <a id="tab-centrale" href="#nazionale" data-ajax="false"><i class="fa fa-flag icona-tabs" aria-hidden="true"></i>Nazionale</a>
+        </li>
+        <li>
+          <a href="#mondiale" data-ajax="false"><i class="fa fa-globe icona-tabs" aria-hidden="true"></i>Mondiale</a>
+        </li>
+      </ul>
+    </div>
+    <div id="locale" class="classifica-griglia">
+      <ol data-role="listview">
+        <li>
+          <!--TODO: Aggiornare url con link dell'utente corrispondente-->
+          <a href="#">
+            <div class="container-avatar-classifica" style="background-image: url(img/avatar-2.png);"></div>
+              <div class="container-user-classifica">
+                <h2 class="nome-classifica">
+                  Federica Serra
+                </h2>
+                <span class="titolo-classifica">
+                    Trainer
+                </span>
+                <div class="valutazione">
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                </div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <!--TODO: Aggiornare url con link dell'utente corrispondente-->
+          <a href="#">
+            <div class="container-avatar-classifica" style="background-image: url(img/avatar.png);"></div>
+              <div class="container-user-classifica">
+                <h2 class="nome-classifica">
+                  Giulio Puddu
+                </h2>
+                <span class="titolo-classifica">
+                    Trainer
+                </span>
+                <div class="valutazione">
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                </div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <!--TODO: Aggiornare url con link dell'utente corrispondente-->
+          <a href="#">
+            <div class="container-avatar-classifica" style="background-image: url(img/avatar-1.png);"></div>
+              <div class="container-user-classifica">
+                <h2 class="nome-classifica">
+                  Vanessa Scano
+                </h2>
+                <span class="titolo-classifica">
+                    Fitter
+                </span>
+                <div class="valutazione">
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                </div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <!--TODO: Aggiornare url con link dell'utente corrispondente-->
+          <a href="#">
+            <div class="container-avatar-classifica" style="background-image: url(img/avatar-3.png);"></div>
+              <div class="container-user-classifica">
+                <h2 class="nome-classifica">
+                  Roberto Marras
+                </h2>
+                <span class="titolo-classifica">
+                    Fitter
+                </span>
+                <div class="valutazione">
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                </div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <!--TODO: Aggiornare url con link dell'utente corrispondente-->
+          <a href="#">
+            <div class="container-avatar-classifica" style="background-image: url(img/avatar-4.png);"></div>
+              <div class="container-user-classifica">
+                <h2 class="nome-classifica">
+                  Gaia Secci
+                </h2>
+                <span class="titolo-classifica">
+                    Fitter
+                </span>
+                <div class="valutazione">
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                </div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <!--TODO: Aggiornare url con link dell'utente corrispondente-->
+          <a href="#">
+            <div class="container-avatar-classifica" style="background-image: url(img/avatar-6.png);"></div>
+              <div class="container-user-classifica">
+                <h2 class="nome-classifica">
+                  Bruno Mars
+                </h2>
+                <span class="titolo-classifica">
+                    Fitter
+                </span>
+                <div class="valutazione">
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                </div>
+            </div>
+          </a>
+        </li>
+      </ol>
+    </div>
+    <div id="nazionale" class="classifica-griglia">
+      <ol data-role="listview">
+        <li>
+          <!--TODO: Aggiornare url con link dell'utente corrispondente-->
+          <a href="#">
+            <div class="container-avatar-classifica" style="background-image: url(img/avatar-2.png);"></div>
+              <div class="container-user-classifica">
+                <h2 class="nome-classifica">
+                  Federica Sterra
+                </h2>
+                <span class="titolo-classifica">
+                    Trainer
+                </span>
+                <div class="valutazione">
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                </div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <!--TODO: Aggiornare url con link dell'utente corrispondente-->
+          <a href="#">
+            <div class="container-avatar-classifica" style="background-image: url(img/avatar.png);"></div>
+              <div class="container-user-classifica">
+                <h2 class="nome-classifica">
+                  Giulio Cesare
+                </h2>
+                <span class="titolo-classifica">
+                    Trainer
+                </span>
+                <div class="valutazione">
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                </div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <!--TODO: Aggiornare url con link dell'utente corrispondente-->
+          <a href="#">
+            <div class="container-avatar-classifica" style="background-image: url(img/avatar-1.png);"></div>
+              <div class="container-user-classifica">
+                <h2 class="nome-classifica">
+                  Vanessa Telonio
+                </h2>
+                <span class="titolo-classifica">
+                    Fitter
+                </span>
+                <div class="valutazione">
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                </div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <!--TODO: Aggiornare url con link dell'utente corrispondente-->
+          <a href="#">
+            <div class="container-avatar-classifica" style="background-image: url(img/avatar-3.png);"></div>
+              <div class="container-user-classifica">
+                <h2 class="nome-classifica">
+                  Roberto Veretti
+                </h2>
+                <span class="titolo-classifica">
+                    Fitter
+                </span>
+                <div class="valutazione">
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                </div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <!--TODO: Aggiornare url con link dell'utente corrispondente-->
+          <a href="#">
+            <div class="container-avatar-classifica" style="background-image: url(img/avatar-4.png);"></div>
+              <div class="container-user-classifica">
+                <h2 class="nome-classifica">
+                  Gaia Schirru
+                </h2>
+                <span class="titolo-classifica">
+                    Fitter
+                </span>
+                <div class="valutazione">
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                </div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <!--TODO: Aggiornare url con link dell'utente corrispondente-->
+          <a href="#">
+            <div class="container-avatar-classifica" style="background-image: url(img/avatar-6.png);"></div>
+              <div class="container-user-classifica">
+                <h2 class="nome-classifica">
+                  Puff Daddy
+                </h2>
+                <span class="titolo-classifica">
+                    Fitter
+                </span>
+                <div class="valutazione">
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                </div>
+            </div>
+          </a>
+        </li>
+      </ol>
+    </div>
+    <div id="mondiale" class="classifica-griglia">
+      <ol data-role="listview">
+        <li>
+          <!--TODO: Aggiornare url con link dell'utente corrispondente-->
+          <a href="#">
+            <div class="container-avatar-classifica" style="background-image: url(img/avatar-2.png);"></div>
+              <div class="container-user-classifica">
+                <h2 class="nome-classifica">
+                  Samantha Rover
+                </h2>
+                <span class="titolo-classifica">
+                    Trainer
+                </span>
+                <div class="valutazione">
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                </div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <!--TODO: Aggiornare url con link dell'utente corrispondente-->
+          <a href="#">
+            <div class="container-avatar-classifica" style="background-image: url(img/avatar.png);"></div>
+              <div class="container-user-classifica">
+                <h2 class="nome-classifica">
+                  Gordon Moore
+                </h2>
+                <span class="titolo-classifica">
+                    Trainer
+                </span>
+                <div class="valutazione">
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                </div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <!--TODO: Aggiornare url con link dell'utente corrispondente-->
+          <a href="#">
+            <div class="container-avatar-classifica" style="background-image: url(img/avatar-1.png);"></div>
+              <div class="container-user-classifica">
+                <h2 class="nome-classifica">
+                  Erica Retfield
+                </h2>
+                <span class="titolo-classifica">
+                    Fitter
+                </span>
+                <div class="valutazione">
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                </div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <!--TODO: Aggiornare url con link dell'utente corrispondente-->
+          <a href="#">
+            <div class="container-avatar-classifica" style="background-image: url(img/avatar-3.png);"></div>
+              <div class="container-user-classifica">
+                <h2 class="nome-classifica">
+                  John Smith
+                </h2>
+                <span class="titolo-classifica">
+                    Fitter
+                </span>
+                <div class="valutazione">
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                </div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <!--TODO: Aggiornare url con link dell'utente corrispondente-->
+          <a href="#">
+            <div class="container-avatar-classifica" style="background-image: url(img/avatar-4.png);"></div>
+              <div class="container-user-classifica">
+                <h2 class="nome-classifica">
+                  Jessica Older
+                </h2>
+                <span class="titolo-classifica">
+                    Fitter
+                </span>
+                <div class="valutazione">
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                </div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <!--TODO: Aggiornare url con link dell'utente corrispondente-->
+          <a href="#">
+            <div class="container-avatar-classifica" style="background-image: url(img/avatar-6.png);"></div>
+              <div class="container-user-classifica">
+                <h2 class="nome-classifica">
+                  Donald Brown
+                </h2>
+                <span class="titolo-classifica">
+                    Fitter
+                </span>
+                <div class="valutazione">
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                    <span class="stella stella-attiva disattiva"></span> 
+                </div>
+            </div>
+          </a>
+        </li>
+      </ol>
+    </div>
+  </div>
+  <!--Inizio Popups-->
+  <!--Toolbar - Classifica-->
+  <div data-role="popup" id="popup-toolbar-classifica" data-theme="a">
+    <div class="toolbar-cella">
+      <fieldset data-role="controlgroup">
+          <legend>Filtra per:</legend>
+          <input type="checkbox" name="filtra-valutazione" class="filtra-valutazione" id="checkbox-1a">
+          <label for="checkbox-1a">Valutazione</label>
+          <input type="checkbox" name="filtra-like" class="filtra-like" id="checkbox-2a">
+          <label for="checkbox-2a">Mi piace</label>
+      </fieldset>
+    </div>
+  </div>
+  <!--Fine Popups-->
+</div>
+<!--Fine Classifica-->
 <!--Inizio Notifiche-->
 <div data-role="page" data-theme="a" id="notifiche" class="ui-responsive-panel">
   <!--Inizio Header-->
@@ -1318,8 +2015,8 @@
         </form>
       </div> 
       <h6>Blocca l'esecuzione dei <span class="straniere" lang="en">cookies</span> 
-      di terze parti per l'autenticazione sulla piattaforma di recensione, 
-      l'analisi di utilizzo e l'interazione con gli annunci pubblicitari</h6>
+      di terze parti per l'autenticazione, l'analisi di utilizzo e l'interazione con 
+      gli annunci pubblicitari</h6>
     </div>
   </div>
   <!--Fine Opzioni-->
