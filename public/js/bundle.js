@@ -57,6 +57,7 @@
 	// Variabili Globali
 	// Check-In
 	var durata = null;
+	var markers = [];
 	
 	// Main
 	$(document).ready(function () {
@@ -68,8 +69,10 @@
 	  });
 	  inizializza();
 	  accedi();
+	  aggiornaMappa();
 	  aggiungiEsperienze();
 	  cercaAllenamenti();
+	  chat();
 	  classifica();
 	  controlloCookies();
 	  creaAllenamenti();
@@ -178,6 +181,18 @@
 	}
 	
 	/**
+	 * Aggiorna Mappa
+	 *
+	 * Gestisce le funzionalità di caricamento della mappa
+	 */
+	function aggiornaMappa() {
+	  $('#aggiorna-mappa').on('vclick', function () {
+	    google.maps.event.trigger(mappa, 'resize');
+	    toast('Mappa aggiornata');
+	  });
+	}
+	
+	/**
 	 * Aggiungi Esperienze
 	 *
 	 * Gestisce le funzionalità di aggiunta degli elementi descrittivi
@@ -272,7 +287,7 @@
 	    */
 	    var contatta = null;
 	    if (results.features[i].properties.contatta === true) {
-	      contatta = '<a href="#chat" ' + 'class="contatta-info ui-btn ui-btn-inline">CONTATTA</a>';
+	      contatta = '<a id="contatta-chat" href="#chat" ' + 'class="contatta-info ui-btn ui-btn-inline">CONTATTA</a>';
 	    } else {
 	      contatta = '';
 	    }
@@ -321,7 +336,7 @@
 	/**
 	 * Classifica
 	 *
-	 * Gestisce le procedure di: 
+	 * Gestisce le procedure di:
 	 * - Caricamento dei dati relativi ai profili degli utenti,
 	 * ordinati in base alla valutazione;
 	 * - Filtraggio dei risultati caricati, in base ai criteri
@@ -329,11 +344,21 @@
 	 */
 	function classifica() {
 	  // TODO: Caricamento/Memorizzazione stato/dati su DB
+	  $('.filtra-valutazione').change(function () {
+	    if ($(this).is(':checked')) {
+	      toast('Contenuti filtrati');
+	    }
+	  });
 	  $('.filtra-valutazione').on('vclick', function () {
 	    // TODO: Caricamento per 'valutazione'
 	  });
+	  $('.filtra-like').change(function () {
+	    if ($(this).is(':checked')) {
+	      toast('Contenuti filtrati');
+	    }
+	  });
 	  $('.filtra-like').on('vclick', function () {
-	    // TODO: Caricamento per 'Mi piace'
+	    // TODO: Caricamento per 'valutazione'
 	  });
 	}
 	
@@ -341,12 +366,12 @@
 	 * Controllo Cookies
 	 *
 	 * Gestisce le procedure di disattivazione dei servizi di tracciamento:
-	 * - Autenticazione;
+	 * - Cookies tecnici (autenticazione, ecc.);
 	 * - Google Analytics, tracking cookies, ecc.
 	 */
 	function controlloCookies() {
 	  /**
-	   * TODO: In futuro, con l'implementazione di tali risorse, gestire la 
+	   * TODO: In futuro, con l'implementazione di tali risorse, gestire la
 	   * disattivazione di tali servizi, in base al controllo sullo stato della
 	   * relativa impostazione
 	   */
@@ -365,9 +390,69 @@
 	 * Gestisce le procedure di ricerca e filtraggio degli allenamenti attivi,
 	 * in base ai criteri selezionati
 	 */
-	function cercaAllenamenti() {}
-	// TODO: Caricamento/Memorizzazione stato/dati su DB
+	function cercaAllenamenti() {
+	  $(document).on('submit', '#checkin-form', function (e) {
+	    e.preventDefault();
+	    for (var i = 0; i < markers.length; i++) {
+	      if ($('#categoria-checkin').val() !== markers[i].address) {
+	        var _marker = markers[i].address;
+	        // TODO: da debuggare - decommenta per errore -> marker.setMap(null);
+	      }
+	      if ($('#citta-checkin').val() !== markers[i].latLng) {
+	        var _marker2 = markers[i].latLng;
+	        // TODO: da debuggare - decommenta per errore -> marker.setMap(null);
+	      }
+	      /**
+	       * TODO: Implementare la condizione per la distanza
+	       * (dipende dal marker dell'allenamento dell'utente utilizzatore)
+	       * let markerUtente = <oggetto marker restituito>
+	       * let distanza =
+	       * google.maps.geometry.spherical
+	       * .computeDistanceBetween(markerUtente.coordinate,
+	       * $('#distanza-checkin').val());
+	       */
+	    }
+	    toast('Trovati' + $('#container-info').length + 'allenamenti');
+	    return false;
+	  });
+	  // TODO: Caricamento/Memorizzazione stato/dati su DB
+	}
 	
+	/**
+	 * Chat
+	 *
+	 * Gestisce le procedure di ricezione ed invio dei messaggi
+	 * tra gli utenti
+	 */
+	function chat() {
+	  $('#scrivi-summary, #contatta').on('vclick', function (e) {
+	    /** TODO: Implementare l'acquisizione dell'ID dei due utenti,
+	     * in modo da caricare successivamente la pagina con i rispettivi
+	     * accounts e le conversazioni precedenti.
+	     */
+	    e.preventDefault();
+	    $(':mobile-pagecontainer').pagecontainer('change', '#chat', {
+	      transition: 'slide',
+	      reverse: false
+	    }, true, true);
+	  });
+	  $('#blocca-chat').on('vclick', function () {
+	    /**
+	     * TODO: Implementare il blocco dell'utente.
+	     * Sostituire 'nickname' col nome corrispondente
+	     */
+	    toast('Utente ' + $('.nickname.destinatario .nome-chat').eq(0).text() + ' bloccato');
+	  });
+	  $('#cancella-chat').on('vclick', function () {
+	    $('#chat .ui-body').remove();
+	    toast('Conversazione svuotata');
+	  });
+	  $(document).on('submit', '#invia-chat', function () {
+	    // TODO: Invocazione notifica
+	    notifiche('messaggio');
+	  });
+	  // TODO: Caricamento/Memorizzazione stato/dati su DB
+	}
 	
 	/**
 	 * Crea Allenamenti
@@ -376,7 +461,15 @@
 	 * - url: localhost non è consentito. Verificare in produzione
 	 */
 	function creaAllenamenti() {
-	  $(document).on('submit', '#form-checkin-crea', function () {
+	  $('#conferma').on('vclick', function () {
+	    if (typeof Storage !== 'undefined') {
+	      window.localStorage.setItem('privacyGeo', 'ok');
+	    } else {
+	      toast('Cookies disabilitati. Alcune funzioni sono disattivate');
+	    }
+	  });
+	  $(document).on('submit', '#form-checkin-crea', function (e) {
+	    e.preventDefault();
 	    if ($('#form-checkin-crea input[required]').val().length > 0) {
 	      durata = $('durata-checkin-crea').val();
 	      $.ajax({
@@ -437,15 +530,18 @@
 	 * dei marker della mappa
 	 * @param {latLng} latLng - Coordinate di posizione
 	 * @param {mappa} mappa - Oggetto mappa
+	 * @param {indirizzo} indirizzo - Indirizzo allenamento
 	 * @return {marker} marker - Oggetto Marker generato
 	 */
-	function creaMarker(latLng, mappa) {
+	function creaMarker(latLng, mappa, indirizzo) {
 	  var marker = new google.maps.Marker({
 	    position: latLng,
 	    map: mappa,
 	    icon: '../img/marker-mappa.png',
-	    title: 'Allenamenti in corso'
+	    title: 'Allenamenti in corso',
+	    address: indirizzo
 	  });
+	  markers.push(marker);
 	  if (durata !== null) {
 	    setTimeout(function () {
 	      marker.setMap(null);
@@ -516,6 +612,8 @@
 	      toast('Profilo rimosso');
 	    }
 	  });
+	  // TODO: Invocazione notifica
+	  // notifiche();
 	  // TODO: Caricamento/Memorizzazione stato/dati su DB
 	}
 	
@@ -598,11 +696,15 @@
 	/**
 	 * Notifiche
 	 *
-	 * Gestisce il sistema di notifiche.
+	 * Gestisce il sistema di notifiche. Ogni azione che coinvolge un'interazione
+	 * con un'altro utente, genera una notifica.
 	 * - Stati di ricezione e lettura;
 	 * - Aspetto;
+	 * @param {tipo} tipo - Identifica il tipo di notifica:
+	 * - Nuovo messaggio;
+	 * - Tutto il resto;
 	 */
-	function notifiche() {
+	function notifiche(tipo) {
 	  /* TODO: Riattivare stati in fase back-end
 	  * Output automatico dei messaggi di notifica in base all'azione
 	  * Al trigger di un evento viene invocata la proprietà corrispondente
@@ -655,6 +757,16 @@
 	  };
 	  */
 	  $('.link-notifica[data-state="unread"] .notifica-container').addClass('sfondo-accento');
+	  if ($('.link-notifica[data-state="unread"]').length > 0) {
+	    $('<a href="#" class="notifica-badge ui-btn ui-corner-all' + 'ui-btn-icon-notext ui-btn-b"></a>' + '').insertBefore('#notifiche-pulsante');
+	  }
+	  if (tipo === 'messaggio') {
+	    $('.notifica-badge').removeClass('ui-icon-star');
+	    $('.notifica-badge').addClass('ui-icon-comment');
+	  } else {
+	    $('.notifica-badge').removeClass('ui-icon-comment');
+	    $('.notifica-badge').addClass('ui-icon-star');
+	  }
 	}
 	
 	/**
@@ -682,6 +794,8 @@
 	    if ($('i', this).hasClass('fa fa-thumbs-up')) {
 	      $(this).addClass('opaco');
 	      toast('Hai messo mi piace al post di ' + $(this).parents('.post-container').find('.post-notifiche .utente-post').text());
+	      // TODO: Invocazione notifica
+	      // notifiche();
 	    }
 	  });
 	  $('.commenta').on('vclick', function () {
@@ -703,6 +817,18 @@
 	  $('#ricerca-avanzata').on('vclick', function (e) {
 	    e.preventDefault();
 	    $('#ricerca-avanzata-container').slideDown();
+	  });
+	  $(document).on('submit', '#form-post-bacheca, #form-post-commenti', function () {
+	    // TODO: Invocazione notifica
+	    // notifiche();
+	  });
+	  $(document).on('submit', '#form-ricerca', function () {
+	    // TODO: Implementare ricerca da DB
+	    toast('Ricerca effettuata');
+	  });
+	  $(document).on('submit', '#form-filtro-contenuti', function () {
+	    // TODO: Implementare filtro da DB
+	    toast('Contenuti filtrati');
 	  });
 	  $(document).on('pagecontainerchange', function () {
 	    $('.commenta').removeClass('opaco');
