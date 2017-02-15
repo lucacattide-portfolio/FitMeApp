@@ -889,14 +889,16 @@ function post() {
     e.preventDefault();
     $('#ricerca-avanzata-container').slideDown();
   });
-  $(document).on('submit', '#form-post-bacheca', () => {
+  $(document).on('submit', '#form-post-bacheca', (e) => {
+    e.preventDefault();
     console.log($('#foto-post').val() === '');
+    console.log(auth.currentUser.uid);
     const userRef = db
       .ref('user/' + auth.currentUser.uid);
     const postRef = db.ref('/post').push();
     console.log('postRef');
     console.log(postRef);
-    const postId = postRef.name;
+    const postId = postRef.key;
     console.log('postId ' + postId);
 
     let type = 'text';
@@ -919,8 +921,9 @@ function post() {
     });
   });
 
-  $(document).on('submit', '#form-post-commenti', () => {
+  $(document).on('submit', '#form-post-commenti', (e) => {
     // TODO: Invocazione notifica
+    e.preventDefault();
     // notifiche();
   });
   $(document).on('submit', '#form-ricerca', () => {
