@@ -1,5 +1,5 @@
 import Video from 'Video';
-import {auth} from 'Firebase';
+import {auth, db} from 'Firebase';
 
 // Variabili Globali
 // Check-In
@@ -25,7 +25,7 @@ $(document).ready(() => {
   creaAllenamenti();
   eliminaEsperienze();
   follow();
-  impostazioni();
+  // impostazioni();
   modificaProfilo();
   multimediaPopup();
   notifiche();
@@ -94,8 +94,61 @@ function inizializza() {
  */
 function accedi() {
   console.log('accedi');
+  auth.onAuthStateChanged((user) => {
+    console.log('onAuthStateChanged');
+    // [START_EXCLUDE silent]
+    // document.getElementById('quickstart-verify-email').disabled = true;
+    // [END_EXCLUDE]
+    if (user) {
+      console.log('user: ' + user.email + ' = ' + user.uid);
+
+      // User is signed in.
+      const displayName = user.displayName;
+      const email = user.email;
+      const emailVerified = user.emailVerified;
+      const photoURL = user.photoURL;
+      const isAnonymous = user.isAnonymous;
+      const uid = user.uid;
+      const providerData = user.providerData;
+      // [START_EXCLUDE silent]
+// document.getElementById('quickstart-sign-in-status').textContent = 'S. in';
+// document.getElementById('quickstart-sign-in').textContent = 'Sign out';
+// document.getElementById('quickstart-account-details').textContent =
+// JSON.stringify(user, null, '  ');
+      $.mobile.changePage('#bacheca', 'fade');
+    } else {
+      console.log('no user');
+      // location.href = '#accedi';
+      $.mobile.changePage('#accesso', 'fade');
+      // User is signed out.
+      // [START_EXCLUDE silent]
+// document.getElementById('quickstart-sign-in-status').textContent = 'S. out';
+// document.getElementById('quickstart-sign-in').textContent = 'Sign in';
+// document.getElementById('quickstart-account-details').textContent = 'null';
+      // [END_EXCLUDE]
+    }
+    // [START_EXCLUDE silent]
+    // document.getElementById('quickstart-sign-in').disabled = false;
+      // [END_EXCLUDE]
+  });
+
+  $('#signout').on('vclick', () => {
+    firebase.auth().signOut();
+  });
+
   $('#accedi-login').on('vclick', () => {
     // TODO: Qui avviene l'invio delle informazioni a firebase
+    const user = $('#username-login').val();
+    console.log(user);
+    const password = $('#password-login').val();
+    firebase.auth().signInWithEmailAndPassword(user, password)
+      .catch(function(error) {
+        // Handle Errors here.
+        // const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorMessage);
+        // ...
+      });
   });
   $('#accedi-facebook').on('vclick', () => {
     // TODO: Qui avviene l'invio delle informazioni a Facebook
@@ -107,10 +160,6 @@ function accedi() {
     // provider.setCustomParameters({
     //   'login_hint': 'user@example.com'
     // });
-    auth.onAuthStateChanged((user) => {
-      console.log('user');
-      console.log(user);
-    });
     auth.signInWithRedirect(provider);
     auth.getRedirectResult().then(function(result) {
       if (result.credential) {
@@ -900,14 +949,13 @@ function salta() {
  */
 function splashScreen() {
   if (typeof(Storage) !== 'undefined') {
-    if (window.localStorage.getItem('tour') !== null) {
+    if (window.localStorage.getItem('tour') === null) {
       setTimeout(() => {
-        $.mobile.changePage('#accesso', 'fade');
+        $.mobile.changePage('#start', 'fade');
         $('#splash').remove();
       }, 3000);
     } else {
       setTimeout(() => {
-        $.mobile.changePage('#start', 'fade');
         $('#splash').remove();
       }, 3000);
     }

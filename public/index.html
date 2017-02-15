@@ -1,12 +1,12 @@
 <title>FitMeApp</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="keywords" content="sport fitness social" /> 
-<meta name="description" content="App per il fitness" /> 
+<meta name="keywords" content="sport fitness social" />
+<meta name="description" content="App per il fitness" />
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-<meta http-equiv="Content-Security-Policy" content="default-src * data: 'unsafe-eval' 'unsafe-inline' Access-Control-Allow-Origin: *" /> 
+<meta http-equiv="Content-Security-Policy" content="default-src * data: 'unsafe-eval' 'unsafe-inline' Access-Control-Allow-Origin: *" />
 <link rel="stylesheet" href="css/custom.css">
 <link rel="stylesheet" href="css/fitmeapp.min.css">
 <link rel="stylesheet" href="css/jquery.mobile.icons.min.css">
@@ -17,7 +17,7 @@
 <script src="js/jquery-2.1.4.min.js"></script>
 <script src="js/jquery.mobile-1.4.5.min.js"></script>
 <script src="js/autosize.min.js"></script>
-<script src="js/jquery.hashtags.js"></script>
+<script src="js/jquery.hashtags.min.js"></script>
 <script>
 // Variabili Globali
 // Check-In
@@ -285,8 +285,7 @@ function allenamenti() {
       }
     ]
   });
-  $('<script src="js/allenamenti-callback.js"></'+'script>')
-  .insertBefore('#maps-api');
+  $('<script src="js/allenamenti-callback.js"></'+'script>').insertBefore('#maps-api');
 };
 
 </script>
@@ -295,8 +294,8 @@ function allenamenti() {
 <script id="maps-api" async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDums4cqifOn7NuKQYLhQ2tCNfg78QHeq0&callback=allenamenti&libraries=geometry&sensor=false"></script>
 <style>
   /* FOUC Fix */
-  body { 
-    opacity: 0; 
+  body {
+    opacity: 0;
   }
 </style>
 <!--Inizio Google Tag Manager-->
@@ -508,14 +507,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
 <div data-role="page" data-theme="a" id="bacheca" class="ui-responsive-panel">
     <!--Inizio Header-->
     <div data-role="header" id="header" data-position="fixed">
-      <div id="icona-menu"> 
+      <div id="icona-menu">
         <a id="hamburger" href="#menu-principale" class="ui-btn ui-btn-icon-notext"></a>
       </div>
       <div id="logo-header"></div>
-      <div id="icona-toolbar"> 
+      <div id="icona-toolbar">
         <a id="toolbar-pulsante" href="#popup-toolbar-bacheca" class="ui-btn ui-btn-icon-notext" data-rel="popup"></a>
       </div>
-      <div id="icona-notifiche"> 
+      <div id="icona-notifiche">
         <!--TODO: Eliminare in produzione - Generato da JS-->
         <a href="#" class="notifica-badge ui-btn ui-corner-all ui-icon-comment ui-btn-icon-notext ui-btn-b"></a>
         <a id="notifiche-pulsante" href="#notifiche" class="ui-btn ui-btn-icon-notext"></a>
@@ -556,7 +555,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
         </div>
         <!--TODO: Aggiornare links al rispettivo profilo-->
         <div class="post-notifiche">
-          <form id="form-post-bacheca" autocomplete="on" accept-charset="utf-8" data-ajax="false">          
+          <form id="form-post-bacheca" autocomplete="on" accept-charset="utf-8" data-ajax="false">
             <textarea type="textarea" name="pubblica" id="pubblica" required>Aggiorna il tuo stato...</textarea>
             <div id="container-foto-sfoglia" class="container-sfoglia-post">
               <span class="maschera-sfoglia">Sfoglia...</span>
@@ -579,7 +578,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
           </form>
         </div>
         <div class="clear"></div>
-      </div>    
+      </div>
       <!--Inizio Post-->
       <div id="feed-container" data-filter="true" data-input="#ricerca-bacheca">
         <div class="post-container">
@@ -591,7 +590,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
             <span class="utente-post evidenza">Tiziana Ferrini</span> <span class="evento-post">ha aggiornato</span> <span class="social-keyword"></span> <span class="oggetto-post">lo stato:</span> <span class="destinatario-post evidenza"></span> <span class="stato-update">"Pronta a spaccare il mondo!"</span>
           </div>
           <div class="clear"></div>
-        </div> 
+        </div>
         <div class="post-container">
           <a href="#profilo" title="Visualizza il profilo di questo utente'">
             <div class="avatar-post" style="background-image: url(img/avatar-3.png);">
@@ -601,7 +600,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
             <span class="utente-post evidenza">Elisabetta Alessi</span> <span class="evento-post">ha commentato</span> <span class="social-keyword"></span> <span class="oggetto-post">la foto</span> <span class="destinatario-post evidenza">di Aldo Mariani</span>.
           </div>
           <div class="clear"></div>
-        </div> 
+        </div>
         <div class="post-container">
           <a href="#profilo" title="Visualizza il profilo di questo utente'">
             <div class="avatar-post" style="background-image: url(img/avatar-5.png);">
@@ -619,7 +618,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
           </div>
           <!--Inizio Commenti-->
           <div class="commenti-bacheca">
-            <form id="form-post-commenti" autocomplete="on" accept-charset="utf-8" data-ajax="false">          
+            <form id="form-post-commenti" autocomplete="on" accept-charset="utf-8" data-ajax="false">
               <textarea type="textarea" name="pubblica-commento" class="pubblica-commento" required>Lascia un commento...</textarea>
               <button type="submit" class="ui-btn commenta-pulsante">Pubblica</button>
             </form>
@@ -645,14 +644,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
               </div>
               <div class="commenti">
                 <span class="utente-post evidenza">Andrea Assore</span>: <span class="oggetto-post">Grande palestra e ben attrezzata</span> <span class="destinatario-post evidenza"></span>
-              </div>        
+              </div>
               <div class="clear"></div>
             </div>
             <div class="clear"></div>
           </div>
           <!--Fine Commenti-->
           <div class="clear"></div>
-        </div> 
+        </div>
         <div class="post-container">
           <a href="#profilo" title="Visualizza il profilo di questo utente'">
             <div class="avatar-post" style="background-image: url(img/avatar-6.png);">
@@ -670,7 +669,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
             </div>
             <!--Inizio Commenti-->
             <div class="commenti-bacheca">
-              <form id="form-post-commenti" autocomplete="on" accept-charset="utf-8" data-ajax="false">          
+              <form id="form-post-commenti" autocomplete="on" accept-charset="utf-8" data-ajax="false">
                 <textarea type="textarea" name="pubblica-commento" class="pubblica-commento" required>Lascia un commento...</textarea>
                 <button type="submit" class="ui-btn commenta-pulsante">Pubblica</button>
               </form>
@@ -696,7 +695,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
                 </div>
                 <div class="commenti">
                   <span class="utente-post evidenza">Andrea Assore</span>: <span class="oggetto-post">Grande trainer!</span> <span class="destinatario-post evidenza"></span>
-                </div>        
+                </div>
                 <div class="clear"></div>
               </div>
               <div class="clear"></div>
@@ -748,11 +747,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
 <div data-role="page" data-theme="a" id="filtro-contenuti" data-url="filtro-contenuti" class="ui-responsive-panel">
     <!--Inizio Header-->
     <div data-role="header" id="header">
-      <div id="icona-menu"> 
+      <div id="icona-menu">
         <a id="hamburger" href="#menu-principale" class="ui-btn ui-btn-icon-notext"></a>
       </div>
       <div id="logo-header"></div>
-      <div id="icona-notifiche"> 
+      <div id="icona-notifiche">
         <!--TODO: Eliminare in produzione - Generato da JS-->
         <a href="#" class="notifica-badge ui-btn ui-corner-all ui-icon-comment ui-btn-icon-notext ui-btn-b"></a>
         <a id="notifiche-pulsante" href="#notifiche" class="ui-btn ui-btn-icon-notext"></a>
@@ -789,14 +788,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
 <div data-role="page" data-theme="a" id="profilo" class="ui-responsive-panel">
   <!--Inizio Header-->
   <div data-role="header" id="header" data-position="fixed">
-    <div id="icona-menu"> 
+    <div id="icona-menu">
       <a id="hamburger" href="#menu-principale" class="ui-btn ui-btn-icon-notext"></a>
     </div>
     <div id="logo-header"></div>
-    <div id="icona-toolbar"> 
+    <div id="icona-toolbar">
       <a id="toolbar-pulsante" href="#popup-toolbar-profilo" class="ui-btn ui-btn-icon-notext" data-rel="popup"></a>
     </div>
-    <div id="icona-notifiche"> 
+    <div id="icona-notifiche">
       <!--TODO: Eliminare in produzione - Generato da JS-->
       <a href="#" class="notifica-badge ui-btn ui-corner-all ui-icon-comment ui-btn-icon-notext ui-btn-b"></a>
       <a id="notifiche-pulsante" href="#notifiche" class="ui-btn ui-btn-icon-notext"></a>
@@ -851,7 +850,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
         <div class="ui-grid-b anagrafica">
           <div class="ui-block-a deseleziona">
             <span class="evidenza">
-              Sesso: 
+              Sesso:
             </span>
             <span class="sesso-profilo">
               Uomo
@@ -859,7 +858,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
           </div>
           <div class="ui-block-b deseleziona">
             <span class="evidenza">
-              Età: 
+              Età:
             </span>
             <span class="eta-profilo">
               29 anni
@@ -867,7 +866,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
           </div>
           <div class="ui-block-b">
             <span class="evidenza">
-              Città: 
+              Città:
             </span>
             <span class="citta-profilo">
               Milano
@@ -884,7 +883,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
         <div class="ui-grid-a anagrafica">
           <div class="ui-block-a deseleziona">
             <span class="evidenza">
-              Personal Trainer: 
+              Personal Trainer:
             </span>
             <p class="palestra-esperienza">
               FitXTutti A.S.
@@ -902,7 +901,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
         <div class="ui-grid-a anagrafica">
           <div class="ui-block-a deseleziona">
             <span class="evidenza">
-              Personal Trainer: 
+              Personal Trainer:
             </span>
             <p class="palestra-esperienza">
               FitXTutti A.S.
@@ -929,7 +928,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
         <div class="ui-grid-a anagrafica">
           <div class="ui-block-a deseleziona">
             <span class="evidenza">
-              ISEF presso: 
+              ISEF presso:
             </span>
             <p class="palestra-esperienza">
               FitXTutti A.S.
@@ -947,7 +946,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
         <div class="ui-grid-a anagrafica">
           <div class="ui-block-a deseleziona">
             <span class="evidenza">
-              Workout presso: 
+              Workout presso:
             </span>
             <p class="palestra-esperienza">
               FitXTutti A.S.
@@ -1021,7 +1020,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
         <div class="ui-grid-a anagrafica">
           <div class="ui-block-a deseleziona">
             <span>
-              Via Zanardi, 33 
+              Via Zanardi, 33
             </span>
           </div>
           <div class="ui-block-b anno-esperienza">
@@ -1168,11 +1167,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
 <div data-role="page" data-theme="a" id="modifica-profilo" data-url="modifica-profilo" class="ui-responsive-panel">
   <!--Inizio Header-->
   <div data-role="header" id="header">
-    <div id="icona-menu"> 
+    <div id="icona-menu">
       <a id="hamburger" href="#menu-principale" class="ui-btn ui-btn-icon-notext"></a>
     </div>
     <div id="logo-header"></div>
-    <div id="icona-notifiche"> 
+    <div id="icona-notifiche">
       <!--TODO: Eliminare in produzione - Generato da JS-->
       <a href="#" class="notifica-badge ui-btn ui-corner-all ui-icon-comment ui-btn-icon-notext ui-btn-b"></a>
       <a id="notifiche-pulsante" href="#notifiche" class="ui-btn ui-btn-icon-notext"></a>
@@ -1213,14 +1212,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
 <div data-role="page" data-theme="a" id="checkin" class="ui-responsive-panel">
   <!--Inizio Header-->
   <div data-role="header" id="header" data-position="fixed">
-    <div id="icona-menu"> 
+    <div id="icona-menu">
       <a id="hamburger" href="#menu-principale" class="ui-btn ui-btn-icon-notext"></a>
     </div>
     <div id="logo-header"></div>
-    <div id="icona-toolbar"> 
+    <div id="icona-toolbar">
       <a id="toolbar-pulsante" href="#popup-toolbar-checkin" class="ui-btn ui-btn-icon-notext" data-rel="popup"></a>
     </div>
-    <div id="icona-notifiche"> 
+    <div id="icona-notifiche">
       <!--TODO: Eliminare in produzione - Generato da JS-->
       <a href="#" class="notifica-badge ui-btn ui-corner-all ui-icon-comment ui-btn-icon-notext ui-btn-b"></a>
       <a id="notifiche-pulsante" href="#notifiche" class="ui-btn ui-btn-icon-notext"></a>
@@ -1291,9 +1290,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
             <p>Sistema Anti-Tracciamento attivo. Per disattivare il servizio andare su Impostazioni - DNT</p>
             <a href="#" data-rel="back" class="ui-btn ui-btn-inline">Chiudi</a>
         </div>
-      </div> 
+      </div>
     </div>
-    <!--Fine Avviso DNT-->    
+    <!--Fine Avviso DNT-->
     <!--Fine Popups-->
   </div>
 </div>
@@ -1302,7 +1301,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
 <div data-role="page" data-theme="a" id="messaggi" class="ui-responsive-panel">
   <!--Inizio Header-->
   <div data-role="header" id="header" data-position="fixed">
-    <div id="icona-menu"> 
+    <div id="icona-menu">
       <a id="hamburger" href="#menu-principale" class="ui-btn ui-btn-icon-notext"></a>
     </div>
     <div id="logo-header"></div>
@@ -1364,14 +1363,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
 <div data-role="page" data-theme="a" id="chat" class="ui-responsive-panel">
   <!--Inizio Header-->
   <div data-role="header" id="header">
-    <div id="icona-menu"> 
+    <div id="icona-menu">
       <a id="hamburger" href="#menu-principale" class="ui-btn ui-btn-icon-notext"></a>
     </div>
     <div id="logo-header"></div>
-    <div id="icona-toolbar"> 
+    <div id="icona-toolbar">
       <a id="toolbar-pulsante" href="#popup-toolbar-chat" class="ui-btn ui-btn-icon-notext" data-rel="popup"></a>
     </div>
-    <div id="icona-notifiche"> 
+    <div id="icona-notifiche">
       <!--TODO: Eliminare in produzione - Generato da JS-->
       <a href="#" class="notifica-badge ui-btn ui-corner-all ui-icon-comment ui-btn-icon-notext ui-btn-b"></a>
       <a id="notifiche-pulsante" href="#notifiche" class="ui-btn ui-btn-icon-notext"></a>
@@ -1489,11 +1488,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
 <div data-role="page" data-theme="a" id="checkin-crea" data-url="checkin-crea" class="ui-responsive-panel">
   <!--Inizio Header-->
   <div data-role="header" id="header">
-    <div id="icona-menu"> 
+    <div id="icona-menu">
       <a id="hamburger" href="#menu-principale" class="ui-btn ui-btn-icon-notext"></a>
     </div>
     <div id="logo-header"></div>
-    <div id="icona-notifiche"> 
+    <div id="icona-notifiche">
       <!--TODO: Eliminare in produzione - Generato da JS-->
       <a href="#" class="notifica-badge ui-btn ui-corner-all ui-icon-comment ui-btn-icon-notext ui-btn-b"></a>
       <a id="notifiche-pulsante" href="#notifiche" class="ui-btn ui-btn-icon-notext"></a>
@@ -1534,11 +1533,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
 <div data-role="page" data-theme="a" id="classifica" class="ui-responsive-panel">
   <!--Inizio Header-->
   <div data-role="header" id="header">
-    <div id="icona-menu"> 
+    <div id="icona-menu">
       <a id="hamburger" href="#menu-principale" class="ui-btn ui-btn-icon-notext"></a>
     </div>
     <div id="logo-header"></div>
-    <div id="icona-toolbar"> 
+    <div id="icona-toolbar">
       <a id="toolbar-pulsante" href="#popup-toolbar-classifica" class="ui-btn ui-btn-icon-notext" data-rel="popup"></a>
     </div>
     <div id="icona-notifiche">
@@ -1581,10 +1580,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
                       Trainer
                   </span>
                   <div class="valutazione">
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
                   </div>
               </div>
             </a>
@@ -1601,10 +1600,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
                       Trainer
                   </span>
                   <div class="valutazione">
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
                   </div>
               </div>
             </a>
@@ -1621,9 +1620,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
                       Fitter
                   </span>
                   <div class="valutazione">
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
                   </div>
               </div>
             </a>
@@ -1640,9 +1639,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
                       Fitter
                   </span>
                   <div class="valutazione">
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
                   </div>
               </div>
             </a>
@@ -1659,9 +1658,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
                       Fitter
                   </span>
                   <div class="valutazione">
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
                   </div>
               </div>
             </a>
@@ -1678,8 +1677,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
                       Fitter
                   </span>
                   <div class="valutazione">
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
                   </div>
               </div>
             </a>
@@ -1700,11 +1699,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
                       Trainer
                   </span>
                   <div class="valutazione">
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
                   </div>
               </div>
             </a>
@@ -1721,10 +1720,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
                       Trainer
                   </span>
                   <div class="valutazione">
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
                   </div>
               </div>
             </a>
@@ -1741,10 +1740,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
                       Fitter
                   </span>
                   <div class="valutazione">
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
                   </div>
               </div>
             </a>
@@ -1761,10 +1760,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
                       Fitter
                   </span>
                   <div class="valutazione">
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
                   </div>
               </div>
             </a>
@@ -1781,9 +1780,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
                       Fitter
                   </span>
                   <div class="valutazione">
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
                   </div>
               </div>
             </a>
@@ -1800,9 +1799,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
                       Fitter
                   </span>
                   <div class="valutazione">
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
                   </div>
               </div>
             </a>
@@ -1823,11 +1822,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
                       Trainer
                   </span>
                   <div class="valutazione">
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
                   </div>
               </div>
             </a>
@@ -1844,11 +1843,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
                       Trainer
                   </span>
                   <div class="valutazione">
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
                   </div>
               </div>
             </a>
@@ -1865,11 +1864,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
                       Fitter
                   </span>
                   <div class="valutazione">
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
                   </div>
               </div>
             </a>
@@ -1886,10 +1885,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
                       Fitter
                   </span>
                   <div class="valutazione">
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
                   </div>
               </div>
             </a>
@@ -1906,11 +1905,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
                       Fitter
                   </span>
                   <div class="valutazione">
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
                   </div>
               </div>
             </a>
@@ -1927,9 +1926,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
                       Fitter
                   </span>
                   <div class="valutazione">
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
-                      <span class="stella stella-attiva disattiva"></span> 
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
+                      <span class="stella stella-attiva disattiva"></span>
                   </div>
               </div>
             </a>
@@ -1958,14 +1957,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
 <div data-role="page" data-theme="a" id="notifiche" class="ui-responsive-panel">
   <!--Inizio Header-->
   <div data-role="header" id="header">
-    <div id="icona-menu"> 
+    <div id="icona-menu">
       <a id="hamburger" href="#menu-principale" class="ui-btn ui-btn-icon-notext"></a>
     </div>
     <div id="logo-header"></div>
     <div id="icona-chiudi">
       <a id="chiudi" data-rel="back" class="ui-btn ui-btn-icon-notext"></a>
     </div>
-    <!--<div id="icona-notifiche"> 
+    <!--<div id="icona-notifiche">
       <a data-rel="back" class="ui-btn ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-notext"></a>
     </div>-->
   </div>
@@ -2021,11 +2020,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
 <div data-role="page" data-theme="a" id="faq" class="ui-responsive-panel">
   <!--Inizio Header-->
   <div data-role="header" id="header">
-    <div id="icona-menu"> 
+    <div id="icona-menu">
       <a id="hamburger" href="#menu-principale" class="ui-btn ui-btn-icon-notext"></a>
     </div>
     <div id="logo-header"></div>
-    <div id="icona-notifiche"> 
+    <div id="icona-notifiche">
       <!--TODO: Eliminare in produzione - Generato da JS-->
       <a href="#" class="notifica-badge ui-btn ui-corner-all ui-icon-comment ui-btn-icon-notext ui-btn-b"></a>
       <a id="notifiche-pulsante" href="#notifiche" class="ui-btn ui-btn-icon-notext"></a>
@@ -2053,11 +2052,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
 <div data-role="page" data-theme="a" id="privacy" class="ui-responsive-panel">
   <!--Inizio Header-->
   <div data-role="header" id="header">
-    <div id="icona-menu"> 
+    <div id="icona-menu">
       <a id="hamburger" href="#menu-principale" class="ui-btn ui-btn-icon-notext"></a>
     </div>
     <div id="logo-header"></div>
-    <div id="icona-notifiche"> 
+    <div id="icona-notifiche">
       <!--TODO: Eliminare in produzione - Generato da JS-->
       <a href="#" class="notifica-badge ui-btn ui-corner-all ui-icon-comment ui-btn-icon-notext ui-btn-b"></a>
       <a id="notifiche-pulsante" href="#notifiche" class="ui-btn ui-btn-icon-notext"></a>
@@ -2070,10 +2069,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </div>
     <!--Inizio Informativa-->
     <div class="ui-body ui-body-a">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras lacinia nec massa id bibendum. 
-      Sed lacus est, hendrerit interdum est tincidunt, pulvinar blandit dui. Donec accumsan elit est, 
-      id blandit lorem sollicitudin vel. 
-      Mauris vehicula aliquet convallis. Donec quam erat, rutrum quis nunc pulvinar, euismod elementum nisl. 
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras lacinia nec massa id bibendum.
+      Sed lacus est, hendrerit interdum est tincidunt, pulvinar blandit dui. Donec accumsan elit est,
+      id blandit lorem sollicitudin vel.
+      Mauris vehicula aliquet convallis. Donec quam erat, rutrum quis nunc pulvinar, euismod elementum nisl.
       Etiam finibus in nisl bibendum tempor. Morbi eleifend lorem ac dui feugiat, efficitur ultrices nibh venenatis.
     </div>
     <!--Fine Informativa-->
@@ -2084,11 +2083,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
 <div data-role="page" data-theme="a" id="cookies" class="ui-responsive-panel">
   <!--Inizio Header-->
   <div data-role="header" id="header">
-    <div id="icona-menu"> 
+    <div id="icona-menu">
       <a id="hamburger" href="#menu-principale" class="ui-btn ui-btn-icon-notext"></a>
     </div>
     <div id="logo-header"></div>
-    <div id="icona-notifiche"> 
+    <div id="icona-notifiche">
       <!--TODO: Eliminare in produzione - Generato da JS-->
       <a href="#" class="notifica-badge ui-btn ui-corner-all ui-icon-comment ui-btn-icon-notext ui-btn-b"></a>
       <a id="notifiche-pulsante" href="#notifiche" class="ui-btn ui-btn-icon-notext"></a>
@@ -2101,10 +2100,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </div>
     <!--Inizio Informativa-->
     <div class="ui-body ui-body-a">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras lacinia nec massa id bibendum. 
-      Sed lacus est, hendrerit interdum est tincidunt, pulvinar blandit dui. Donec accumsan elit est, 
-      id blandit lorem sollicitudin vel. 
-      Mauris vehicula aliquet convallis. Donec quam erat, rutrum quis nunc pulvinar, euismod elementum nisl. 
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras lacinia nec massa id bibendum.
+      Sed lacus est, hendrerit interdum est tincidunt, pulvinar blandit dui. Donec accumsan elit est,
+      id blandit lorem sollicitudin vel.
+      Mauris vehicula aliquet convallis. Donec quam erat, rutrum quis nunc pulvinar, euismod elementum nisl.
       Etiam finibus in nisl bibendum tempor. Morbi eleifend lorem ac dui feugiat, efficitur ultrices nibh venenatis.
     </div>
     <!--Fine Informativa-->
@@ -2115,11 +2114,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
 <div data-role="page" data-theme="a" id="note-legali" class="ui-responsive-panel">
   <!--Inizio Header-->
   <div data-role="header" id="header">
-    <div id="icona-menu"> 
+    <div id="icona-menu">
       <a id="hamburger" href="#menu-principale" class="ui-btn ui-btn-icon-notext"></a>
     </div>
     <div id="logo-header"></div>
-    <div id="icona-notifiche"> 
+    <div id="icona-notifiche">
       <!--TODO: Eliminare in produzione - Generato da JS-->
       <a href="#" class="notifica-badge ui-btn ui-corner-all ui-icon-comment ui-btn-icon-notext ui-btn-b"></a>
       <a id="notifiche-pulsante" href="#notifiche" class="ui-btn ui-btn-icon-notext"></a>
@@ -2132,10 +2131,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </div>
     <!--Inizio Informativa-->
     <div class="ui-body ui-body-a">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras lacinia nec massa id bibendum. 
-      Sed lacus est, hendrerit interdum est tincidunt, pulvinar blandit dui. Donec accumsan elit est, 
-      id blandit lorem sollicitudin vel. 
-      Mauris vehicula aliquet convallis. Donec quam erat, rutrum quis nunc pulvinar, euismod elementum nisl. 
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras lacinia nec massa id bibendum.
+      Sed lacus est, hendrerit interdum est tincidunt, pulvinar blandit dui. Donec accumsan elit est,
+      id blandit lorem sollicitudin vel.
+      Mauris vehicula aliquet convallis. Donec quam erat, rutrum quis nunc pulvinar, euismod elementum nisl.
       Etiam finibus in nisl bibendum tempor. Morbi eleifend lorem ac dui feugiat, efficitur ultrices nibh venenatis.
     </div>
     <!--Fine Informativa-->
@@ -2146,11 +2145,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
 <div data-role="page" data-theme="a" id="disclaimer" class="ui-responsive-panel">
   <!--Inizio Header-->
   <div data-role="header" id="header">
-    <div id="icona-menu"> 
+    <div id="icona-menu">
       <a id="hamburger" href="#menu-principale" class="ui-btn ui-btn-icon-notext"></a>
     </div>
     <div id="logo-header"></div>
-    <div id="icona-notifiche"> 
+    <div id="icona-notifiche">
       <!--TODO: Eliminare in produzione - Generato da JS-->
       <a href="#" class="notifica-badge ui-btn ui-corner-all ui-icon-comment ui-btn-icon-notext ui-btn-b"></a>
       <a id="notifiche-pulsante" href="#notifiche" class="ui-btn ui-btn-icon-notext"></a>
@@ -2163,10 +2162,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </div>
     <!--Inizio Informativa-->
     <div class="ui-body ui-body-a">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras lacinia nec massa id bibendum. 
-      Sed lacus est, hendrerit interdum est tincidunt, pulvinar blandit dui. Donec accumsan elit est, 
-      id blandit lorem sollicitudin vel. 
-      Mauris vehicula aliquet convallis. Donec quam erat, rutrum quis nunc pulvinar, euismod elementum nisl. 
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras lacinia nec massa id bibendum.
+      Sed lacus est, hendrerit interdum est tincidunt, pulvinar blandit dui. Donec accumsan elit est,
+      id blandit lorem sollicitudin vel.
+      Mauris vehicula aliquet convallis. Donec quam erat, rutrum quis nunc pulvinar, euismod elementum nisl.
       Etiam finibus in nisl bibendum tempor. Morbi eleifend lorem ac dui feugiat, efficitur ultrices nibh venenatis.
     </div>
     <!--Fine Disclaimer-->
@@ -2177,7 +2176,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
 <div data-role="page" data-theme="a" id="licenze" class="ui-responsive-panel">
   <!--Inizio Header-->
   <div data-role="header" id="header">
-    <div id="icona-menu"> 
+    <div id="icona-menu">
       <a id="hamburger" href="#menu-principale" class="ui-btn ui-btn-icon-notext"></a>
     </div>
     <div id="logo-header"></div>
@@ -2194,10 +2193,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </div>
     <!--Inizio Informativa-->
     <div class="ui-body ui-body-a">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras lacinia nec massa id bibendum. 
-      Sed lacus est, hendrerit interdum est tincidunt, pulvinar blandit dui. Donec accumsan elit est, 
-      id blandit lorem sollicitudin vel. 
-      Mauris vehicula aliquet convallis. Donec quam erat, rutrum quis nunc pulvinar, euismod elementum nisl. 
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras lacinia nec massa id bibendum.
+      Sed lacus est, hendrerit interdum est tincidunt, pulvinar blandit dui. Donec accumsan elit est,
+      id blandit lorem sollicitudin vel.
+      Mauris vehicula aliquet convallis. Donec quam erat, rutrum quis nunc pulvinar, euismod elementum nisl.
       Etiam finibus in nisl bibendum tempor. Morbi eleifend lorem ac dui feugiat, efficitur ultrices nibh venenatis.
     </div>
     <!--Fine Informativa-->
@@ -2208,11 +2207,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
 <div data-role="page" data-theme="a" id="impostazioni" class="ui-responsive-panel">
   <!--Inizio Header-->
   <div data-role="header" id="header">
-    <div id="icona-menu"> 
+    <div id="icona-menu">
       <a id="hamburger" href="#menu-principale" class="ui-btn ui-btn-icon-notext"></a>
     </div>
     <div id="logo-header"></div>
-    <div id="icona-notifiche"> 
+    <div id="icona-notifiche">
       <!--TODO: Eliminare in produzione - Generato da JS-->
       <a href="#" class="notifica-badge ui-btn ui-corner-all ui-icon-comment ui-btn-icon-notext ui-btn-b"></a>
       <a id="notifiche-pulsante" href="#notifiche" class="ui-btn ui-btn-icon-notext"></a>
@@ -2249,8 +2248,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
             </select>
           </form>
         </div>
-        <h6>Attiva il sistema anti-tracciamento. Blocca l'esecuzione dei 
-        <span class="straniere">cookies</span> tecnici per l'autorizzazione alla 
+        <h6>Attiva il sistema anti-tracciamento. Blocca l'esecuzione dei
+        <span class="straniere">cookies</span> tecnici per l'autorizzazione alla
         geolocalizzazione</h6>
         <hr>
         <div id="cookies-container" class="ui-block-a">
@@ -2263,9 +2262,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
               <option value="on">On</option>
             </select>
           </form>
-        </div> 
-        <h6>Blocca l'esecuzione dei <span class="straniere" lang="en">cookies</span> 
-        di terze parti per l'autenticazione, l'analisi di utilizzo e l'interazione con 
+        </div>
+        <h6>Blocca l'esecuzione dei <span class="straniere" lang="en">cookies</span>
+        di terze parti per l'autenticazione, l'analisi di utilizzo e l'interazione con
         gli annunci pubblicitari</h6>
       </div>
     </div>
@@ -2313,6 +2312,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
   </a>
   <a href="#impostazioni" title="Opzioni di utilizzo del sistema" class="ui-btn ui-icon-gear ui-btn-icon-left link-menu">
     Impostazioni
+  </a>
+  <a id="signout" title="Sign out" class="ui-btn ui-icon-tag ui-btn-icon-left link-menu">
+    Sign out
   </a>
   </div>
 </div>
