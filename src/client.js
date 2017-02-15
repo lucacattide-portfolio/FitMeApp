@@ -133,7 +133,7 @@ function accedi() {
   });
 
   $('#signout').on('vclick', () => {
-    firebase.auth().signOut();
+    auth.signOut();
   });
 
   $('#accedi-login').on('vclick', () => {
@@ -889,7 +889,37 @@ function post() {
     e.preventDefault();
     $('#ricerca-avanzata-container').slideDown();
   });
-  $(document).on('submit', '#form-post-bacheca, #form-post-commenti', () => {
+  $(document).on('submit', '#form-post-bacheca', () => {
+    console.log($('#foto-post').val() === '');
+    const userRef = db
+      .ref('user/' + auth.currentUser.uid);
+    const postRef = db.ref('/post').push();
+    console.log('postRef');
+    console.log(postRef);
+    const postId = postRef.name;
+    console.log('postId ' + postId);
+
+    let type = 'text';
+    const post = {
+      type: type,
+      createdAt: new Date().getTime(),
+      user: firebase.auth().currentUser.uid,
+      userName: firebase.auth().currentUser.displayName,
+      text: $('#pubblica').val(),
+    };
+
+    postRef.set(post, function(err) {
+      if (err) {
+        toast('Errore durante la creazione del post');
+        return;
+      }
+
+      userRef.child('feed').child(postId).set(true);
+      userRef.child('posts').child(postId).set(true);
+    });
+  });
+
+  $(document).on('submit', '#form-post-commenti', () => {
     // TODO: Invocazione notifica
     // notifiche();
   });
