@@ -103,13 +103,13 @@ function accedi() {
       console.log('user: ' + user.email + ' = ' + user.uid);
 
       // User is signed in.
-      const displayName = user.displayName;
-      const email = user.email;
-      const emailVerified = user.emailVerified;
-      const photoURL = user.photoURL;
-      const isAnonymous = user.isAnonymous;
-      const uid = user.uid;
-      const providerData = user.providerData;
+      // const displayName = user.displayName;
+      // const email = user.email;
+      // const emailVerified = user.emailVerified;
+      // const photoURL = user.photoURL;
+      // const isAnonymous = user.isAnonymous;
+      // const uid = user.uid;
+      // const providerData = user.providerData;
       // [START_EXCLUDE silent]
 // document.getElementById('quickstart-sign-in-status').textContent = 'S. in';
 // document.getElementById('quickstart-sign-in').textContent = 'Sign out';
@@ -165,11 +165,11 @@ function accedi() {
       if (result.credential) {
         // This gives you a Google Access Token.
         // You can use it to access the Google API.
-        const token = result.credential.accessToken;
+        // const token = result.credential.accessToken;
         // ...
       }
       // The signed-in user info.
-      const user = result.user;
+      // const user = result.user;
     }).catch(function(error) {
       console.log(error);
       // TODO: Handle Errors here.
@@ -452,12 +452,12 @@ function cercaAllenamenti() {
     for (let i = 0; i < markers.length; i++) {
       if ($('#categoria-checkin').val() !==
         markers[i].address) {
-        let marker = markers[i].address;
+        // let marker = markers[i].address;
         // TODO: da debuggare - decommenta per errore -> marker.setMap(null);
       }
       if ($('#citta-checkin').val() !==
       markers[i].latLng) {
-        let marker = markers[i].latLng;
+        // let marker = markers[i].latLng;
         // TODO: da debuggare - decommenta per errore -> marker.setMap(null);
       }
       /**
