@@ -1095,5 +1095,5 @@ function addPostToFeed(post) {
   console.log('addPostToFeed');
   const postElement = $('#feed-container .post-container').first().clone();
   postElement.html(post.val().text);
-  postElement.appendTo('#feed-container');
+  postElement.prependTo('#feed-container');
 }
