@@ -101,6 +101,7 @@ function accedi() {
     // [END_EXCLUDE]
     if (user) {
       console.log('user: ' + user.email + ' = ' + user.uid);
+      bacheca();
 
       // User is signed in.
       // const displayName = user.displayName;
@@ -1060,4 +1061,39 @@ function valutazione() {
     toast('Votazione effettuata');
   });
   // TODO: Caricamento/Memorizzazione stato/dati su DB
+}
+
+
+/**
+ * bacheca - description
+ *
+ */
+function bacheca() {
+  console.log('bacheca');
+  if (auth.currentUser) {
+    const feedRef = db.ref('user/' + auth.currentUser.uid + '/feed');
+    feedRef.limitToLast(15).on('child_added', addPostKeyToFeed);
+  }
+}
+
+/**
+ * addPostKeyToFeed - description
+ *
+ * @param  {type} postKey
+ */
+function addPostKeyToFeed(postKey) {
+  console.log('addPostKeyToFeed ' + postKey.key);
+  db.ref('post/' + postKey.key).once('value', addPostToFeed);
+}
+
+/**
+ * addPostToFeed - description
+ *
+ * @param  {type} post Post JSON
+ */
+function addPostToFeed(post) {
+  console.log('addPostToFeed');
+  const postElement = $('#feed-container .post-container').first().clone();
+  postElement.html(post.val().text);
+  postElement.appendTo('#feed-container');
 }
