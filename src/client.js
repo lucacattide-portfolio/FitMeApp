@@ -890,37 +890,8 @@ function post() {
     e.preventDefault();
     $('#ricerca-avanzata-container').slideDown();
   });
-  $(document).on('submit', '#form-post-bacheca', (e) => {
-    e.preventDefault();
-    console.log($('#foto-post').val() === '');
-    console.log(auth.currentUser.uid);
-    const userRef = db
-      .ref('user/' + auth.currentUser.uid);
-    const postRef = db.ref('/post').push();
-    console.log('postRef');
-    console.log(postRef);
-    const postId = postRef.key;
-    console.log('postId ' + postId);
 
-    let type = 'text';
-    const post = {
-      type: type,
-      createdAt: new Date().getTime(),
-      user: firebase.auth().currentUser.uid,
-      userName: firebase.auth().currentUser.displayName,
-      text: $('#pubblica').val(),
-    };
-
-    postRef.set(post, function(err) {
-      if (err) {
-        toast('Errore durante la creazione del post');
-        return;
-      }
-
-      userRef.child('feed').child(postId).set(true);
-      userRef.child('posts').child(postId).set(true);
-    });
-  });
+  $(document).on('submit', '#form-post-bacheca', handlePostSubmitEvent);
 
   $(document).on('submit', '#form-post-commenti', (e) => {
     // TODO: Invocazione notifica
@@ -938,6 +909,51 @@ function post() {
   $(document).on('pagecontainerchange', () => {
     $('.commenta').removeClass('opaco');
     $('.container-sfoglia-post, .commenti-bacheca').slideUp();
+  });
+}
+
+
+/**
+ * handlePostSubmitEvent - Sumbit a post
+ *
+ * @param  {type} e The event
+ */
+function handlePostSubmitEvent(e) {
+  e.preventDefault();
+  console.log($('#foto-post').val() === '');
+  console.log(auth.currentUser.uid);
+  const userRef = db.ref('user/' + auth.currentUser.uid);
+  const postRef = db.ref('/post').push();
+  console.log('postRef');
+  console.log(postRef);
+  const postId = postRef.key;
+  console.log('postId ' + postId);
+
+  let type = 'text';
+  const post = {
+    type: type,
+    createdAt: new Date().getTime(),
+    user: firebase.auth().currentUser.uid,
+    userName: firebase.auth().currentUser.displayName,
+    text: $('#pubblica').val(),
+  };
+
+  let postBroadcast = {};
+  postBroadcast['/user/' + auth.currentUser.uid + '/feed/' + postId] = true;
+  postBroadcast['/user/' + auth.currentUser.uid + '/posts/' + postId] = true;
+  db.ref('user/' + auth.currentUser.uid + '/followers')
+    .once('value', (data) => {
+      console.log(data.val());
+    });
+
+  postRef.set(post, function(err) {
+    if (err) {
+      toast('Errore durante la creazione del post');
+      return;
+    }
+
+    userRef.child('feed').child(postId).set(true);
+    userRef.child('posts').child(postId).set(true);
   });
 }
 
@@ -1069,31 +1085,34 @@ function valutazione() {
  *
  */
 function bacheca() {
-  console.log('bacheca');
+  console.log('displayName: ' + firebase.auth().currentUser.displayName);
   if (auth.currentUser) {
     const feedRef = db.ref('user/' + auth.currentUser.uid + '/feed');
-    feedRef.limitToLast(15).on('child_added', addPostKeyToFeed);
+    feedRef.limitToLast(15).on('child_added', addPostToFeedByKey);
   }
 }
 
 /**
- * addPostKeyToFeed - description
+ * addPostToFeedByKey - description
  *
- * @param  {type} postKey
+ * @param  {DataSnapshot} postKey Post "stub"
  */
-function addPostKeyToFeed(postKey) {
-  console.log('addPostKeyToFeed ' + postKey.key);
+function addPostToFeedByKey(postKey) {
+  console.log('addPostToFeedByKey ' + postKey.key);
   db.ref('post/' + postKey.key).once('value', addPostToFeed);
 }
 
 /**
  * addPostToFeed - description
  *
- * @param  {type} post Post JSON
+ * @param  {DataSnapshot} post Post data
  */
 function addPostToFeed(post) {
   console.log('addPostToFeed');
   const postElement = $('#feed-container .post-container').first().clone();
-  postElement.html(post.val().text);
+  postElement.removeClass('template');
+  postElement.attr('id', 'feed_post_' + post.key);
+  postElement.find('.stato-update').html(post.val().text);
+  postElement.find('.utente-post').html(post.val().userName);
   postElement.prependTo('#feed-container');
 }
