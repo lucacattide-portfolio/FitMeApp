@@ -574,6 +574,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
         </div>
     </div>
     <!--Fine Header-->
+<<<<<<< HEAD
     <div class="container-global">
         <!--Inizio Feed-->
         <div id="bacheca-container" class="ui-content">
@@ -629,6 +630,153 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
                     </form>
                 </div>
                 <div class="clear"></div>
+=======
+  <div class="container-global">
+    <!--Inizio Feed-->
+    <div id="bacheca-container" class="ui-content">
+      <!--Inizio Pubblicazione-->
+      <form id="form-ricerca" autocomplete="on" accept-charset="utf-8" data-ajax="false">
+        <input data-type="search" id="ricerca-bacheca" data-filter-placeholder="Cerca..." placeholder="Cerca...">
+        <div id="ricerca-avanzata-container">
+          <div id="ricerca-bacheca-voto" data-role="rangeslider">
+            <label for="range-1a">Voto:</label>
+            <input type="range" name="ricerca-bacheca-voto-min" id="range-1a" min="0" max="5" value="0">
+            <label for="range-1b">Voto:</label>
+            <input type="range" name="ricerca-bacheca-voto-max" id="range-1b" min="0" max="5" value="3">
+          </div>
+          <label for="ricerca-bacheca-citta">Località:</label>
+          <input type="text" name="ricerca-bacheca-citta" id="ricerca-bacheca-citta" value="" placeholder="Inserire città o luogo">
+          <fieldset id="ricerca-bacheca-tipo" data-role="controlgroup" data-type="horizontal" data-mini="true">
+            <input type="radio" name="radio-choice-b" id="ricerca-bacheca-fitter" value="list" checked="checked">
+            <label for="ricerca-bacheca-fitter">Fitter</label>
+            <input type="radio" name="radio-choice-b" id="ricerca-bacheca-trainer" value="grid">
+            <label for="ricerca-bacheca-trainer">Trainer</label>
+          </fieldset>
+          <input type="submit" id="ricerca-pulsante" value="CERCA">
+        </div>
+      </form>
+      <div id="status" class="post-container">
+        <div class="tipologie-post">
+          <a href="#profilo" title="Visualizza il profilo di questo utente'">
+          <div class="avatar-post" style="background-image: url(img/avatar-1.png);">
+          </div>
+          </a>
+          <a id="legenda-tags" href="#tooltip-pubblica" data-rel="popup" data-transition="pop" title="Tags - Legenda categorie contenuti">#Tags</a>
+        </div>
+        <!--TODO: Aggiornare links al rispettivo profilo-->
+        <div class="post-notifiche">
+          <form id="form-post-bacheca" autocomplete="on" accept-charset="utf-8" data-ajax="false">
+            <textarea type="textarea" name="pubblica" id="pubblica" required>Aggiorna il tuo stato...</textarea>
+            <div id="container-foto-sfoglia" class="container-sfoglia-post">
+              <span class="maschera-sfoglia">Sfoglia...</span>
+              <label for="foto-post">Seleziona foto</label>
+              <input type="file" name="foto-post" id="foto-post" placeholder="Selezionare foto" value="">
+            </div>
+            <div id="container-video-sfoglia" class="container-sfoglia-post">
+              <span class="maschera-sfoglia">Sfoglia...</span>
+              <label for="video-post">Seleziona video</label>
+              <input type="file" name="video-post" id="video-post" placeholder="Selezionare video" value="">
+            </div>
+            <div id="footer-pubblica">
+              <div class="container-links-post">
+                <a id="post-foto-link" href="#" title="Carica foto"><i class="fa fa-camera" aria-hidden="true"></i> Foto</a><span class="vert-divider">|</span><a id="post-video-link" href="#" title="Carica video"><i class="fa fa-video-camera" aria-hidden="true"></i> Video</a>
+              </div>
+              <button type="submit" class="ui-btn" id="pubblica-pulsante">Pubblica</button>
+              <div class="clear">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="clear"></div>
+      </div>
+      <!--Inizio Post-->
+      <div id="feed-container" data-filter="true" data-input="#ricerca-bacheca">
+        <div class="post-container template" id="text-post-feed-template">
+          <a href="#profilo" title="Visualizza il profilo di questo utente'">
+            <div class="avatar-post" style="background-image: url(img/avatar-4.png);">
+            </div>
+          </a>
+          <div class="post-notifiche">
+            <span class="utente-post evidenza">Tiziana Ferrini</span> <span class="evento-post">ha aggiornato</span> <span class="social-keyword"></span> <span class="oggetto-post">lo stato:</span> <span class="destinatario-post evidenza"></span> <span class="stato-update">"Pronta a spaccare il mondo!"</span>
+          </div>
+          <div class="clear"></div>
+        </div>
+        <div class="post-container template" id="comment-feed-template">
+          <a href="#profilo" title="Visualizza il profilo di questo utente'">
+            <div class="avatar-post" style="background-image: url(img/avatar-3.png);">
+            </div>
+          </a>
+          <div class="post-notifiche">
+            <span class="utente-post evidenza">Elisabetta Alessi</span> <span class="evento-post">ha commentato</span> <span class="social-keyword"></span> <span class="oggetto-post">la foto</span> <span class="destinatario-post evidenza">di Aldo Mariani</span>.
+          </div>
+          <div class="clear"></div>
+        </div>
+        <div class="post-container template" id="photo-post-feed-template">
+          <a href="#profilo" title="Visualizza il profilo di questo utente'">
+            <div class="avatar-post" style="background-image: url(img/avatar-5.png);">
+            </div>
+          </a>
+          <div class="post-notifiche">
+            <span class="utente-post evidenza">Gianluca Favetti</span> <span class="evento-post">ha pubblicato</span> <span class="social-keyword"></span> <span class="oggetto-post">una foto:</span> <span class="destinatario-post evidenza"></span> <span class="stato-update">"New training post Natale! :P"</span>
+          </div>
+          <a class="multimedia-post" href="#multimedia-post-popup" data-rel="popup" data-transition="pop" data-position-to="window" data-ext="foto">
+            <!--TODO: Aggiornare testo alternativo con DB-->
+            <img src="img/prova.jpg" alt="" />
+          </a>
+          <div class="like-bacheca">
+            <a href="#" class="mi-piace"><i class="like-popup-icona" aria-hidden="true"></i> Mi piace</a><span class="vert-divider">|</span><a href="#" class="commenta"><i class="fa fa-comment" aria-hidden="true"></i> Commenta</a>
+          </div>
+          <!--Inizio Commenti-->
+          <div class="commenti-bacheca">
+            <form id="form-post-commenti" autocomplete="on" accept-charset="utf-8" data-ajax="false">
+              <textarea type="textarea" name="pubblica-commento" class="pubblica-commento" required>Lascia un commento...</textarea>
+              <button type="submit" class="ui-btn commenta-pulsante">Pubblica</button>
+            </form>
+            <hr>
+            <div class="container-commento">
+              <div class="commenti-avatar">
+                <a href="#profilo" title="Visualizza il profilo di questo utente'">
+                  <div class="avatar-post" style="background-image: url(img/avatar-5.png);">
+                  </div>
+                </a>
+              </div>
+              <div class="commenti">
+                <span class="utente-post evidenza">Luigi Palla</span>: <span class="oggetto-post">bella foto!</span> <span class="destinatario-post evidenza"></span>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="container-commento">
+              <div class="commenti-avatar">
+                <a href="#profilo" title="Visualizza il profilo di questo utente'">
+                  <div class="avatar-post" style="background-image: url(img/avatar-6.png);">
+                  </div>
+                </a>
+              </div>
+              <div class="commenti">
+                <span class="utente-post evidenza">Andrea Assore</span>: <span class="oggetto-post">Grande palestra e ben attrezzata</span> <span class="destinatario-post evidenza"></span>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+          </div>
+          <!--Fine Commenti-->
+          <div class="clear"></div>
+        </div>
+        <div class="post-container template" id="video-post-feed-template">
+          <a href="#profilo" title="Visualizza il profilo di questo utente'">
+            <div class="avatar-post" style="background-image: url(img/avatar-6.png);">
+            </div>
+          </a>
+          <div class="post-notifiche">
+            <span class="utente-post evidenza">Mjolnir Thor</span> <span class="evento-post">ha pubblicato</span> <span class="social-keyword"></span> <span class="oggetto-post">un video:</span> <span class="destinatario-post evidenza"></span> <span class="stato-update">"I'm a beast!!!"</span>
+          </div>
+            <a class="multimedia-post" href="#multimedia-post-popup" data-rel="popup" data-transition="pop" data-position-to="window" data-ext="video">
+              <!--TODO: Al posto del player la cover. Aggiornare testo alternativo con DB-->
+              <img src="img/video-1.png" alt="" />
+            </a>
+            <div class="like-bacheca">
+              <a href="#" class="mi-piace"><i class="like-popup-icona" aria-hidden="true"></i> Mi piace</a><span class="vert-divider">|</span><a href="#" class="commenta"><i class="fa fa-comment" aria-hidden="true"></i> Commenta</a>
+>>>>>>> origin/master
             </div>
             <!--Inizio Post-->
             <div id="feed-container" data-filter="true" data-input="#ricerca-bacheca">
