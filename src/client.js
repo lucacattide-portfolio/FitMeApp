@@ -101,6 +101,7 @@ function accedi() {
     // [END_EXCLUDE]
     if (user) {
       console.log('user: ' + user.email + ' = ' + user.uid);
+      console.log('name: ' + user.displayName);
       bacheca();
 
       // User is signed in.
@@ -953,10 +954,38 @@ function registrati() {
       reverse: false,
     }, true, true);
   });
-  $('#registrati-signup').on('vclick', () => {
-    // TODO: Qui avviene l'invio delle informazioni a firebase
-  });
+  $('#registrati-signup').on('vclick', registrationHandler);
 }
+
+
+/**
+ * registrationHandler - Gestisce la registrazione di un nuovo fitter
+ *
+ * @param  {type} e Event
+ */
+function registrationHandler(e) {
+  e.preventDefault();
+  auth.createUserWithEmailAndPassword($('#email-signup').val(),
+      $('#password-signup').val())
+      .then(registrationCompleteHandler);
+}
+
+/**
+ * registrationCompleteHandler - Gestisce la seconda fase della
+ *    registrazione di un nuovo fitter
+ */
+function registrationCompleteHandler() {
+  console.log('registration complete: ' + auth.currentUser.uid);
+  const firstName = $('#nome-signup').val();
+  const lastName = $('#cognome-signup').val();
+  auth.currentUser.updateProfile({displayName: firstName + ' ' + lastName});
+  db.ref('/user/' + auth.currentUser.uid).update({
+    firstName: firstName,
+    lastName: lastName,
+  });
+  console.log('registration name: ' + auth.currentUser.displayName);
+}
+
 
 /**
  * Salta tour iniziale
