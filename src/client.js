@@ -12,7 +12,7 @@ $(document).ready(() => {
   $('#carica').on('vclick', () => {
     console.log('#carica click event');
     let file = $('#video-input').get(0).files[0];
-    Video.uploadTestVideo(file);
+    Video.uploadTestVideo(file); 
   });
   inizializza();
   accedi();
@@ -25,7 +25,7 @@ $(document).ready(() => {
   creaAllenamenti();
   eliminaEsperienze();
   follow();
-  // impostazioni();
+  impostazioni();
   modificaProfilo();
   multimediaPopup();
   notifiche();
@@ -1123,6 +1123,7 @@ function addPostKeyToFeed(postKey) {
 function addPostToFeed(post) {
   console.log('addPostToFeed');
   const postElement = $('#feed-container .post-container').first().clone();
+  postElement.removeClass('template');
   postElement.html(post.val().text);
   postElement.prependTo('#feed-container');
 }
