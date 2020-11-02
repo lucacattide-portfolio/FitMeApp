@@ -1,5 +1,7 @@
-node_modules/
-lib/
+node_modules
+lib
 public/js
-.vscode/
+.DS_Store
+.vscode
 *.log
+._*

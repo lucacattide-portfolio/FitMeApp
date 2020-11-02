@@ -1,5 +1,5 @@
 import Video from 'Video';
-import {auth, db} from 'Firebase';
+import {auth} from 'Firebase';
 
 // Variabili Globali
 // Check-In
@@ -12,7 +12,7 @@ $(document).ready(() => {
   $('#carica').on('vclick', () => {
     console.log('#carica click event');
     let file = $('#video-input').get(0).files[0];
-    Video.uploadTestVideo(file); 
+    Video.uploadTestVideo(file);
   });
   inizializza();
   accedi();
@@ -94,63 +94,8 @@ function inizializza() {
  */
 function accedi() {
   console.log('accedi');
-  auth.onAuthStateChanged((user) => {
-    console.log('onAuthStateChanged');
-    // [START_EXCLUDE silent]
-    // document.getElementById('quickstart-verify-email').disabled = true;
-    // [END_EXCLUDE]
-    if (user) {
-      console.log('user: ' + user.email + ' = ' + user.uid);
-      console.log('name: ' + user.displayName);
-      bacheca();
-
-      // User is signed in.
-      // const displayName = user.displayName;
-      // const email = user.email;
-      // const emailVerified = user.emailVerified;
-      // const photoURL = user.photoURL;
-      // const isAnonymous = user.isAnonymous;
-      // const uid = user.uid;
-      // const providerData = user.providerData;
-      // [START_EXCLUDE silent]
-// document.getElementById('quickstart-sign-in-status').textContent = 'S. in';
-// document.getElementById('quickstart-sign-in').textContent = 'Sign out';
-// document.getElementById('quickstart-account-details').textContent =
-// JSON.stringify(user, null, '  ');
-      $.mobile.changePage('#bacheca', 'fade');
-    } else {
-      console.log('no user');
-      // location.href = '#accedi';
-      $.mobile.changePage('#accesso', 'fade');
-      // User is signed out.
-      // [START_EXCLUDE silent]
-// document.getElementById('quickstart-sign-in-status').textContent = 'S. out';
-// document.getElementById('quickstart-sign-in').textContent = 'Sign in';
-// document.getElementById('quickstart-account-details').textContent = 'null';
-      // [END_EXCLUDE]
-    }
-    // [START_EXCLUDE silent]
-    // document.getElementById('quickstart-sign-in').disabled = false;
-      // [END_EXCLUDE]
-  });
-
-  $('#signout').on('vclick', () => {
-    auth.signOut();
-  });
-
   $('#accedi-login').on('vclick', () => {
     // TODO: Qui avviene l'invio delle informazioni a firebase
-    const user = $('#username-login').val();
-    console.log(user);
-    const password = $('#password-login').val();
-    firebase.auth().signInWithEmailAndPassword(user, password)
-      .catch(function(error) {
-        // Handle Errors here.
-        // const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorMessage);
-        // ...
-      });
   });
   $('#accedi-facebook').on('vclick', () => {
     // TODO: Qui avviene l'invio delle informazioni a Facebook
@@ -162,16 +107,20 @@ function accedi() {
     // provider.setCustomParameters({
     //   'login_hint': 'user@example.com'
     // });
+    auth.onAuthStateChanged((user) => {
+      console.log('user');
+      console.log(user);
+    });
     auth.signInWithRedirect(provider);
     auth.getRedirectResult().then(function(result) {
       if (result.credential) {
         // This gives you a Google Access Token.
         // You can use it to access the Google API.
-        // const token = result.credential.accessToken;
+        const token = result.credential.accessToken;
         // ...
       }
       // The signed-in user info.
-      // const user = result.user;
+      const user = result.user;
     }).catch(function(error) {
       console.log(error);
       // TODO: Handle Errors here.
@@ -454,12 +403,12 @@ function cercaAllenamenti() {
     for (let i = 0; i < markers.length; i++) {
       if ($('#categoria-checkin').val() !==
         markers[i].address) {
-        // let marker = markers[i].address;
+        let marker = markers[i].address;
         // TODO: da debuggare - decommenta per errore -> marker.setMap(null);
       }
       if ($('#citta-checkin').val() !==
       markers[i].latLng) {
-        // let marker = markers[i].latLng;
+        let marker = markers[i].latLng;
         // TODO: da debuggare - decommenta per errore -> marker.setMap(null);
       }
       /**
@@ -891,41 +840,8 @@ function post() {
     e.preventDefault();
     $('#ricerca-avanzata-container').slideDown();
   });
-  $(document).on('submit', '#form-post-bacheca', (e) => {
-    e.preventDefault();
-    console.log($('#foto-post').val() === '');
-    console.log(auth.currentUser.uid);
-    const userRef = db
-      .ref('user/' + auth.currentUser.uid);
-    const postRef = db.ref('/post').push();
-    console.log('postRef');
-    console.log(postRef);
-    const postId = postRef.key;
-    console.log('postId ' + postId);
-
-    let type = 'text';
-    const post = {
-      type: type,
-      createdAt: new Date().getTime(),
-      user: firebase.auth().currentUser.uid,
-      userName: firebase.auth().currentUser.displayName,
-      text: $('#pubblica').val(),
-    };
-
-    postRef.set(post, function(err) {
-      if (err) {
-        toast('Errore durante la creazione del post');
-        return;
-      }
-
-      userRef.child('feed').child(postId).set(true);
-      userRef.child('posts').child(postId).set(true);
-    });
-  });
-
-  $(document).on('submit', '#form-post-commenti', (e) => {
+  $(document).on('submit', '#form-post-bacheca, #form-post-commenti', () => {
     // TODO: Invocazione notifica
-    e.preventDefault();
     // notifiche();
   });
   $(document).on('submit', '#form-ricerca', () => {
@@ -954,38 +870,10 @@ function registrati() {
       reverse: false,
     }, true, true);
   });
-  $('#registrati-signup').on('vclick', registrationHandler);
-}
-
-
-/**
- * registrationHandler - Gestisce la registrazione di un nuovo fitter
- *
- * @param  {type} e Event
- */
-function registrationHandler(e) {
-  e.preventDefault();
-  auth.createUserWithEmailAndPassword($('#email-signup').val(),
-      $('#password-signup').val())
-      .then(registrationCompleteHandler);
-}
-
-/**
- * registrationCompleteHandler - Gestisce la seconda fase della
- *    registrazione di un nuovo fitter
- */
-function registrationCompleteHandler() {
-  console.log('registration complete: ' + auth.currentUser.uid);
-  const firstName = $('#nome-signup').val();
-  const lastName = $('#cognome-signup').val();
-  auth.currentUser.updateProfile({displayName: firstName + ' ' + lastName});
-  db.ref('/user/' + auth.currentUser.uid).update({
-    firstName: firstName,
-    lastName: lastName,
+  $('#registrati-signup').on('vclick', () => {
+    // TODO: Qui avviene l'invio delle informazioni a firebase
   });
-  console.log('registration name: ' + auth.currentUser.displayName);
 }
-
 
 /**
  * Salta tour iniziale
@@ -1012,13 +900,14 @@ function salta() {
  */
 function splashScreen() {
   if (typeof(Storage) !== 'undefined') {
-    if (window.localStorage.getItem('tour') === null) {
+    if (window.localStorage.getItem('tour') !== null) {
       setTimeout(() => {
-        $.mobile.changePage('#start', 'fade');
+        $.mobile.changePage('#accesso', 'fade');
         $('#splash').remove();
       }, 3000);
     } else {
       setTimeout(() => {
+        $.mobile.changePage('#start', 'fade');
         $('#splash').remove();
       }, 3000);
     }
@@ -1090,40 +979,4 @@ function valutazione() {
     toast('Votazione effettuata');
   });
   // TODO: Caricamento/Memorizzazione stato/dati su DB
-}
-
-
-/**
- * bacheca - description
- *
- */
-function bacheca() {
-  console.log('bacheca');
-  if (auth.currentUser) {
-    const feedRef = db.ref('user/' + auth.currentUser.uid + '/feed');
-    feedRef.limitToLast(15).on('child_added', addPostKeyToFeed);
-  }
-}
-
-/**
- * addPostKeyToFeed - description
- *
- * @param  {type} postKey
- */
-function addPostKeyToFeed(postKey) {
-  console.log('addPostKeyToFeed ' + postKey.key);
-  db.ref('post/' + postKey.key).once('value', addPostToFeed);
-}
-
-/**
- * addPostToFeed - description
- *
- * @param  {type} post Post JSON
- */
-function addPostToFeed(post) {
-  console.log('addPostToFeed');
-  const postElement = $('#feed-container .post-container').first().clone();
-  postElement.removeClass('template');
-  postElement.html(post.val().text);
-  postElement.prependTo('#feed-container');
 }
